@@ -3,12 +3,16 @@ package com.B17.sdssystem.network
 import com.B17.sdssystem.data.ResponseCreateTask
 import com.B17.sdssystem.data.ResponseTask
 import com.B17.sdssystem.data.Task
+import com.B17.sdssystem.data.entries.ProjectResponse
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiInterface {
+
+    @GET("pms_projects.php")
+    fun getProjects() : Call<ProjectResponse>
 
     @GET("pms_create_task.php")
     fun createTask(@Query("project_id") project_id : String,
@@ -20,4 +24,5 @@ interface ApiInterface {
 
     @GET("pms_project_task_list.php")
     fun getAllTasks() : Call<ResponseTask>
+
 }
