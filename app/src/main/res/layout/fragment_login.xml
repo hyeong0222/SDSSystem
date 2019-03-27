@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             tools:context=".authentication.LoginFragment"
+                                             android:background="@color/rgn_background">
+
+    <EditText
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:inputType="textEmailAddress"
+            android:id="@+id/et_lgnEmail"
+            android:background="@android:color/background_light" android:hint="email address here"
+            android:layout_marginTop="227dp"
+            android:layout_marginBottom="55dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/et_logPW" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+    <EditText
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:inputType="numberPassword"
+            android:id="@+id/et_logPW"
+            android:background="@android:color/background_light" android:hint="password here"
+            app:layout_constraintTop_toBottomOf="@+id/et_lgnEmail" android:layout_marginBottom="63dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toTopOf="@+id/btnLogin"
+            app:layout_constraintStart_toStartOf="parent"/>
+    <Button
+            android:text="Submit"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:shadowRadius="@android:integer/config_shortAnimTime"
+            android:fadingEdge="vertical"
+            android:elevation="4dp"
+            android:id="@+id/btnLogin"
+            app:layout_constraintTop_toBottomOf="@+id/et_logPW" android:layout_marginBottom="38dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toTopOf="@+id/tv_createAccount"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.503"
+            android:background="@color/toolbar"/>
+    <TextView
+            android:text="Don't have an Account? Click Here"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/tv_createAccount"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="@+id/btnLogin"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogin" android:layout_marginBottom="209dp"/>
+
+
+</android.support.constraint.ConstraintLayout>
