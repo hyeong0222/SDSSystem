@@ -57,7 +57,7 @@ class TaskFragment : Fragment(), AnkoLogger {
         var createTaskList : LiveData<List<CreateTask>> = createTaskModel.sendCreateTaskRequest("203", "manager_task", "1",
             "xyz", "2019-03-21", "2019-03-22")
         createTaskList.observe(this, Observer { s ->
-
+            error { s }
         })
 
         return view
