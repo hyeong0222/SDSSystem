@@ -1,4 +1,4 @@
-package com.B17.sdssystem.project
+package com.B17.sdssystem.manager.project
 
 import com.B17.sdssystem.data.entries.Project
 

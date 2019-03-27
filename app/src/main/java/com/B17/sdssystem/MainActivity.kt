@@ -2,7 +2,7 @@ package com.B17.sdssystem
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.B17.sdssystem.project.ProjectFragment
+import com.B17.sdssystem.manager.project.ProjectFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,8 +10,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val fg = ProjectFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fg)
-            .addToBackStack(null).commit()
+//        val fg = ProjectFragment()
+//        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fg)
+//            .addToBackStack(null).commit()
     }
 }
