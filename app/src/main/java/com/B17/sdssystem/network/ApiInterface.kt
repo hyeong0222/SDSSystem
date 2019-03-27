@@ -1,11 +1,7 @@
 package com.B17.sdssystem.network
 
-import com.B17.sdssystem.data.ResponseCreateTask
-import com.B17.sdssystem.data.ResponseTask
-import com.B17.sdssystem.data.Task
+import com.B17.sdssystem.data.*
 import com.B17.sdssystem.data.entries.ProjectResponse
-import com.B17.sdssystem.data.Login
-import com.B17.sdssystem.data.Msg
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.GET
@@ -39,5 +35,8 @@ interface ApiInterface {
     @GET("pms_login.php")
     fun submitLogin( @Query("email") email: String,
                      @Query("password") password: String) : Call<Login>
+
+    @GET("pms_employee_list.php")
+    fun getEmployeeList() : Call<ResponseEmployeeList>
 
 }

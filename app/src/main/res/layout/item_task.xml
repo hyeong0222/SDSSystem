@@ -31,7 +31,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" tools:layout_editor_absoluteY="0dp"
                             tools:layout_editor_absoluteX="16dp" android:id="@+id/textView2"
-                            android:layout_marginLeft="20dp"/>
+                            android:layout_marginLeft="20dp" android:textStyle="bold"/>
                     <TextView
                             android:text="TextView"
                             android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
                             android:text="Task Name :"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" android:id="@+id/textView7"
-                            android:layout_marginStart="20dp"/>
+                            android:layout_marginStart="20dp" android:textStyle="bold"/>
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" android:id="@+id/tv_taskName"
@@ -61,7 +61,7 @@
                             android:text="Task Status :"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" android:id="@+id/textView9"
-                            android:layout_marginStart="20dp"/>
+                            android:layout_marginStart="20dp" android:textStyle="bold"/>
                     <TextView
                             android:text="TextView"
                             android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
                             android:text="Task Description :"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" android:id="@+id/textView11"
-                            android:layout_marginStart="20dp"/>
+                            android:layout_marginStart="20dp" android:textStyle="bold"/>
                     <TextView
                             android:text="TextView"
                             android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
                             android:text="Start Date :"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" android:id="@+id/textView13"
-                            android:layout_marginStart="20dp"/>
+                            android:layout_marginStart="20dp" android:textStyle="bold"/>
                     <TextView
                             android:text="TextView"
                             android:layout_width="wrap_content"
@@ -106,7 +106,7 @@
                             android:text="End Date :"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" android:id="@+id/textView15"
-                            android:layout_marginStart="20dp"/>
+                            android:layout_marginStart="20dp" android:textStyle="bold"/>
                     <TextView
                             android:text="TextView"
                             android:layout_width="wrap_content"

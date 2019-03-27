@@ -9,7 +9,7 @@ import com.B17.sdssystem.R
 import com.B17.sdssystem.data.Task
 import kotlinx.android.synthetic.main.item_task.view.*
 
-class TaskAdapter (var taskList : List<Task>) : RecyclerView.Adapter <TaskAdapter.MyViewHolder>() {
+class TaskAdapter (var taskList : List<Task>?) : RecyclerView.Adapter <TaskAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): TaskAdapter.MyViewHolder {
         var view = LayoutInflater.from(p0.context).inflate(R.layout.item_task, p0, false)
@@ -17,7 +17,7 @@ class TaskAdapter (var taskList : List<Task>) : RecyclerView.Adapter <TaskAdapte
     }
 
     override fun onBindViewHolder(p0: TaskAdapter.MyViewHolder, p1: Int) {
-        var task : Task = taskList.get(p1)
+        var task : Task = taskList!!.get(p1)
 
         p0.id.setText(task.taskid)
         p0.name.setText(task.taskname)
@@ -28,7 +28,7 @@ class TaskAdapter (var taskList : List<Task>) : RecyclerView.Adapter <TaskAdapte
     }
 
     override fun getItemCount(): Int {
-        return taskList.size
+        return taskList!!.size
     }
 
     class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {

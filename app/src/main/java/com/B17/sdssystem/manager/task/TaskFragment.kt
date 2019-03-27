@@ -1,6 +1,9 @@
 package com.B17.sdssystem.manager.task
 
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
@@ -14,12 +17,9 @@ import com.B17.sdssystem.R
 import com.B17.sdssystem.adapter.TaskAdapter
 import com.B17.sdssystem.data.CreateTask
 import com.B17.sdssystem.data.ResponseCreateTask
-import com.B17.sdssystem.data.ResponseTask
-import com.B17.sdssystem.manager.task.createtask.CreateTaskContract
-import com.B17.sdssystem.manager.task.createtask.CreateTaskPresenter
-import com.B17.sdssystem.manager.task.tasklist.TaskContract
-import com.B17.sdssystem.manager.task.tasklist.TaskPresenter
-import kotlinx.android.synthetic.main.fragment_task.*
+import com.B17.sdssystem.data.Task
+import com.B17.sdssystem.manager.task.createtask.CreateTaskViewModel
+import com.B17.sdssystem.manager.task.tasklist.TaskViewModel
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
 import retrofit2.Response
@@ -33,10 +33,7 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class TaskFragment : Fragment(), TaskContract.View, CreateTaskContract.View, AnkoLogger {
-
-    lateinit var taskPresenter : TaskContract.Presenter
-    lateinit var createTaskPresenter : CreateTaskContract.Presenter
+class TaskFragment : Fragment(), AnkoLogger {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(R.layout.fragment_task, container, false)
@@ -45,27 +42,24 @@ class TaskFragment : Fragment(), TaskContract.View, CreateTaskContract.View, Ank
         val fab_task = view.findViewById<FloatingActionButton>(R.id.fab_task)
         rv_task.layoutManager = LinearLayoutManager(this.context)
 
-        taskPresenter = TaskPresenter(this)
-        taskPresenter.sendTaskRequest()
+        var taskModel : TaskViewModel = ViewModelProviders.of(this).get(TaskViewModel::class.java)
+        var createTaskModel : CreateTaskViewModel = ViewModelProviders.of(this).get(CreateTaskViewModel::class.java)
+
+        var taskList : LiveData<List<Task>> = taskModel.sendTaskRequest()
+        taskList.observe(this, Observer { s ->
+            rv_task.adapter = TaskAdapter(s)
+        })
 
         fab_task.setOnClickListener { view ->
 
         }
 
-        createTaskPresenter = CreateTaskPresenter(this)
-        createTaskPresenter.sendCreateTaskRequest("203", "manager_task", "1",
+        var createTaskList : LiveData<List<CreateTask>> = createTaskModel.sendCreateTaskRequest("203", "manager_task", "1",
             "xyz", "2019-03-21", "2019-03-22")
+        createTaskList.observe(this, Observer { s ->
+
+        })
 
         return view
-    }
-
-    override fun getTaskResponse(response: Response<ResponseTask>?) {
-        val responseTask : ResponseTask = response!!.body()
-        rv_task.adapter = TaskAdapter(responseTask.taskList)
-    }
-
-    override fun getCreateTaskResponse(response: Response<ResponseCreateTask>?) {
-        val responseCreateTask : ResponseCreateTask = response!!.body()
-        error { responseCreateTask.createTaskList }
     }
 }
