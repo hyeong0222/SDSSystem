@@ -1,4 +1,4 @@
-package com.B17.sdssystem.project
+package com.B17.sdssystem.manager.project
 
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import com.B17.sdssystem.R
+import com.B17.sdssystem.data.entries.AssignResponse
 import com.B17.sdssystem.data.entries.CreateProjectResponse
 import com.B17.sdssystem.network.ApiInterface
 import com.B17.sdssystem.network.RetrofitInstance
@@ -37,7 +38,10 @@ class ProjectDialog : DialogFragment() {
 
 
 
-        button.setOnClickListener { sendResult() }
+        button.setOnClickListener { sendResult()
+
+
+        }
 
 
 
@@ -47,11 +51,35 @@ class ProjectDialog : DialogFragment() {
 
 
 
+/*
+ use in assignment fragmnet
+ */
+    fun assign() {
 
 
+    val apiInterface = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
+
+
+    val assignCall = apiInterface.assign("203", "53", "112", "90")
+    assignCall.enqueue(object : Callback<AssignResponse> {
+        override fun onFailure(call: Call<AssignResponse>, t: Throwable) {
+            logger.info { t.message }
+        }
+        override fun onResponse(call: Call<AssignResponse>, response: Response<AssignResponse>) {
+            logger.info { response.body() }
+
+
+
+
+
+
+        }
+
+    })
+}
     fun sendResult() {
 
-        val apiInterface = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+        val apiInterface = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
         val createCall = apiInterface.createProject(tv_project_name.text.toString(), tv_project_status.text.toString(), tv_project_desc.text.toString(), tv_start_date.text.toString(), tv_end_day.text.toString())
         createCall.enqueue(object : Callback<CreateProjectResponse> {
             override fun onFailure(call: Call<CreateProjectResponse>, t: Throwable) {

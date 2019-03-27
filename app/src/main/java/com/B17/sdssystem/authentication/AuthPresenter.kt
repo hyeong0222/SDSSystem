@@ -21,7 +21,7 @@ class AuthPresenter(var authView : AuthContract.view) : AnkoLogger, AuthContract
 
             override fun onResponse(call: Call<Login>, response: Response<Login>) {
                 //  info {"smiths ----->" + response?.body()?.regList?.get(0)?.msg }
-                     authView.showLoginInfo(response.body())
+                     authView.showLoginInfo(response.body()!!)
             }
 
             override fun onFailure(call: Call<Login>?, t: Throwable?) {
@@ -49,7 +49,7 @@ class AuthPresenter(var authView : AuthContract.view) : AnkoLogger, AuthContract
          userReg.enqueue(object: Callback<Msg> {
              override fun onResponse(call: Call<Msg>, response: Response<Msg>) {
                //  info {"smiths ----->" + response?.body()?.regList?.get(0)?.msg }
-                 authView.showRegInfo(response.body())
+                 authView.showRegInfo(response.body()!!)
              }
              override fun onFailure(call: Call<Msg>?, t: Throwable?) {
                 info { t?.message }

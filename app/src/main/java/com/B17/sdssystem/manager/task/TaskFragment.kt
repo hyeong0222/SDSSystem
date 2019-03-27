@@ -60,12 +60,12 @@ class TaskFragment : Fragment(), TaskContract.View, CreateTaskContract.View, Ank
     }
 
     override fun getTaskResponse(response: Response<ResponseTask>?) {
-        val responseTask : ResponseTask = response!!.body()
+        val responseTask : ResponseTask = response?.body()!!
         rv_task.adapter = TaskAdapter(responseTask.taskList)
     }
 
     override fun getCreateTaskResponse(response: Response<ResponseCreateTask>?) {
-        val responseCreateTask : ResponseCreateTask = response!!.body()
+        val responseCreateTask : ResponseCreateTask = response?.body()!!
         error { responseCreateTask.createTaskList }
     }
 }
