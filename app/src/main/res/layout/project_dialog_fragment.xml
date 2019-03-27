@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/edit_name"
+              android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:layout_gravity="center" android:orientation="vertical"  >
+
+    <TextView
+            android:id="@+id/lbl_project_name" android:text="Project Name"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+    <EditText
+            android:id="@+id/tv_project_name"
+            android:layout_width="match_parent"  android:layout_height="wrap_content"
+            android:inputType="text"
+            android:imeOptions="actionDone" />
+    <TextView
+            android:id="@+id/lbl_project_status" android:text="Project Status"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+    <EditText
+            android:id="@+id/tv_project_status"
+            android:layout_width="match_parent"  android:layout_height="wrap_content"
+            android:inputType="text"
+            android:imeOptions="actionDone" />
+    <TextView
+            android:id="@+id/lbl_project_desc" android:text="Project Description"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+    <EditText
+            android:id="@+id/tv_project_desc"
+            android:layout_width="match_parent"  android:layout_height="wrap_content"
+            android:inputType="text"
+            android:imeOptions="actionDone" />
+    <TextView
+            android:id="@+id/lbl_start_date" android:text="Start Date"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+    <EditText
+            android:id="@+id/tv_start_date"
+            android:layout_width="match_parent"  android:layout_height="wrap_content"
+            android:inputType="text"
+            android:imeOptions="actionDone" />
+    <TextView
+            android:id="@+id/lbl_end_date" android:text="End Day"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+    <EditText
+
+
+            android:id="@+id/tv_end_day"
+            android:layout_width="match_parent"  android:layout_height="wrap_content"
+            android:inputType="text"
+            android:imeOptions="actionDone" />
+    <Button
+            android:text="Button"
+
+
+
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/button"/>
+</LinearLayout>
