@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.project_fragment.*
 
 class ProjectFragment : Fragment(), ProjectContract.View, ProjectDialog.DialogListener {
     override fun onFinishDialog(inputText: String) {
+        presenter.fetchProjects()
+
         Toast.makeText(activity, inputText, Toast.LENGTH_LONG).show()
     }
 

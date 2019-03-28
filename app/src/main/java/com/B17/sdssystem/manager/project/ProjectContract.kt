@@ -7,5 +7,6 @@ interface ProjectContract {
 
     interface Presenter{
         fun getProjects()
+        fun fetchProjects()
     }
 }
