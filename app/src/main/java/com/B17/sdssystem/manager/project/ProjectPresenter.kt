@@ -10,7 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProjectPresenter(val view : ProjectContract.View) : ProjectContract.Presenter {
+class ProjectPresenter(val view : ProjectContract.View) : ProjectContract.Presenter, AnkoLogger {
 
     val logger = AnkoLogger(this.javaClass.simpleName)
     override fun getProjects() {

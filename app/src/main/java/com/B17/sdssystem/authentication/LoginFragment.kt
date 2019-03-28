@@ -55,9 +55,10 @@ class LoginFragment : Fragment(), AuthContract.view , AnkoLogger {
            } else {
                authPresenter.loginUser(et_lgnEmail.text.toString(), et_logPW.text.toString())
            }
-
        }
+
         tv_createAccount = v.findViewById(R.id.tv_createAccount)
+
         tv_createAccount.setOnClickListener {
             var fg: Fragment = RegistrationFragment()
             //  Fragment fg = new LoginFragment();
