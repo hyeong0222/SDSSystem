@@ -16,6 +16,7 @@
                 android:name=".manager.ManagerActivity"
                 android:label="@string/title_activity_manager"
                 android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity android:name=".manager.subtask.TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
