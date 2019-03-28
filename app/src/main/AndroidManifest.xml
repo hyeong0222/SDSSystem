@@ -15,6 +15,7 @@
         <activity android:name="com.B17.sdssystem.manager.assignment.AssignmentActivity">
         </activity>
         <activity android:name=".manager.subtask.TestActivity">
+
         </activity>
         <activity android:name=".authentication.AuthenticationActivity">
         </activity>

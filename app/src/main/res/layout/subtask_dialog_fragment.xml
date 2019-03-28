@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/et_projectid"
+            app:layout_constraintStart_toStartOf="@+id/et_taskid"
+            android:layout_marginStart="1dp" android:layout_marginBottom="46dp"
+            app:layout_constraintBottom_toTopOf="@+id/et_taskid" android:hint="Project Id"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/et_taskid"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="173dp" android:layout_marginStart="79dp" android:hint="Task ID"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/et_subtaskname" app:layout_constraintStart_toStartOf="@+id/et_taskid"
+            android:layout_marginTop="33dp" app:layout_constraintTop_toBottomOf="@+id/et_taskid"
+            android:hint="Subtask Name"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/et_subtask_status" app:layout_constraintStart_toStartOf="@+id/et_subtaskname"
+            android:layout_marginTop="38dp" app:layout_constraintTop_toBottomOf="@+id/et_subtaskname"
+            android:hint="Subtask Status"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/et_subtask_desc" app:layout_constraintStart_toStartOf="@+id/et_subtask_status"
+            android:layout_marginTop="29dp" android:layout_marginStart="1dp"
+            app:layout_constraintTop_toBottomOf="@+id/et_subtask_status" android:hint="Subtask Desc"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/et_startdate"
+            android:layout_marginTop="34dp" app:layout_constraintTop_toBottomOf="@+id/et_subtask_desc"
+            android:layout_marginEnd="1dp"
+            app:layout_constraintEnd_toEndOf="@+id/et_subtask_desc" android:hint="Subtask Start Date"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/et_enddate"
+            app:layout_constraintStart_toStartOf="@+id/et_startdate" android:layout_marginTop="29dp"
+            android:layout_marginStart="1dp"
+            app:layout_constraintTop_toBottomOf="@+id/et_startdate" android:hint="Subtask End Date"/>
+    <Button
+            android:text="Submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/subtask_create_button" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="80dp" android:layout_marginBottom="37dp"/>
+</android.support.constraint.ConstraintLayout>

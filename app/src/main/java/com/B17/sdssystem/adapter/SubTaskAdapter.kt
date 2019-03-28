@@ -19,13 +19,12 @@ class SubTaskAdapter(var subtaskList : List<Subtask>) : RecyclerView.Adapter<Sub
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
        // p0.id.text = (projects?.get(p1)?.id)
-        p0.subtaskid.text = (subtaskList?.get(p1)?.subtaskid)
-        p0.subtaskname.text = subtaskList.get(p1).subtaskname
-        p0.subtaskdesc.text = subtaskList.get(p1).subtaskdesc
-        p0.subtaskstatus.text = subtaskList.get(p1).subtaskstatus
-        p0.subtask_enddate.text = subtaskList.get(p1).endstart
-        p0.subtask_startdate.text = subtaskList.get(p1).startdate
-
+        p0.subtaskid.text = ("SUBTASK ID: " + subtaskList?.get(p1)?.subtaskid)
+        p0.subtaskname.text = "SUBTASK NAME: " + subtaskList.get(p1).subtaskname
+        p0.subtaskdesc.text = "SUBTASK DESC: " + subtaskList.get(p1).subtaskdesc
+        p0.subtaskstatus.text ="SUBTASK STATUS: " + subtaskList.get(p1).subtaskstatus
+        p0.subtask_enddate.text = "SUBTASK STARTDATE: " +subtaskList.get(p1).endstart
+        p0.subtask_startdate.text = "SUBTASK ENDDATE: " +  subtaskList.get(p1).startdate
     }
 
 

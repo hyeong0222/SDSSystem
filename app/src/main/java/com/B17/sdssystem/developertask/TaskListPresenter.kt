@@ -19,7 +19,7 @@ class TaskListPresenter(var taskListFragmentView: TaskListContract.View) : AnkoL
 
             override fun onResponse(call: Call<TaskDetail>, response: Response<TaskDetail>) {
 
-                 info {" TaskList Presenter "  + response?.body().taskname}
+                 info {" TaskList Presenter "  + response?.body()?.taskname}
                 //  subtaskFragView.getSubtaskList(response?.body().subtaskList)
             }
 
