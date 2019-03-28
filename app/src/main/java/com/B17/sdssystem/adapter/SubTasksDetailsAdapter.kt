@@ -10,7 +10,10 @@ import kotlinx.android.synthetic.main.item_project.view.*
 
 class SubTasksDetailsAdapter(val subtasksDetails : List<SubTasksDetailResponse>) :RecyclerView.Adapter<SubTasksDetailsAdapter.ViewHolder>() {
 
-
+    lateinit var onItemClickListener : OnItemClickListener
+    public interface OnItemClickListener {
+        public fun onItemClick(view : View, position: Int)
+    }
 
 
 
@@ -45,7 +48,16 @@ class SubTasksDetailsAdapter(val subtasksDetails : List<SubTasksDetailResponse>)
     }
 
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        override fun onClick(v: View?) {
+            onItemClickListener.onItemClick(v!!, position)
+
+
+
+        }
+        init {
+            itemView.setOnClickListener(this)
+        }
         var id = itemView.tv_id
         var status = itemView.status
         var startDate = itemView.startDate

@@ -8,8 +8,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-//        val fg = ProjectFragment()
+//        val fg = ViewsubtaskFragment()
 //        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fg)
 //            .addToBackStack(null).commit()
     }
