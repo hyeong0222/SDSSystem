@@ -19,26 +19,27 @@ class ProjectPresenter(val view : ProjectContract.View) : ProjectContract.Presen
     val logger = AnkoLogger(this.javaClass.simpleName)
     override fun getProjects() {
 
-        val apiInterface = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
-        val projectCall = apiInterface.getProjects()
-        projectCall.enqueue(object : Callback<ProjectResponse> {
-            override fun onResponse(call: Call<ProjectResponse>?, response: Response<ProjectResponse>?) {
-                logger.info { response?.body().toString() }
-                view.setAdapter(response?.body()?.projects)
-            }
+//        val apiInterface = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
+//        val projectCall = apiInterface.getProjects()
+//        projectCall.enqueue(object : Callback<ProjectResponse> {
+//            override fun onResponse(call: Call<ProjectResponse>?, response: Response<ProjectResponse>?) {
+//                logger.info { response?.body().toString() }
+//                view.setAdapter(response?.body()?.projects)
+//            }
 
-        val apiInterface = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+        val apiInterface = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
         val projectObservable = apiInterface.getProjects()
         val subscribe = projectObservable
+            .map{it -> it.projects}
 
 
-
-
+            .flatMapIterable {it -> it}
+            .filter{it -> it.projectstatus.equals("1")}
             //.map(it.filter {response: Project -> response.projectstatus.equals("1")})
 
 
-
-
+            .toList()
+            .toObservable()
 
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
@@ -58,14 +59,15 @@ class ProjectPresenter(val view : ProjectContract.View) : ProjectContract.Presen
 //        })
 
 
-            override fun onFailure(call: Call<ProjectResponse>?, t: Throwable?) {
-                logger.error { t?.message }
-            }
-        })
+//            override fun onFailure(call: Call<ProjectResponse>?, t: Throwable?) {
+//                logger.error { t?.message }
+//            }
+//        })
 
-    }private fun handleResult(response: ProjectResponse) {
+    }private fun handleResult(response: List<Project>) {
+
         logger.info { response.toString() }
-                view.setAdapter(response.projects)
+                view.setAdapter(response)
     }
 
 

@@ -10,33 +10,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-
-
-
-
-
-
-
 class ViewsubtaskPresenter(val view : ViewsubtaskContract.View) : ViewsubtaskContract.Presenter{
-
 
     val logger = AnkoLogger("ViewsubtaskPresenter")
     val retrofitInstance = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
 
-
-
-
-
     override fun getSubtasks() {
 
-
-
-
-
         val subTasksDetails = ArrayList<SubTasksDetailResponse>()
-
-
         val subtasksCall = retrofitInstance.getSubtasks("65", "112")
         subtasksCall.enqueue(object : Callback<SubTaskResponse>{
             override fun onFailure(call: Call<SubTaskResponse>, t: Throwable) {
