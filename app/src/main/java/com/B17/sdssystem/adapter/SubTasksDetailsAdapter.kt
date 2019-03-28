@@ -51,10 +51,8 @@ class SubTasksDetailsAdapter(val subtasksDetails : List<SubTasksDetailResponse>)
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         override fun onClick(v: View?) {
             onItemClickListener.onItemClick(v!!, position)
-
-
-
         }
+
         init {
             itemView.setOnClickListener(this)
         }

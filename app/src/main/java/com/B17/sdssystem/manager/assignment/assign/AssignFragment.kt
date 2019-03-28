@@ -35,9 +35,9 @@ private const val ARG_PARAM2 = "param2"
  */
 class AssignFragment : Fragment(), ProjectContract.View {
 
-    var projectsList : List<String> = ArrayList<String>()
-    var tasksList : List<String> = ArrayList<String>()
-    var subtasksList : List<String> = ArrayList<String>()
+    var projectsList : ArrayList<String> = ArrayList<String>()
+    var tasksList : ArrayList<String> = ArrayList<String>()
+    var subtasksList : ArrayList<String> = ArrayList<String>()
 
     var projects : List<Project> = ArrayList<Project>()
     var tasks : List<Task>? = ArrayList<Task>()
@@ -82,7 +82,7 @@ class AssignFragment : Fragment(), ProjectContract.View {
         for (i in 0..projects!!.size-1) {
             this.projects = projects
             var item : String = projects.get(i).id + ". " + projects.get(i).projectname
-            projectsList += item
+            projectsList.add(item)
         }
 
         val aa = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, projectsList)
@@ -99,11 +99,12 @@ class AssignFragment : Fragment(), ProjectContract.View {
         var taskModel : TaskViewModel = ViewModelProviders.of(this).get(TaskViewModel::class.java)
         var taskList : LiveData<List<Task>> = taskModel.sendTaskRequest()
         taskList.observe(this, Observer { s ->
+            tasksList.clear()
             tasks = s
             for (i in 0..s!!.size - 1) {
-                if (s.get(i).projectid == id) {
+                if (s.get(i).projectid.equals(id)) {
                     var item : String = s.get(i).taskid + ". " + s.get(i).taskname
-                    tasksList += item
+                    tasksList.add(item)
                 }
             }
 

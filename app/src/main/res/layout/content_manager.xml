@@ -8,9 +8,10 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/app_bar_manager"
         tools:context=".manager.ManagerActivity">
-
-    <fragment
+    <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:name="com.B17.sdssystem.manager.task.TaskFragment"
-            android:id="@+id/fragment4"/>
+            android:layout_height="match_parent" tools:layout_editor_absoluteY="8dp"
+            tools:layout_editor_absoluteX="8dp" android:id="@+id/fl_managerActivity">
+
+    </FrameLayout>
 </android.support.constraint.ConstraintLayout>

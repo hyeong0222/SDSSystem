@@ -4,6 +4,7 @@ package com.B17.sdssystem.manager.subtask
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -20,6 +21,7 @@ import com.B17.sdssystem.data.SubtaskResponse
 import kotlinx.android.synthetic.main.fragment_sub_task.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
+import org.jetbrains.anko.error
 import org.jetbrains.anko.info
 
 //import com.B17.sdssystem.developer.R
@@ -44,6 +46,11 @@ class SubtaskFragment : Fragment(), AnkoLogger {
         var recyclerView = v.findViewById<RecyclerView>(R.id.rv_subtaskFrag)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
+
+        // Testing SharedPreference
+        val mPreferences = activity!!.getSharedPreferences("MANAGER", Context.MODE_PRIVATE)
+        error { "Sang ---> " + mPreferences.getString("tasks", "") }
+
 
         val viewModel : SubtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
         var subtaskList : LiveData<SubtaskResponse>? = viewModel.getSubtaskList()

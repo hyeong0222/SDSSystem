@@ -9,12 +9,14 @@
             android:text="Task Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/textView3" android:textSize="20sp"
-            android:textStyle="bold" android:layout_marginTop="10dp" android:paddingLeft="10dp"/>
+            android:textStyle="bold" android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp" android:layout_marginRight="10dp"/>
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:id="@+id/et_taskName" android:hint="Please enter the task name:"/>
+            android:id="@+id/et_taskName" android:hint="Please enter the task name:" android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -23,12 +25,14 @@
                 android:text="Start Date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/textView4" android:layout_weight="1"
-                android:textSize="20sp" android:textStyle="bold" android:paddingLeft="10dp"/>
+                android:textSize="20sp" android:textStyle="bold"
+                android:layout_marginLeft="10dp" android:layout_marginRight="10dp"/>
         <TextView
                 android:text="End Date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/textView5" android:layout_weight="1"
-                android:textSize="20sp" android:textStyle="bold" android:paddingLeft="10dp"/>
+                android:textSize="20sp" android:textStyle="bold"
+                android:layout_marginLeft="10dp" android:layout_marginRight="10dp"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"
@@ -39,29 +43,33 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/et_startDate" android:layout_weight="1" android:hint="Enter Start Date:"/>
+                android:id="@+id/et_startDate" android:layout_weight="1" android:hint="Enter Start Date:"
+                android:layout_marginLeft="10dp" android:layout_marginRight="10dp"/>
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/et_endDate" android:layout_weight="1" android:hint="Enter End Date:"/>
+                android:id="@+id/et_endDate" android:layout_weight="1" android:hint="Enter End Date:"
+                android:layout_marginLeft="10dp" android:layout_marginRight="10dp"/>
     </LinearLayout>
     <TextView
             android:text="Description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/textView6" android:textSize="20sp"
-            android:textStyle="bold" android:layout_marginTop="10dp" android:paddingLeft="10dp"/>
+            android:textStyle="bold" android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp" android:layout_marginRight="10dp"/>
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:id="@+id/et_description" android:hint="Enter Description:" android:alpha="1"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp" android:layout_marginLeft="10dp" android:layout_marginRight="10dp"/>
     <Button
             android:text="Save"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/btn_save" android:layout_marginBottom="10dp"/>
+            android:layout_height="wrap_content" android:id="@+id/btn_save" android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp" android:layout_marginRight="10dp"/>
 
 
 </LinearLayout>

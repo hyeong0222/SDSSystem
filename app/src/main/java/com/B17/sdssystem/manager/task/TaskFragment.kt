@@ -4,6 +4,7 @@ package com.B17.sdssystem.manager.task
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
@@ -15,15 +16,12 @@ import android.view.ViewGroup
 
 import com.B17.sdssystem.R
 import com.B17.sdssystem.adapter.TaskAdapter
-import com.B17.sdssystem.data.CreateTask
-import com.B17.sdssystem.data.ResponseCreateTask
 import com.B17.sdssystem.data.Task
+import com.B17.sdssystem.manager.subtask.SubtaskFragment
 import com.B17.sdssystem.manager.task.createtask.CreateTaskDialogFragment
-import com.B17.sdssystem.manager.task.createtask.CreateTaskViewModel
 import com.B17.sdssystem.manager.task.tasklist.TaskViewModel
+import com.google.gson.Gson
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.error
-import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +32,9 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class TaskFragment : Fragment(), AnkoLogger {
+class TaskFragment : Fragment(), AnkoLogger, TaskAdapter.OnItemClickListener {
+
+    private lateinit var taskAdapter : TaskAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(R.layout.fragment_task, container, false)
@@ -47,7 +47,9 @@ class TaskFragment : Fragment(), AnkoLogger {
 
         var taskList : LiveData<List<Task>> = taskModel.sendTaskRequest()
         taskList.observe(this, Observer { s ->
-            rv_task.adapter = TaskAdapter(s)
+            taskAdapter = TaskAdapter(s, context)
+            rv_task.adapter = taskAdapter
+            taskAdapter.onItemClickListener = this
         })
 
         fab_task.setOnClickListener { view ->
@@ -55,6 +57,17 @@ class TaskFragment : Fragment(), AnkoLogger {
         }
 
         return view
+    }
+
+    override fun onItemClick(view: View, position: Int) {
+        val gson = Gson()
+        val json = gson.toJson(taskAdapter.taskList?.get(position))
+
+        val editor = activity!!.getSharedPreferences("MANAGER", Context.MODE_PRIVATE).edit()
+        editor.putString("tasks", json).apply()
+
+        activity!!.supportFragmentManager.beginTransaction().replace(R.id.fl_managerActivity, SubtaskFragment())
+            .addToBackStack(null).commit()
     }
 
     private fun showEditDialog() {
