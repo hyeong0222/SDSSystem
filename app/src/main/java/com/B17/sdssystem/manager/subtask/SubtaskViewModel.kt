@@ -16,18 +16,18 @@ import retrofit2.Response
 
 class SubtaskViewModel : ViewModel(), AnkoLogger{
 
-    private var subtaskResponse: MutableLiveData<List<Subtask>> = MutableLiveData<List<Subtask>>()
-    private var responseCreateSubtask: MutableLiveData<ResponseCreateSubtask>? = MutableLiveData<ResponseCreateSubtask>()
+        var subtaskResponse: MutableLiveData<SubtaskResponse> = MutableLiveData<SubtaskResponse>()
+        var responseCreateSubtask: MutableLiveData<ResponseCreateSubtask>? = MutableLiveData<ResponseCreateSubtask>()
 
-    fun getSubtaskList() : MutableLiveData<List<Subtask>>? {
+    fun getSubtaskList() : MutableLiveData<SubtaskResponse>? {
 
         val apiInterface = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
         var subtaskList = apiInterface.getSubTasks()
 
         subtaskList.enqueue(object : Callback<SubtaskResponse> {
             override fun onResponse(call: Call<SubtaskResponse>, response: Response<SubtaskResponse>) {
-                info {" smiths " + response?.body()?.subtaskList?.get(0)?.subtaskdesc}
-                subtaskResponse?.value = response.body()?.subtaskList
+                info {"--->" +response?.body()?.subtaskList?.get(0)?.subtaskdesc}
+                subtaskResponse?.value = response.body()
             }
             override fun onFailure(call: Call<SubtaskResponse>?, t: Throwable?) {
                 error { t?.message }
@@ -44,7 +44,7 @@ class SubtaskViewModel : ViewModel(), AnkoLogger{
 
         createSubtask.enqueue(object : Callback<ResponseCreateSubtask> {
             override fun onResponse(call: Call<ResponseCreateSubtask>, response: Response<ResponseCreateSubtask>) {
-                info { "smiths Subtask ViewModel --->  " + response.body()?.msg?.get(0) + " " + response.body()?.sub_task_id.toString() + " " + response.body()?.project_id + " " + response.body()?.task_id }
+                info { "--> Subtask ViewModel --->  " + response.body()?.msg?.get(0) + " " + response.body()?.sub_task_id.toString() + " " + response.body()?.project_id + " " + response.body()?.task_id }
                 responseCreateSubtask!!.value = response.body()
             }
             override fun onFailure(call: Call<ResponseCreateSubtask>?, t: Throwable?) {
