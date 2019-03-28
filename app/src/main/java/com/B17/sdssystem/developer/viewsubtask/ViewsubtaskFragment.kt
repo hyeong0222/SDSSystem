@@ -17,19 +17,10 @@ import kotlinx.android.synthetic.main.fragment_viewsubtask.*
 
 class ViewsubtaskFragment : Fragment(), ViewsubtaskContract.View, SubTasksDetailsAdapter.OnItemClickListener {
 
-
-
-
-
     private lateinit var adapter :SubTasksDetailsAdapter
     override fun onItemClick(view: View, position: Int) {
         val gson = Gson()
         val json = gson.toJson(adapter.subtasksDetails.get(position))
-
-
-
-
-
 
         val editor = activity!!.getSharedPreferences("default", Context.MODE_PRIVATE).edit()
         editor.putString("subtasks", json).apply()
@@ -37,9 +28,6 @@ class ViewsubtaskFragment : Fragment(), ViewsubtaskContract.View, SubTasksDetail
         val args = Bundle()
         args.putString("subtasks", json)
         val subTasksDetailsFragment = SubTasksDetailFragment()
-
-
-
         subTasksDetailsFragment.arguments = args
 
 
@@ -52,11 +40,6 @@ class ViewsubtaskFragment : Fragment(), ViewsubtaskContract.View, SubTasksDetail
     }
 
     override fun setAdapter(subtasksdetails: List<SubTasksDetailResponse>) {
-
-
-
-
-
 
         adapter = SubTasksDetailsAdapter(subtasksdetails)
         rv_subtask.adapter = adapter

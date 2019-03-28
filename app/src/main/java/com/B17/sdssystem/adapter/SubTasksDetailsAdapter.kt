@@ -15,21 +15,6 @@ class SubTasksDetailsAdapter(val subtasksDetails : List<SubTasksDetailResponse>)
         public fun onItemClick(view : View, position: Int)
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(p0.context).inflate(R.layout.item_project, p0, false))
     }
@@ -51,9 +36,6 @@ class SubTasksDetailsAdapter(val subtasksDetails : List<SubTasksDetailResponse>)
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         override fun onClick(v: View?) {
             onItemClickListener.onItemClick(v!!, position)
-
-
-
         }
         init {
             itemView.setOnClickListener(this)
