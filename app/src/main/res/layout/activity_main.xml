@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".manager.ManagerActivity">
     <!--<FrameLayout-->
             <!--android:id="@+id/fragment_container"-->
             <!--android:layout_width="395dp"-->
@@ -15,7 +15,7 @@
     <fragment
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.B17.sdssystem.manager.task.TaskFragment"
+            android:name="com.B17.sdssystem.manager.subtask.SubtaskFragment"
             tools:layout_editor_absoluteY="302dp"
             tools:layout_editor_absoluteX="186dp"
             android:id="@+id/fragment"/>

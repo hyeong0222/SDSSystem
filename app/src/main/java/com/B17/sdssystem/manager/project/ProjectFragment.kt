@@ -26,7 +26,7 @@ class ProjectFragment : Fragment(), ProjectContract.View, ProjectDialog.DialogLi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         rvProject.layoutManager = LinearLayoutManager(context)
-        button2.setOnClickListener { showEditDialog() }
+        fab_project.setOnClickListener { showEditDialog() }
     }
 
     val presenter : ProjectPresenter by lazy {

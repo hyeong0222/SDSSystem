@@ -25,7 +25,6 @@ class AuthPresenter(var authView : AuthContract.view) : AnkoLogger, AuthContract
             }
 
             override fun onFailure(call: Call<Login>?, t: Throwable?) {
-
                 info { t?.message }
             }
         })

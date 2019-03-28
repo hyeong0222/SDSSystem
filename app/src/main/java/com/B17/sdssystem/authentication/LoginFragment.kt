@@ -1,6 +1,7 @@
 package com.B17.sdssystem.authentication
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -8,16 +9,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import com.B17.sdssystem.BuildConfig
 import com.B17.sdssystem.R
 import com.B17.sdssystem.data.Login
 import com.B17.sdssystem.data.Msg
+import com.B17.sdssystem.developer.DeveloperActivity
+import com.B17.sdssystem.manager.ManagerActivity
 import kotlinx.android.synthetic.main.fragment_login.*
-import org.jetbrains.anko.AnkoLogger
 import com.wajahatkarim3.easyvalidation.core.view_ktx.validEmail
 import com.wajahatkarim3.easyvalidation.core.view_ktx.validNumber
 import com.wajahatkarim3.easyvalidation.core.view_ktx.validator
-import org.jetbrains.anko.info
-import org.jetbrains.anko.longToast
+import org.jetbrains.anko.*
 
 
 /**
@@ -38,6 +40,11 @@ class LoginFragment : Fragment(), AuthContract.view , AnkoLogger {
 
     override fun showLoginInfo(login: Login?) {
         info {"LoginFragment "  + login?.useremail + " " + login?.userlastname + " " + login?.msg?.get(0) }
+        if (BuildConfig.FLAVOR.equals("manager")) {
+            startActivity(context?.intentFor<ManagerActivity>()?.singleTop())
+        } else {
+            startActivity(context?.intentFor<DeveloperActivity>()?.singleTop())
+        }
     }
 
     override fun onCreateView(
@@ -47,7 +54,7 @@ class LoginFragment : Fragment(), AuthContract.view , AnkoLogger {
         var v = inflater.inflate(R.layout.fragment_login, container, false)
 
         btnLogin = v.findViewById(R.id.btnLogin )
-       btnLogin.setOnClickListener {
+        btnLogin.setOnClickListener {
            if (et_lgnEmail.text.isEmpty() || !et_lgnEmail.validEmail()) {
                activity?.longToast("Invalid Email Address")
            } else if (!et_logPW.validator().nonEmpty().minLength(6).check()) {

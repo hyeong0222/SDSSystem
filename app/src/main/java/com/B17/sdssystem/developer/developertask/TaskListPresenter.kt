@@ -1,4 +1,4 @@
-package com.B17.sdssystem.developertask
+package com.B17.sdssystem.developer.developertask
 
 import com.B17.sdssystem.data.TaskDetail
 import com.B17.sdssystem.data.TaskListResponse

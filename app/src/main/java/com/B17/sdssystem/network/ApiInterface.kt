@@ -65,14 +65,27 @@ interface ApiInterface {
                        @Query("end_date") end_date : String) : Call<ResponseCreateSubtask>
 
 
-     @GET("pms_project_sub_task_list.php")
-     fun getSubTasks() : Call<SubtaskResponse>
+    @GET("pms_project_sub_task_list.php")
+    fun getSubTasks() : Call<SubtaskResponse>
 
-     @GET("pms_view_task.php")
-     fun viewTasks(@Query("user_id") user_id : String) : Call<TaskListResponse>
+    @GET("pms_view_task.php")
+    fun viewTasks(@Query("user_id") user_id : String) : Call<TaskListResponse>
 
-     @GET("pms_view_task_deatil.php")
-     fun viewTask(@Query("taskid") taskid :String,
-                  @Query("project_id") project_id :String ) : Call<TaskDetail>
+    @GET("pms_view_task_deatil.php")
+    fun viewTask(@Query("taskid") taskid :String,
+                 @Query("project_id") project_id :String ) : Call<TaskDetail>
+
+    @GET("pms_edit_task_status.php")
+    fun updateTask(@Query("taskid") taskid : String,
+                   @Query("project_id") project_id : String,
+                   @Query("userid") userid : String,
+                   @Query("task_status") task_status : String) : Call<UpdateTask>
+
+    @GET("pms_edit_sub_task_status.php")
+    fun updateSubtask(@Query("taskid") taskid : String,
+                      @Query("subtaskid") subtaskid : String,
+                      @Query("project_id") project_id : String,
+                      @Query("userid") userid : String,
+                      @Query("subtask_status") subtask_status : String) : Call<UpdateSubtask>
 
 }

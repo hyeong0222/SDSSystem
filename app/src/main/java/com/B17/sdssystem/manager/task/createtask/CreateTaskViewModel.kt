@@ -15,10 +15,10 @@ import retrofit2.Response
 
 class CreateTaskViewModel : ViewModel(), AnkoLogger {
 
-    val createTaskList : MutableLiveData<List<CreateTask>> = MutableLiveData<List<CreateTask>>()
+    val createTaskList : MutableLiveData<ResponseCreateTask> = MutableLiveData<ResponseCreateTask>()
 
     fun sendCreateTaskRequest(project_id: String, task_name: String, task_status: String,
-                                       task_desc: String, start_date: String, end_date: String) : MutableLiveData<List<CreateTask>> {
+                                       task_desc: String, start_date: String, end_date: String) : MutableLiveData<ResponseCreateTask> {
 
         val apiInterface = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
         var createTaskCall = apiInterface.createTask(project_id, task_name, task_status, task_desc, start_date, end_date)
@@ -26,7 +26,7 @@ class CreateTaskViewModel : ViewModel(), AnkoLogger {
         createTaskCall.enqueue(object : Callback<ResponseCreateTask> {
             override fun onResponse(call: Call<ResponseCreateTask>?, response: Response<ResponseCreateTask>?) {
                 info { response?.body() }
-                createTaskList.postValue(response!!.body()?.createTaskList)
+                createTaskList.postValue(response!!.body())
             }
             override fun onFailure(call: Call<ResponseCreateTask>?, t: Throwable?) {
                 error { t?.message }

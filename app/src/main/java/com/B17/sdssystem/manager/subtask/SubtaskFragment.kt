@@ -48,7 +48,6 @@ class SubtaskFragment : Fragment(), AnkoLogger {
 
         var subtaskList : LiveData<List<Subtask>>? = viewModel.getSubtaskList()
         subtaskList?.observe(this, Observer { s ->
-            debug { "smiths " + s?.subtaskList?.get(0)?.subtaskdesc  }
             //add my recycler view here
             info {"smiths " + s?.get(0)?.subtaskdesc  }
             recyclerView.adapter = SubTaskAdapter(s!!)

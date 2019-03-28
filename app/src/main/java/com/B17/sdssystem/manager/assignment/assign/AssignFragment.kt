@@ -100,7 +100,7 @@ class AssignFragment : Fragment(), ProjectContract.View {
         var taskList : LiveData<List<Task>> = taskModel.sendTaskRequest()
         taskList.observe(this, Observer { s ->
             tasks = s
-            for (i in 0..s!!.size-1) {
+            for (i in 0..s!!.size - 1) {
                 if (s.get(i).projectid == id) {
                     var item : String = s.get(i).taskid + ". " + s.get(i).taskname
                     tasksList += item
@@ -113,20 +113,20 @@ class AssignFragment : Fragment(), ProjectContract.View {
     }
 
     fun subtaskSpinner(taskid : String) {
-        var subtaskModel : SubtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
-        var subtaskList : LiveData<SubtaskResponse>? = subtaskModel.getSubtaskList()
-        subtaskList?.observe(this, Observer { s ->
-            subtasks = s?.subtaskList
-            var subtasks : List<Subtask>? = s?.subtaskList
-            for (i in 0..subtasks!!.size - 1) {
-                if (subtasks.get(i).taskid == taskid){
-                    var item : String = subtasks.get(i).subtaskid + ". " + subtasks.get(i).subtaskname
-                    subtasksList += item
-                }
-            }
-            val aa = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, subtasksList)
-            subtaskListSpinner.adapter = aa
-        })
+//        var subtaskModel : SubtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
+//        var subtaskList : LiveData<SubtaskResponse>? = subtaskModel.getSubtaskList()
+//        subtaskList?.observe(this, Observer { s ->
+//            subtasks = s?.subtaskList
+//            var subtasks : List<Subtask>? = s?.subtaskList
+//            for (i in 0..subtasks!!.size - 1) {
+//                if (subtasks.get(i).taskid == taskid){
+//                    var item : String = subtasks.get(i).subtaskid + ". " + subtasks.get(i).subtaskname
+//                    subtasksList += item
+//                }
+//            }
+//            val aa = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, subtasksList)
+//            subtaskListSpinner.adapter = aa
+//        })
     }
 
 

@@ -18,6 +18,7 @@ import com.B17.sdssystem.adapter.TaskAdapter
 import com.B17.sdssystem.data.CreateTask
 import com.B17.sdssystem.data.ResponseCreateTask
 import com.B17.sdssystem.data.Task
+import com.B17.sdssystem.manager.task.createtask.CreateTaskDialogFragment
 import com.B17.sdssystem.manager.task.createtask.CreateTaskViewModel
 import com.B17.sdssystem.manager.task.tasklist.TaskViewModel
 import org.jetbrains.anko.AnkoLogger
@@ -43,7 +44,6 @@ class TaskFragment : Fragment(), AnkoLogger {
         rv_task.layoutManager = LinearLayoutManager(this.context)
 
         var taskModel : TaskViewModel = ViewModelProviders.of(this).get(TaskViewModel::class.java)
-        var createTaskModel : CreateTaskViewModel = ViewModelProviders.of(this).get(CreateTaskViewModel::class.java)
 
         var taskList : LiveData<List<Task>> = taskModel.sendTaskRequest()
         taskList.observe(this, Observer { s ->
@@ -51,15 +51,18 @@ class TaskFragment : Fragment(), AnkoLogger {
         })
 
         fab_task.setOnClickListener { view ->
-
+            showEditDialog()
         }
 
-        var createTaskList : LiveData<List<CreateTask>> = createTaskModel.sendCreateTaskRequest("203", "manager_task", "1",
-            "xyz", "2019-03-21", "2019-03-22")
-        createTaskList.observe(this, Observer { s ->
-            error { s }
-        })
-
         return view
+    }
+
+    private fun showEditDialog() {
+
+        val fm = activity!!.supportFragmentManager
+        val fg = CreateTaskDialogFragment()
+
+        fg.setTargetFragment(this, 300)
+        fg.show(fm, "New Task")
     }
 }
