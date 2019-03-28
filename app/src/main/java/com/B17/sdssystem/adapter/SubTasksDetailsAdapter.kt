@@ -15,21 +15,6 @@ class SubTasksDetailsAdapter(val subtasksDetails : List<SubTasksDetailResponse>)
         public fun onItemClick(view : View, position: Int)
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(p0.context).inflate(R.layout.item_project, p0, false))
     }

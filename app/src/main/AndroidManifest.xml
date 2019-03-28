@@ -12,6 +12,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity android:name=".developer.developertask.DevTestActivity">
+        </activity>
         <activity
                 android:name=".manager.ManagerActivity"
                 android:label="@string/title_activity_manager"
@@ -30,8 +32,6 @@
         </activity>
         <activity android:name=".authentication.AuthenticationActivity">
         </activity>
-        <!--<activity android:name=".manager.ManagerActivity">-->
-        <!--</activity>-->
     </application>
 
 </manifest>

@@ -17,18 +17,10 @@ import kotlinx.android.synthetic.main.fragment_viewsubtask.*
 
 class ViewsubtaskFragment : Fragment(), ViewsubtaskContract.View, SubTasksDetailsAdapter.OnItemClickListener {
 
-
-
-
-
     private lateinit var adapter :SubTasksDetailsAdapter
     override fun onItemClick(view: View, position: Int) {
         val gson = Gson()
         val json = gson.toJson(adapter.subtasksDetails.get(position))
-
-
-
-
 
         val editor = activity!!.getSharedPreferences("default", Context.MODE_PRIVATE).edit()
         editor.putString("subtasks", json).apply()
@@ -36,26 +28,13 @@ class ViewsubtaskFragment : Fragment(), ViewsubtaskContract.View, SubTasksDetail
         val args = Bundle()
         args.putString("subtasks", json)
         val subTasksDetailsFragment = SubTasksDetailFragment()
-
-
-
         subTasksDetailsFragment.arguments = args
-
-
-
-
-
 
         activity!!.supportFragmentManager.beginTransaction().replace(R.id.testContainer, subTasksDetailsFragment)
            .addToBackStack(null).commit()
     }
 
     override fun setAdapter(subtasksdetails: List<SubTasksDetailResponse>) {
-
-
-
-
-
 
         adapter = SubTasksDetailsAdapter(subtasksdetails)
         rv_subtask.adapter = adapter
@@ -65,7 +44,6 @@ class ViewsubtaskFragment : Fragment(), ViewsubtaskContract.View, SubTasksDetail
 
     val presenter = ViewsubtaskPresenter(this)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
 
         return inflater.inflate(R.layout.fragment_viewsubtask, container, false)
     }
