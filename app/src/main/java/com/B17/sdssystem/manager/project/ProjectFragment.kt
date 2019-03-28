@@ -14,29 +14,13 @@ import kotlinx.android.synthetic.main.project_fragment.*
 
 class ProjectFragment : Fragment(), ProjectContract.View, ProjectDialog.DialogListener {
     override fun onFinishDialog(inputText: String) {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         Toast.makeText(activity, inputText, Toast.LENGTH_LONG).show()
     }
-
 
     override fun setAdapter(projects: List<Project>?) {
         rvProject.adapter = ProjectAdapter(projects)
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         rvProject.layoutManager = LinearLayoutManager(context)
@@ -53,39 +37,15 @@ class ProjectFragment : Fragment(), ProjectContract.View, ProjectDialog.DialogLi
         val view = inflater.inflate(R.layout.project_fragment, container, false)
         presenter.getProjects()
 
-
-
-
-
-
-
-
-
-
-
         return view
-
-
     }
+
     private fun showEditDialog() {
 
         val fm = activity!!.supportFragmentManager
-
-
-
-
-
-
-
-
-
-
         val fg = ProjectDialog()
 
         fg.setTargetFragment(this, 300)
-
-
-
         fg.show(fm, "New Project")
     }
 }

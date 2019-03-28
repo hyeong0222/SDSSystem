@@ -30,22 +30,20 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class SubTaskFragment : Fragment(), AnkoLogger {
+class SubtaskFragment : Fragment(), AnkoLogger {
 
-    private var TAG : String = "SubTaskFragment"
+    private var TAG : String = "SubtaskFragment"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         var v = inflater.inflate(R.layout.fragment_sub_task, container, false)
 
-        val viewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java!!)
-
-
+        val viewModel : SubtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
         var subtaskList : LiveData<SubtaskResponse>? = viewModel.getSubtaskList()
         subtaskList?.observe(this, Observer { s ->
-
-            debug {"smiths " + s?.subtaskList?.get(0)?.subtaskdesc  }
+            debug { "smiths " + s?.subtaskList?.get(0)?.subtaskdesc  }
         })
+
         return v
     }
 

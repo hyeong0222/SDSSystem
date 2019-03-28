@@ -33,13 +33,13 @@ class RegistrationFragment : Fragment(), AnkoLogger, AuthContract.view {
     private val authPresenter = AuthPresenter(this)
 
 
-    override fun showRegInfo(msg: Msg) {
-       info {"Registration Fragment --> " + msg.msg.get(0) }
-        activity?.longToast(msg.msg.get(0))
+    override fun showRegInfo(msg: Msg?) {
+       info {"Registration Fragment --> " + msg?.msg?.get(0) }
+        activity?.longToast(msg!!.msg.get(0))
         //navigate to project list activity
     }
 
-    override fun showLoginInfo(login: Login) {
+    override fun showLoginInfo(login: Login?) {
     }
 
     override fun onCreateView(

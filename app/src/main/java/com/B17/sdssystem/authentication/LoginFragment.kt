@@ -32,12 +32,12 @@ class LoginFragment : Fragment(), AuthContract.view , AnkoLogger {
     lateinit var tv_createAccount : TextView
 
     //msg is a list
-    override fun showRegInfo(msg : Msg) {
+    override fun showRegInfo(msg : Msg?) {
 
     }
 
-    override fun showLoginInfo(login: Login) {
-        info {"LoginFragment "  + login.useremail + " " + login.userlastname + " " + login.msg.get(0) }
+    override fun showLoginInfo(login: Login?) {
+        info {"LoginFragment "  + login?.useremail + " " + login?.userlastname + " " + login?.msg?.get(0) }
     }
 
     override fun onCreateView(

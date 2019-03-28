@@ -1,4 +1,4 @@
-package com.B17.sdssystem.viewsubtask
+package com.B17.sdssystem.developer.viewsubtask
 
 import com.B17.sdssystem.data.entries.SubTaskResponse
 import com.B17.sdssystem.data.entries.SubTasksDetailResponse

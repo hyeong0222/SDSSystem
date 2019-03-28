@@ -7,8 +7,8 @@ import com.B17.sdssystem.data.Msg
 interface AuthContract {
 
     interface view {
-        fun showRegInfo(msg : Msg)
-        fun showLoginInfo(login : Login)
+        fun showRegInfo(msg : Msg?)
+        fun showLoginInfo(login : Login?)
 
     }
 
