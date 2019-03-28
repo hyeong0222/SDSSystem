@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import com.B17.sdssystem.R
+import com.B17.sdssystem.developer.viewsubtask.ViewsubtaskFragment
+import com.B17.sdssystem.manager.project.ProjectFragment
 
 class TestActivity : AppCompatActivity() {
 
@@ -12,7 +14,11 @@ class TestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
 
-        var fg : Fragment = SubtaskFragment()
+
+
+
+
+        var fg : Fragment = ProjectFragment()
         getSupportFragmentManager().beginTransaction()
             .replace(R.id.testContainer, fg)
             .commit();
