@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
@@ -23,6 +22,7 @@ import com.B17.sdssystem.manager.project.ProjectContract
 import com.B17.sdssystem.manager.project.ProjectPresenter
 import com.B17.sdssystem.manager.subtask.SubtaskViewModel
 import com.B17.sdssystem.manager.task.tasklist.TaskViewModel
+import org.jetbrains.anko.longToast
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,6 +47,9 @@ class AssignFragment : Fragment(), ProjectContract.View {
     lateinit var taskListSpinner : Spinner
     lateinit var subtaskListSpinner : Spinner
 
+    var projectIDSelected : String = ""
+    var taskIDSelected : String = ""
+    var subtaskIDSelected : String = ""
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -58,18 +61,29 @@ class AssignFragment : Fragment(), ProjectContract.View {
         presenter.getProjects()
         projectListSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                context!!.longToast("Please select a project")
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                projectIDSelected = projects.get(position).id
                 taskSpinner(projects.get(position).id)
                 taskListSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                     override fun onNothingSelected(parent: AdapterView<*>?) {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        context!!.longToast("Please select a task")
                     }
 
                     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                        taskIDSelected = tasks!!.get(position).taskid
                         subtaskSpinner(tasks!!.get(position).taskid)
+                        subtaskListSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                            override fun onNothingSelected(parent: AdapterView<*>?) {
+                                context!!.longToast("Please select a subtask")
+                            }
+
+                            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                                subtaskIDSelected = subtasks!!.get(position).subtaskid
+                            }
+                        }
                     }
                 }
             }
@@ -114,20 +128,21 @@ class AssignFragment : Fragment(), ProjectContract.View {
     }
 
     fun subtaskSpinner(taskid : String) {
-//        var subtaskModel : SubtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
-//        var subtaskList : LiveData<SubtaskResponse>? = subtaskModel.getSubtaskList()
-//        subtaskList?.observe(this, Observer { s ->
-//            subtasks = s?.subtaskList
-//            var subtasks : List<Subtask>? = s?.subtaskList
-//            for (i in 0..subtasks!!.size - 1) {
-//                if (subtasks.get(i).taskid == taskid){
-//                    var item : String = subtasks.get(i).subtaskid + ". " + subtasks.get(i).subtaskname
-//                    subtasksList += item
-//                }
-//            }
-//            val aa = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, subtasksList)
-//            subtaskListSpinner.adapter = aa
-//        })
+        var subtaskModel : SubtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
+        var subtaskList : LiveData<SubtaskResponse>? = subtaskModel.getSubtaskList()
+        subtaskList?.observe(this, Observer { s ->
+            subtasks = s!!.subtaskList
+            subtasksList.clear()
+            var subtaskItems : List<Subtask>? = s?.subtaskList
+            for (i in 0..subtasks!!.size - 1) {
+                if (subtaskItems?.get(i)?.taskid.equals(taskid)){
+                    var item : String = subtaskItems?.get(i)?.subtaskid + ". " + subtaskItems?.get(i)?.subtaskname
+                    subtasksList.add(item)
+                }
+            }
+            val aa = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, subtasksList)
+            subtaskListSpinner.adapter = aa
+        })
     }
 
 
