@@ -30,7 +30,7 @@ class SubtaskViewModel : ViewModel(), AnkoLogger{
 
             override fun onResponse(call: Call<SubtaskResponse>, response: Response<SubtaskResponse>) {
 
-                error {" smiths " + response?.body().subtaskList.get(0).subtaskdesc}
+                error {" smiths " + response?.body()?.subtaskList?.get(0)?.subtaskdesc}
                 subtaskResponse?.value = response.body()
             }
 
@@ -52,7 +52,7 @@ class SubtaskViewModel : ViewModel(), AnkoLogger{
         createSubtask.enqueue(object : Callback<ResponseCreateSubtask> {
 
             override fun onResponse(call: Call<ResponseCreateSubtask>, response: Response<ResponseCreateSubtask>) {
-                info { "Subtask Presenter --->  " + response.body().msg.get(0) + " " + response.body().sub_task_id.toString() + " " + response.body().project_id + " " + response.body().task_id }
+                info { "Subtask Presenter --->  " + response.body()?.msg?.get(0) + " " + response.body()?.sub_task_id.toString() + " " + response.body()?.project_id + " " + response.body()?.task_id }
                      responseCreateSubtask = MutableLiveData<ResponseCreateSubtask>()
                     responseCreateSubtask!!.value = response.body()
             }

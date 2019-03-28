@@ -14,6 +14,6 @@
     <!--</FrameLayout>-->
     <fragment
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:name="com.B17.sdssystem.manager.task.TaskFragment"
+            android:layout_height="match_parent" android:name="com.B17.sdssystem.manager.project.ProjectFragment"
             tools:layout_editor_absoluteY="302dp" tools:layout_editor_absoluteX="186dp" android:id="@+id/fragment"/>
 </android.support.constraint.ConstraintLayout>

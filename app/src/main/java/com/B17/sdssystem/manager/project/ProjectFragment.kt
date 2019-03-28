@@ -27,8 +27,7 @@ class ProjectFragment : Fragment(), ProjectContract.View, ProjectDialog.DialogLi
 
 
 
-
-
+        presenter.fetchProjects()
 
         Toast.makeText(activity, inputText, Toast.LENGTH_LONG).show()
     }

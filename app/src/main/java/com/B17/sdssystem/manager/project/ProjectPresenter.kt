@@ -17,18 +17,16 @@ import retrofit2.Response
 class ProjectPresenter(val view : ProjectContract.View) : ProjectContract.Presenter, AnkoLogger {
 
     val logger = AnkoLogger(this.javaClass.simpleName)
-    override fun getProjects() {
 
-//        val apiInterface = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
-//        val projectCall = apiInterface.getProjects()
-//        projectCall.enqueue(object : Callback<ProjectResponse> {
-//            override fun onResponse(call: Call<ProjectResponse>?, response: Response<ProjectResponse>?) {
-//                logger.info { response?.body().toString() }
-//                view.setAdapter(response?.body()?.projects)
-//            }
+    val apiInterface = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
+    lateinit var projectObservable : Observable<ProjectResponse>
+    override fun fetchProjects() {
+        projectObservable = apiInterface.getProjects()
 
-        val apiInterface = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
-        val projectObservable = apiInterface.getProjects()
+
+
+
+
         val subscribe = projectObservable
             .map{it -> it.projects}
 
@@ -43,6 +41,36 @@ class ProjectPresenter(val view : ProjectContract.View) : ProjectContract.Presen
 
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
+
+            .subscribe(this::handleResult, this::handleError) 
+    }
+    override fun getProjects() {
+
+//        val apiInterface = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
+//        val projectCall = apiInterface.getProjects()
+//        projectCall.enqueue(object : Callback<ProjectResponse> {
+//            override fun onResponse(call: Call<ProjectResponse>?, response: Response<ProjectResponse>?) {
+//                logger.info { response?.body().toString() }
+//                view.setAdapter(response?.body()?.projects)
+//            }
+
+
+        projectObservable = apiInterface.getProjects()
+        val subscribe = projectObservable
+            .map{it -> it.projects}
+
+
+            .flatMapIterable {it -> it}
+            .filter{it -> it.projectstatus.equals("1")}
+            //.map(it.filter {response: Project -> response.projectstatus.equals("1")})
+
+
+            .toList()
+            .toObservable()
+
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+
             .subscribe(this::handleResult, this::handleError)
         // val projectCall = apiInterface.getProjects()
 //        projectCall.enqueue(object : Callback<ProjectResponse> {

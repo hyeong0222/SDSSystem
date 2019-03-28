@@ -26,7 +26,7 @@ class CreateTaskViewModel : ViewModel(), AnkoLogger {
         createTaskCall.enqueue(object : Callback<ResponseCreateTask> {
             override fun onResponse(call: Call<ResponseCreateTask>?, response: Response<ResponseCreateTask>?) {
                 info { response?.body() }
-                createTaskList.postValue(response!!.body().createTaskList)
+                createTaskList.postValue(response!!.body()?.createTaskList)
             }
             override fun onFailure(call: Call<ResponseCreateTask>?, t: Throwable?) {
                 error { t?.message }

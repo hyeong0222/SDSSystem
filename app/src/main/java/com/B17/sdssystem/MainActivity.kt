@@ -11,9 +11,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val fg = ProjectFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fg)
-            .addToBackStack(null).commit()
+//        val fg = ProjectFragment()
+//        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fg)
+//            .addToBackStack(null).commit()
     }
 }
 
