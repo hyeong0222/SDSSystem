@@ -13,7 +13,10 @@ import com.B17.sdssystem.data.entries.Project
 import kotlinx.android.synthetic.main.project_fragment.*
 
 class ProjectFragment : Fragment(), ProjectContract.View, ProjectDialog.DialogListener, ProjectAdapter.OnItemClickListener {
+    lateinit var adapter : ProjectAdapter
+
     override fun onItemClick(view: View, position: Int) {
+
 
         val projectFragment = ProjectFragment()
 
@@ -28,7 +31,13 @@ class ProjectFragment : Fragment(), ProjectContract.View, ProjectDialog.DialogLi
     }
 
     override fun setAdapter(projects: List<Project>?) {
-        rvProject.adapter = ProjectAdapter(projects)
+
+
+        adapter = ProjectAdapter(projects)
+        adapter.onItemClickListener = this
+        rvProject.adapter = adapter
+
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

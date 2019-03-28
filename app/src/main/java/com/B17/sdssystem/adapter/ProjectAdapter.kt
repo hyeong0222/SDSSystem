@@ -43,5 +43,12 @@ class ProjectAdapter(val projects: List<Project>?) : RecyclerView.Adapter<Projec
         var startDate = itemView.startDate
         var desc = itemView.desc
         var endDate = itemView.endDate
+
+
+
+
+        init {
+            itemView.setOnClickListener(this)
+        }
     }
 }
