@@ -22,7 +22,9 @@ import retrofit2.Response
 class ProjectDialog : DialogFragment() {
 
     val logger = AnkoLogger("ProjectDialog")
+
     public interface DialogListener{ fun onFinishDialog(inputText : String)}
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.project_dialog_fragment, container, false)
     }
