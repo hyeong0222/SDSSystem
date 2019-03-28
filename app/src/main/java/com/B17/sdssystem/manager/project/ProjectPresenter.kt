@@ -25,17 +25,11 @@ class ProjectPresenter(val view : ProjectContract.View) : ProjectContract.Presen
 
 
 
-
-
         val subscribe = projectObservable
             .map{it -> it.projects}
-
-
             .flatMapIterable {it -> it}
             .filter{it -> it.projectstatus.equals("1")}
             //.map(it.filter {response: Project -> response.projectstatus.equals("1")})
-
-
             .toList()
             .toObservable()
 
@@ -54,23 +48,18 @@ class ProjectPresenter(val view : ProjectContract.View) : ProjectContract.Presen
 //                view.setAdapter(response?.body()?.projects)
 //            }
 
-
         projectObservable = apiInterface.getProjects()
         val subscribe = projectObservable
             .map{it -> it.projects}
 
-
             .flatMapIterable {it -> it}
             .filter{it -> it.projectstatus.equals("1")}
             //.map(it.filter {response: Project -> response.projectstatus.equals("1")})
-
-
             .toList()
             .toObservable()
 
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
-
             .subscribe(this::handleResult, this::handleError)
         // val projectCall = apiInterface.getProjects()
 //        projectCall.enqueue(object : Callback<ProjectResponse> {

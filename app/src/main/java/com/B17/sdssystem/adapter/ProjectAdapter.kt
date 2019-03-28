@@ -10,7 +10,10 @@ import com.B17.sdssystem.data.entries.Project
 import kotlinx.android.synthetic.main.item_project.view.*
 
 class ProjectAdapter(val projects: List<Project>?) : RecyclerView.Adapter<ProjectAdapter.ViewHolder>(){
-
+    lateinit var onItemClickListener : OnItemClickListener
+    public interface OnItemClickListener {
+        public fun onItemClick(view : View, position: Int)
+    }
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(p0.context).inflate(R.layout.item_project, p0, false))
     }
@@ -29,7 +32,12 @@ class ProjectAdapter(val projects: List<Project>?) : RecyclerView.Adapter<Projec
     }
 
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        override fun onClick(v: View?) {
+            onItemClickListener.onItemClick(v!!, position)
+        }
+
+
         var id = itemView.tv_id
         var status = itemView.status
         var startDate = itemView.startDate

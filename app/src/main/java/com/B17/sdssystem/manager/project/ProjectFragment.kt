@@ -12,7 +12,15 @@ import com.B17.sdssystem.adapter.ProjectAdapter
 import com.B17.sdssystem.data.entries.Project
 import kotlinx.android.synthetic.main.project_fragment.*
 
-class ProjectFragment : Fragment(), ProjectContract.View, ProjectDialog.DialogListener {
+class ProjectFragment : Fragment(), ProjectContract.View, ProjectDialog.DialogListener, ProjectAdapter.OnItemClickListener {
+    override fun onItemClick(view: View, position: Int) {
+
+        val projectFragment = ProjectFragment()
+
+
+        activity!!.supportFragmentManager.beginTransaction().replace(R.id.testContainer, projectFragment).commit()
+    }
+
     override fun onFinishDialog(inputText: String) {
         presenter.fetchProjects()
 
