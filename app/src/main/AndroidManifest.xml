@@ -12,26 +12,22 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".developer.developertask.DevTestActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
         <activity
                 android:name=".manager.ManagerActivity"
                 android:label="@string/title_activity_manager"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".manager.subtask.TestActivity">
-        </activity>
+        
         <activity android:name=".manager.assignment.AssignActivity">
         </activity>
         <activity android:name=".developer.DeveloperActivity">
         </activity>
         <activity android:name=".authentication.AuthenticationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
     </application>
 

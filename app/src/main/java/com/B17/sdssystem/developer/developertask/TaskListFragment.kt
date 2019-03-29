@@ -31,6 +31,7 @@ class TaskListFragment : Fragment(), DevTaskAdapter.OnItemClickListener, AnkoLog
         info { adapter.devTaskList.get(position) }
 
         val editor = activity!!.getSharedPreferences("default", Context.MODE_PRIVATE).edit()
+
         editor.putString("devtasks", json).apply()
 
         val args = Bundle()
@@ -39,8 +40,8 @@ class TaskListFragment : Fragment(), DevTaskAdapter.OnItemClickListener, AnkoLog
 
         taskDetailFragment.arguments = args
 
-        activity!!.supportFragmentManager.beginTransaction().replace(R.id.dev_act_container, taskDetailFragment)
-            .addToBackStack(null).commit()
+/*        activity!!.supportFragmentManager.beginTransaction().replace(R.id.dev_act_container, taskDetailFragment)
+            .addToBackStack(null).commit()*/
     }
 
 

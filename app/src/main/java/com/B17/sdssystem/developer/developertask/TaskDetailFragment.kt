@@ -25,18 +25,25 @@ import org.jetbrains.anko.longToast
 
 class TaskDetailFragment : Fragment(), AdapterView.OnItemClickListener, AnkoLogger, View.OnClickListener {
 
-//    val sharedPref: SharedPreferences = activity!!.getSharedPreferences("default", Context.MODE_PRIVATE)
+   //  activity!!.getSharedPreferences("default", Context.MODE_PRIVATE)
+
+
+
 
      lateinit var userTaskDetails : TaskDetail
 
 
     override fun onClick(v: View?) {
 
+
+
+
         var viewModel : TaskListViewModel = ViewModelProviders.of(this).get(TaskListViewModel::class.java)
 
-        
+
+        val getValues = activity!!.getSharedPreferences("default", Context.MODE_PRIVATE)
         var response = viewModel.updateTask(userTaskDetails.taskid,userTaskDetails.projectid,
-                                                 "",
+                                                getValues.getString("userid","54"),
                                                  status_id.toString())
 
         response.observe(this, Observer {
