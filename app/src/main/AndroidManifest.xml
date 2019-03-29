@@ -12,15 +12,12 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".developer.developertask.DevTestActivity">
-        </activity>
         <activity
                 android:name=".manager.ManagerActivity"
                 android:label="@string/title_activity_manager"
                 android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-
         <activity android:name=".manager.assignment.AssignActivity">
         </activity>
         <activity
@@ -28,7 +25,6 @@
                 android:label="@string/title_activity_developer"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
         <activity android:name=".authentication.AuthenticationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
