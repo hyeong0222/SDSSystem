@@ -18,6 +18,7 @@ import com.B17.sdssystem.data.TaskList
 import com.B17.sdssystem.data.TaskListResponse
 import com.google.gson.Gson
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 
 
 class TaskListFragment : Fragment(), DevTaskAdapter.OnItemClickListener, AnkoLogger{
@@ -27,6 +28,7 @@ class TaskListFragment : Fragment(), DevTaskAdapter.OnItemClickListener, AnkoLog
 
         val gson = Gson()
         val json = gson.toJson(adapter.devTaskList.get(position))
+        info { adapter.devTaskList.get(position) }
 
         val editor = activity!!.getSharedPreferences("default", Context.MODE_PRIVATE).edit()
         editor.putString("devtasks", json).apply()

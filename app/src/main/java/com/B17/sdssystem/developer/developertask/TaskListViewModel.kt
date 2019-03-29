@@ -27,13 +27,13 @@ class TaskListViewModel : ViewModel(), AnkoLogger {
 
             override fun onResponse(call: Call<TaskDetail>, response: Response<TaskDetail>) {
 
-                info {" TaskList Presenter "  + response?.body()?.taskname}
+                info {" TaskList Presenter "  + response.body()}
                 taskdetail.value = response.body()
                 //  subtaskFragView.getSubtaskList(response?.body().subtaskList)
             }
 
             override fun onFailure(call: Call<TaskDetail>?, t: Throwable?) {
-                error { t?.message }
+                error { " TaskList Presenter " + t?.message }
             }
         })
           return taskdetail
