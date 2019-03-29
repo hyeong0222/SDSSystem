@@ -19,7 +19,7 @@ class DevTaskAdapter(var devTaskList : List<TaskList>, var context : Context?) :
     }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
-//        return ViewHolder(LayoutInflater.from(p0.context).inflate(R.layout.item_dev_task,p0,false))
+//        return MyViewHolder(LayoutInflater.from(p0.context).inflate(R.layout.item_dev_task,p0,false))
         var view = LayoutInflater.from(p0.context).inflate(R.layout.item_dev_task, p0, false)
         return ViewHolder(view)
     }

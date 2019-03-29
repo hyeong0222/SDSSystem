@@ -37,6 +37,8 @@ private const val ARG_PARAM2 = "param2"
 class SubtaskFragment : Fragment(), AnkoLogger {
 
     private var TAG : String = "SubtaskFragment"
+    private var subtasks : ArrayList<Subtask> = ArrayList<Subtask>()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -47,18 +49,19 @@ class SubtaskFragment : Fragment(), AnkoLogger {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
 
-        // Testing SharedPreference
         val mPreferences = activity!!.getSharedPreferences("MANAGER", Context.MODE_PRIVATE)
-        error { "Sang ---> " + mPreferences.getString("tasks", "") }
-
+        var taskID : String? = mPreferences.getString("task", null)
 
         val viewModel : SubtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
         var subtaskList : LiveData<SubtaskResponse>? = viewModel.getSubtaskList()
         subtaskList?.observe(this, Observer { s ->
-          //  debug {   s?.subtaskList?.get(0)?.subtaskdesc  }
-            //add my recycler view here
-            info { "---->"  + s?.subtaskList?.get(0)?.subtaskdesc }
-            recyclerView.adapter = SubTaskAdapter(s?.subtaskList!!)
+            val subtask : List<Subtask> = s!!.subtaskList
+            for (i in 0..subtask.size-1) {
+                if (subtask.get(i).taskid.equals(taskID)){
+                    subtasks.add(subtask.get(i))
+                }
+            }
+            recyclerView.adapter = SubTaskAdapter(subtasks)
         })
         return v
     }

@@ -21,10 +21,6 @@ import org.jetbrains.anko.AnkoLogger
 
 class TaskAdapter (var taskList : List<Task>?, val context : Context?) : RecyclerView.Adapter <TaskAdapter.MyViewHolder>(), AnkoLogger {
 
-//    val sharedPrefFile : String = "MANAGER"
-//    val mPreferences : SharedPreferences = context!!.getSharedPreferences(sharedPrefFile, 0)
-//    val preferencesEditor : SharedPreferences.Editor = mPreferences.edit()
-
     lateinit var onItemClickListener : OnItemClickListener
     interface OnItemClickListener {
         fun onItemClick(view : View, position : Int)
@@ -32,12 +28,10 @@ class TaskAdapter (var taskList : List<Task>?, val context : Context?) : Recycle
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): TaskAdapter.MyViewHolder {
         var view = LayoutInflater.from(p0.context).inflate(R.layout.item_task, p0, false)
-//        mPreferences = context.getSharedPreferences(sharedPrefFile, 0)
         return MyViewHolder(view)
     }
 
     override fun onBindViewHolder(p0: TaskAdapter.MyViewHolder, p1: Int) {
-//            = p0.bind(taskList!!.get(p1), p1, listener)
         var task: Task = taskList!!.get(p1)
 
         p0.id.setText(task.taskid)
@@ -65,8 +59,6 @@ class TaskAdapter (var taskList : List<Task>?, val context : Context?) : Recycle
         var startDate : TextView
         var endDate : TextView
 
-
-
         init{
             id = itemView.tv_taskId
             name = itemView.tv_taskName
@@ -77,7 +69,5 @@ class TaskAdapter (var taskList : List<Task>?, val context : Context?) : Recycle
 
             itemView.setOnClickListener (this)
         }
-
-
     }
 }

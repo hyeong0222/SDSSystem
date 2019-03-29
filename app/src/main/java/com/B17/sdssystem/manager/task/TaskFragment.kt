@@ -22,6 +22,7 @@ import com.B17.sdssystem.manager.task.createtask.CreateTaskDialogFragment
 import com.B17.sdssystem.manager.task.tasklist.TaskViewModel
 import com.google.gson.Gson
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.error
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,6 +35,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class TaskFragment : Fragment(), AnkoLogger, TaskAdapter.OnItemClickListener {
 
+    private var tasks : ArrayList<Task> = ArrayList<Task>()
     private lateinit var taskAdapter : TaskAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -43,11 +45,23 @@ class TaskFragment : Fragment(), AnkoLogger, TaskAdapter.OnItemClickListener {
         val fab_task = view.findViewById<FloatingActionButton>(R.id.fab_task)
         rv_task.layoutManager = LinearLayoutManager(this.context)
 
+        tasks.clear()
+
+        val mPreferences = activity!!.getSharedPreferences("MANAGER", Context.MODE_PRIVATE)
+        var projectID : String? = mPreferences.getString("project", null)
+
         var taskModel : TaskViewModel = ViewModelProviders.of(this).get(TaskViewModel::class.java)
 
         var taskList : LiveData<List<Task>> = taskModel.sendTaskRequest()
         taskList.observe(this, Observer { s ->
-            taskAdapter = TaskAdapter(s, context)
+
+            for (i in 0..s!!.size-1) {
+                if (s.get(i).projectid.equals(projectID)) {
+                    tasks.add(s.get(i))
+                }
+            }
+
+            taskAdapter = TaskAdapter(tasks, context)
             rv_task.adapter = taskAdapter
             taskAdapter.onItemClickListener = this
         })
@@ -59,12 +73,15 @@ class TaskFragment : Fragment(), AnkoLogger, TaskAdapter.OnItemClickListener {
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        tasks.clear()
+    }
+
     override fun onItemClick(view: View, position: Int) {
-        val gson = Gson()
-        val json = gson.toJson(taskAdapter.taskList?.get(position))
 
         val editor = activity!!.getSharedPreferences("MANAGER", Context.MODE_PRIVATE).edit()
-        editor.putString("tasks", json).apply()
+        editor.putString("task", taskAdapter.taskList?.get(position)?.taskid).apply()
 
         activity!!.supportFragmentManager.beginTransaction().replace(R.id.fl_managerActivity, SubtaskFragment())
             .addToBackStack(null).commit()

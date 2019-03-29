@@ -1,12 +1,9 @@
 package com.B17.sdssystem.manager
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -16,10 +13,8 @@ import android.view.MenuItem
 import com.B17.sdssystem.R
 import com.B17.sdssystem.manager.assignment.employeelist.EmployeeListFragment
 import com.B17.sdssystem.manager.project.ProjectFragment
-import com.B17.sdssystem.manager.task.TaskFragment
 import kotlinx.android.synthetic.main.activity_manager.*
 import kotlinx.android.synthetic.main.app_bar_manager.*
-import kotlinx.android.synthetic.main.content_manager.*
 
 class ManagerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -30,9 +25,9 @@ class ManagerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         setContentView(R.layout.activity_manager)
         setSupportActionBar(toolbar)
 
-        val taskFragment : Fragment = TaskFragment()
+        val projectFragment : Fragment = ProjectFragment()
         val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fl_managerActivity, taskFragment).addToBackStack(null).commit()
+        transaction.replace(R.id.fl_managerActivity, projectFragment).addToBackStack(null).commit()
 
         val sharedPref: SharedPreferences = getSharedPreferences(sharedPrefFile, 0)
 
