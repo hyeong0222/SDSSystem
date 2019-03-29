@@ -13,6 +13,7 @@ import com.B17.sdssystem.adapter.SubTasksDetailsAdapter
 import com.B17.sdssystem.data.entries.SubTasksDetailResponse
 import com.B17.sdssystem.developer.viewsubtask.SubTasksDetailFragment
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.fragment_sub_tasks_detail.*
 import kotlinx.android.synthetic.main.fragment_viewsubtask.*
 
 class ViewsubtaskFragment : Fragment(), ViewsubtaskContract.View, SubTasksDetailsAdapter.OnItemClickListener {
@@ -56,5 +57,6 @@ class ViewsubtaskFragment : Fragment(), ViewsubtaskContract.View, SubTasksDetail
 
 
         presenter.getSubtasks()
+
     }
 }

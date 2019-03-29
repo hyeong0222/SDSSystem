@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.B17.sdssystem.R
 import com.B17.sdssystem.adapter.ProjectAdapter
 import com.B17.sdssystem.data.entries.Project
+import com.B17.sdssystem.developer.DatePicker
 import com.B17.sdssystem.manager.task.TaskFragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.project_fragment.*
@@ -22,6 +23,12 @@ class ProjectFragment : Fragment(), ProjectContract.View, ProjectDialog.DialogLi
 
         val editor = activity!!.getSharedPreferences("MANAGER", Context.MODE_PRIVATE).edit()
         editor.putString("project", adapter.projects?.get(position)?.id).apply()
+
+
+
+
+
+
 
         activity!!.supportFragmentManager.beginTransaction().replace(R.id.fl_managerActivity, TaskFragment())
             .addToBackStack(null).commit()
@@ -67,4 +74,5 @@ class ProjectFragment : Fragment(), ProjectContract.View, ProjectDialog.DialogLi
         fg.setTargetFragment(this, 300)
         fg.show(fm, "New Project")
     }
+
 }

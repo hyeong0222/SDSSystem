@@ -40,6 +40,10 @@
             android:layout_width="match_parent"  android:layout_height="wrap_content"
             android:inputType="text"
             android:imeOptions="actionDone" />
+    <Button
+            android:text="Select Date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/btn_start"/>
     <TextView
             android:id="@+id/lbl_end_date" android:text="End Day"
             android:layout_width="wrap_content" android:layout_height="wrap_content" />
@@ -51,6 +55,10 @@
             android:layout_width="match_parent"  android:layout_height="wrap_content"
             android:inputType="text"
             android:imeOptions="actionDone" />
+    <Button
+            android:text="Select Date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/btn_end"/>
     <Button
             android:text="Button"
 
