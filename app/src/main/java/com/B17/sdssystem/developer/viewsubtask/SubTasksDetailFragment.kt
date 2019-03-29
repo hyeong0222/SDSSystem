@@ -67,7 +67,7 @@ class SubTasksDetailFragment : Fragment(), AdapterView.OnItemSelectedListener, V
         end_date.text = subTasks.endstart
         des.text = subTasks.subtaskdesc
 
-        val status = arrayOf("Start", "Incomplete", "Completed")
+        val status = arrayOf("Choose Status", "Start", "imcomplete", "complete")
         spinner_task_details.adapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_dropdown_item, status)
 
         button3.setOnClickListener(this)

@@ -1,17 +1,17 @@
 package com.B17.sdssystem.manager.project
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.EditText
-import android.widget.TextView
 import com.B17.sdssystem.R
 import com.B17.sdssystem.data.entries.CreateProjectResponse
 import com.B17.sdssystem.network.ApiInterface
 import com.B17.sdssystem.network.RetrofitInstance
+import com.B17.sdssystem.utils.CalendarFragment
 import kotlinx.android.synthetic.main.project_dialog_fragment.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
@@ -24,63 +24,55 @@ import retrofit2.Response
 class ProjectDialog : DialogFragment(), AnkoLogger {
 
     val logger = AnkoLogger("ProjectDialog")
+    val REQUEST_CODE = 100
+
+    lateinit var calendarFragment : CalendarFragment
 
     interface DialogListener{ fun onFinishDialog(inputText : String)}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val view : View = inflater.inflate(R.layout.project_dialog_fragment, container, false)
+        return inflater.inflate(R.layout.project_dialog_fragment, container, false)
+    }
 
-        return view
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        var selectedDate = data?.getStringExtra("formatData")
+        error { "Chosen Date === " + selectedDate }
+
+        if (calendarFragment.tag.equals("Start Date")) {
+            tv_start_date.setText(selectedDate)
+        }
+        else tv_end_date.setText(selectedDate)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-//        tv_startDate = view.findViewById(R.id.tv_start_date)
-//        tv_endDate = view.findViewById(R.id.tv_end_day)
+        calendarFragment = CalendarFragment()
 
         dialog.setTitle("Create New Project")
         tv_project_name.requestFocus()
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
 
-        button.setOnClickListener { sendResult() }
+        val fm = activity!!.supportFragmentManager
 
-        btn_start.setOnClickListener{showDatePicker(0)}
-        btn_end.setOnClickListener{showDatePicker(1)}
-    }
-
-
-    fun processDatePickerResult(year: Int, month: Int, day: Int, tag: String) {
-
-        error { "Method Call" }
-        val month_string = (month + 1).toString()
-        val day_string = day.toString()
-        val year_string = year.toString()
-
-        val date =  year_string + "-" + month_string + "-" + day_string
-        error { "Date" + " " + date }
-
-        if (tag.equals("0")) {
-            tv_start_date.setText(date)
+        btn_start.setOnClickListener {
+            calendarFragment.setTargetFragment(this@ProjectDialog, REQUEST_CODE)
+            calendarFragment.show(fm, "Start Date")
         }
 
-        else if (tag.equals("1")) {
-            tv_end_day.setText(date)
+        btn_end.setOnClickListener {
+            calendarFragment.setTargetFragment(this@ProjectDialog, REQUEST_CODE)
+            calendarFragment.show(fm, "End Date")
         }
+
+        btn_addProject.setOnClickListener { sendResult() }
     }
 
-    fun showDatePicker(tag: Int) {
-        val newFragment = DatePicker()
-        val args = Bundle()
-        args.putString("tag", tag.toString())
-        newFragment.arguments = args
-        newFragment.show(activity?.supportFragmentManager, "datePicker" )
-    }
 
     fun sendResult() {
 
         val apiInterface = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
-        val createCall = apiInterface.createProject(tv_project_name.text.toString(), tv_project_status.text.toString(), tv_project_desc.text.toString(), tv_start_date.text.toString(), tv_end_day.text.toString())
+        val createCall = apiInterface.createProject(tv_project_name.text.toString(), tv_project_status.text.toString(), tv_project_desc.text.toString(), tv_start_date.text.toString(), tv_end_date.text.toString())
         createCall.enqueue(object : Callback<CreateProjectResponse> {
             override fun onFailure(call: Call<CreateProjectResponse>, t: Throwable) {
                 logger.info { t.message }

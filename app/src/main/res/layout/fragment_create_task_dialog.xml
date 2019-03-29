@@ -53,6 +53,21 @@
                 android:id="@+id/et_endDate" android:layout_weight="1" android:hint="Enter End Date:"
                 android:layout_marginLeft="10dp" android:layout_marginRight="10dp"/>
     </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <Button
+                android:text="Calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/btn_startDate" android:layout_weight="1"
+                android:layout_marginLeft="10dp" android:layout_marginRight="10dp"/>
+        <Button
+                android:text="Calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/btn_endDate" android:layout_weight="1"
+                android:layout_marginLeft="10dp" android:layout_marginRight="10dp"/>
+    </LinearLayout>
     <TextView
             android:text="Description"
             android:layout_width="match_parent"
