@@ -1,6 +1,8 @@
 package com.B17.sdssystem.developer.viewsubtask
 
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.B17.sdssystem.R
 import com.B17.sdssystem.data.entries.SubTasksDetailResponse
 
@@ -38,8 +41,20 @@ private const val ARG_PARAM2 = "param2"
 
 
 
+class SubTasksDetailFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnClickListener {
+    lateinit var subTasks : SubTasksDetailResponse
+    override fun onClick(v: View?) {
+        val viewModel = ViewModelProviders.of(this).get(SubTasksDetailViewModel::class.java)
 
-class SubTasksDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
+        var response = viewModel.updateSubTasks(subTasks.subtaskid, subTasks.taskid, subTasks.projectid, "", status_id.toString())
+
+
+
+
+
+        response.observe(this, Observer { s -> Toast.makeText(context, s?.msg?.get(0), Toast.LENGTH_LONG).show() })
+    }
+
     var status_id = -1
     override fun onNothingSelected(parent: AdapterView<*>?) {
 
@@ -81,7 +96,7 @@ class SubTasksDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         val details = arguments!!.getString("subtasks")
         val gson = Gson()
-        val subTasks = gson.fromJson(details, SubTasksDetailResponse::class.java)
+        subTasks = gson.fromJson(details, SubTasksDetailResponse::class.java)
         activity?.title = "SubTask's Details"
 
 
@@ -102,8 +117,15 @@ class SubTasksDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
 
 
-        val status = arrayOf("Start", "imcomplete", "complete")
+
+        val status = arrayOf("Choose Status", "Start", "imcomplete", "complete")
         spinner.adapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_dropdown_item, status)
+
+
+
+
+        button3.setOnClickListener(this)
+
     }
 
 }

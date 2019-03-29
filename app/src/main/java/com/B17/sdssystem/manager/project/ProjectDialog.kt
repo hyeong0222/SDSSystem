@@ -38,24 +38,7 @@ class ProjectDialog : DialogFragment() {
         button.setOnClickListener { sendResult() }
     }
 
-/*
- use in assignment fragmnet
- */
-    fun assign() {
 
-        val apiInterface = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
-        val assignCall = apiInterface.assign("203", "53", "112", "90")
-
-        assignCall.enqueue(object : Callback<AssignResponse> {
-            override fun onFailure(call: Call<AssignResponse>, t: Throwable) {
-                logger.info { t.message }
-            }
-            override fun onResponse(call: Call<AssignResponse>, response: Response<AssignResponse>) {
-                logger.info { response.body() }
-            }
-
-        })
-    }
 
     fun sendResult() {
 
