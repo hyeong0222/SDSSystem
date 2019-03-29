@@ -54,7 +54,7 @@ class TaskFragment : Fragment(), AnkoLogger, TaskAdapter.OnItemClickListener {
 
         var taskList : LiveData<List<Task>> = taskModel.sendTaskRequest()
         taskList.observe(this, Observer { s ->
-
+            tasks.clear()
             for (i in 0..s!!.size-1) {
                 if (s.get(i).projectid.equals(projectID)) {
                     tasks.add(s.get(i))

@@ -40,7 +40,7 @@ class CalendarFragment : DialogFragment(), DatePickerDialog.OnDateSetListener, A
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
         // Formatting time in correct form
-        var formatData = SimpleDateFormat("YYYY-MM-dd", Locale.ENGLISH).format(calendar.time)
+        var formatData = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(calendar.time)
 
         error { TAG + formatData }
 
