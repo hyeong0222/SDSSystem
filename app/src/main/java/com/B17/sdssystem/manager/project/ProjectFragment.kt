@@ -11,9 +11,7 @@ import android.widget.Toast
 import com.B17.sdssystem.R
 import com.B17.sdssystem.adapter.ProjectAdapter
 import com.B17.sdssystem.data.entries.Project
-import com.B17.sdssystem.developer.DatePicker
 import com.B17.sdssystem.manager.task.TaskFragment
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.project_fragment.*
 
 class ProjectFragment : Fragment(), ProjectContract.View, ProjectDialog.DialogListener, ProjectAdapter.OnItemClickListener {

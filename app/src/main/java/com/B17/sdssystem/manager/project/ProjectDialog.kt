@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import com.B17.sdssystem.R
-import com.B17.sdssystem.data.entries.AssignResponse
 import com.B17.sdssystem.data.entries.CreateProjectResponse
-import com.B17.sdssystem.developer.DatePicker
+import com.B17.sdssystem.utils.DatePicker
 import com.B17.sdssystem.network.ApiInterface
 import com.B17.sdssystem.network.RetrofitInstance
 import kotlinx.android.synthetic.main.project_dialog_fragment.*

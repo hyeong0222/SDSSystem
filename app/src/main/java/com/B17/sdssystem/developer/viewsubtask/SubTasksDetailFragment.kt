@@ -120,7 +120,7 @@ class SubTasksDetailFragment : Fragment(), AdapterView.OnItemSelectedListener, V
 
 
         val status = arrayOf("Choose Status", "Start", "imcomplete", "complete")
-        spinner.adapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_dropdown_item, status)
+        spinner_task_details.adapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_dropdown_item, status)
 
 
 
