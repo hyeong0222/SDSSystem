@@ -25,17 +25,18 @@ class SubtaskDialogFragment : DialogFragment(), AnkoLogger {
 
     lateinit var subtask_create_button : Button
 
-
-
 var logger = AnkoLogger("Subtask Dialog Fragment")
 
 lateinit var viewModel : SubtaskViewModel
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.subtask_dialog_fragment, container, false)
 
         viewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
+
+
 
          subtask_create_button = v.findViewById(R.id.subtask_create_button)
          subtask_create_button.setOnClickListener{
@@ -54,7 +55,7 @@ lateinit var viewModel : SubtaskViewModel
             sub_task_status,sub_task_desc,start_date,end_date)
 
         createsubtask?.observe(this, Observer {t ->
-            info { t?.msg?.get(0) + " " +  t?.project_id + " "}
+            info { t?.msg?.get(0) + " " +  t?.project_id }
             activity?.longToast(" Subtask Created")
         })
     dismiss()

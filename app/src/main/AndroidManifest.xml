@@ -13,6 +13,11 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
         <activity android:name=".developer.developertask.DevTestActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
                 android:name=".manager.ManagerActivity"
@@ -33,6 +38,7 @@
         <activity android:name=".developer.DeveloperActivity">
         </activity>
         <activity android:name=".authentication.AuthenticationActivity">
+
         </activity>
     </application>
 

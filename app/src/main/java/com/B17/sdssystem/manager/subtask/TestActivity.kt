@@ -21,7 +21,7 @@ class TestActivity : AppCompatActivity() {
 
 
 
-        var fg : Fragment = ViewsubtaskFragment()
+        var fg : Fragment = SubtaskFragment()
         getSupportFragmentManager().beginTransaction()
             .replace(R.id.testContainer, fg)
             .commit();

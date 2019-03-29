@@ -69,8 +69,7 @@ class RegistrationFragment : Fragment(), AnkoLogger, AuthContract.view {
                 authPresenter.registerUser(et_fname.text.toString(),et_lname.text.toString(),et_email.text.toString(),
                     et_phone.text.toString(),et_password.text.toString(),et_comSize.text.toString(),"0")
             }else{
-                //
-                //  longToast("CHOOSE A ROLE")
+                activity?.longToast("CHOOSE A ROLE")
             }
         }
 

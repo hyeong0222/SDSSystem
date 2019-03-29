@@ -81,7 +81,7 @@ class SubtaskFragment : Fragment(), AnkoLogger {
 
         //if(fg.isDetached){ activity!!.supportFragmentManager.beginTransaction().attach(this).commitAllowingStateLoss()}
         info { "---> checking if show edit dialog method is called" }
-        fg.setTargetFragment(this, 300)
+        fg.setTargetFragment(this, 400)
 
        fg.show(fm, "New SubTask")
     }

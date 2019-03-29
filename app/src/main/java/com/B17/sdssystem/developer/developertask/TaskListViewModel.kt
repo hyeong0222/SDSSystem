@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.B17.sdssystem.data.TaskDetail
 import com.B17.sdssystem.data.TaskListResponse
+import com.B17.sdssystem.data.UpdateTask
 import com.B17.sdssystem.network.ApiInterface
 import com.B17.sdssystem.network.RetrofitInstance
 import org.jetbrains.anko.AnkoLogger
@@ -17,6 +18,7 @@ class TaskListViewModel : ViewModel(), AnkoLogger {
 
     var taskdetail : MutableLiveData<TaskDetail> = MutableLiveData<TaskDetail>()
     var taskListResponse : MutableLiveData<TaskListResponse> = MutableLiveData<TaskListResponse>()
+    var updateTaskresponse : MutableLiveData<UpdateTask> = MutableLiveData<UpdateTask>()
 
 
      fun getTaskDetails(task_id: String, project_id: String) : MutableLiveData<TaskDetail> {
@@ -56,5 +58,23 @@ class TaskListViewModel : ViewModel(), AnkoLogger {
             }
         })
         return taskListResponse
+    }
+
+    fun updateTask(taskid : String, projectid : String, userid : String, task_status : String) : MutableLiveData<UpdateTask>{
+        val apiInterface = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
+         var updateTaskCall = apiInterface.updateTask(taskid,projectid,userid,task_status)
+
+        updateTaskCall.enqueue(object: Callback<UpdateTask> {
+
+            override fun onResponse(call: Call<UpdateTask>, response: Response<UpdateTask>) {
+                updateTaskresponse.value = response.body()
+            }
+
+            override fun onFailure(call: Call<UpdateTask>?, t: Throwable?) {
+                error { t?.message }
+            }
+        })
+
+          return updateTaskresponse
     }
 }
