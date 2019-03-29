@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import com.B17.sdssystem.R
 import com.B17.sdssystem.developer.viewsubtask.SubTasksDetailFragment
+import com.B17.sdssystem.data.entries.Project
+import com.B17.sdssystem.developer.viewsubtask.SubTasksDetailFragment
 import com.B17.sdssystem.developer.viewsubtask.ViewsubtaskFragment
 import com.B17.sdssystem.manager.project.ProjectFragment
 

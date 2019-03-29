@@ -9,6 +9,7 @@ import android.view.WindowManager
 import com.B17.sdssystem.R
 import com.B17.sdssystem.data.entries.AssignResponse
 import com.B17.sdssystem.data.entries.CreateProjectResponse
+import com.B17.sdssystem.developer.DatePicker
 import com.B17.sdssystem.network.ApiInterface
 import com.B17.sdssystem.network.RetrofitInstance
 import kotlinx.android.synthetic.main.project_dialog_fragment.*
@@ -36,9 +37,38 @@ class ProjectDialog : DialogFragment() {
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
 
         button.setOnClickListener { sendResult() }
+
+        btn_start.setOnClickListener{showDatePicker(0)}
+        btn_end.setOnClickListener{showDatePicker(1)}
     }
 
 
+    public fun processDatePickerResult(year: Int, month: Int, day: Int, tag: String) {
+
+
+        val month_string = (month + 1).toString()
+        val day_string = day.toString()
+        val year_string = year.toString()
+
+        val date =  year_string + "-" + month_string + "-" + day_string
+
+
+        if (tag.equals("0")) {
+            tv_start_date.setText(date)
+        }
+
+        else if (tag.equals("1")) {
+            tv_end_day.setText(date)
+        }
+    }
+    fun showDatePicker(tag: Int) {
+        val newFragment = DatePicker(this)
+        val args = Bundle()
+        args.putString("tag", tag.toString())
+        newFragment.arguments = args
+        newFragment.show(activity?.supportFragmentManager, "datePicker" )
+
+    }
 
     fun sendResult() {
 
