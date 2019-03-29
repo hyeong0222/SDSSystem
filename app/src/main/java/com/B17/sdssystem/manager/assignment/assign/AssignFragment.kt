@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import com.B17.sdssystem.R
 import com.B17.sdssystem.data.Subtask
 import com.B17.sdssystem.data.SubtaskResponse
@@ -22,6 +23,7 @@ import com.B17.sdssystem.manager.project.ProjectContract
 import com.B17.sdssystem.manager.project.ProjectPresenter
 import com.B17.sdssystem.manager.subtask.SubtaskViewModel
 import com.B17.sdssystem.manager.task.tasklist.TaskViewModel
+import kotlinx.android.synthetic.main.fragment_assign.*
 import org.jetbrains.anko.longToast
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,7 +35,15 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class AssignFragment : Fragment(), ProjectContract.View {
+
+class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
+    override fun onClick(v: View?) {
+
+        val userid = ""  // TODO: change to getargument
+        val assignViewModel = ViewModelProviders.of(this).get(AssignViewModel::class.java)
+        var assignLiveData = assignViewModel.assign(projectIDSelected,userid, taskIDSelected, subtaskIDSelected)
+        assignLiveData.observe(this, Observer { s -> Toast.makeText(context, s!!.msg.get(0), Toast.LENGTH_LONG).show() })
+    }
 
     var projectsList : ArrayList<String> = ArrayList<String>()
     var tasksList : ArrayList<String> = ArrayList<String>()
@@ -90,6 +100,19 @@ class AssignFragment : Fragment(), ProjectContract.View {
         }
         return view
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+
+
+
+
+        btnAssign.setOnClickListener(this)
+
+
+
+    }
+
 
     override fun setAdapter(projects: List<Project>?) {
 
