@@ -7,48 +7,73 @@
                                              android:layout_height="match_parent"
                                              tools:context=".developertask.TaskDetailFragment"
                                              android:id="@+id/frameLayout">
-<TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_details"
-        app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="98dp" android:layout_marginStart="76dp"/>
-<Spinner
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:layout_marginTop="82dp"
-        app:layout_constraintTop_toBottomOf="@+id/des" app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="8dp" android:layout_marginEnd="8dp"/>
-<TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/start_date"
-        app:layout_constraintStart_toStartOf="@+id/tv_details" android:layout_marginTop="22dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_details"/>
-<TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/end_date"
-        android:layout_marginStart="70dp" app:layout_constraintStart_toEndOf="@+id/start_date"
-        android:layout_marginBottom="25dp" app:layout_constraintBottom_toTopOf="@+id/des"/>
-<TextView
-        android:text="TextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/des" app:layout_constraintStart_toStartOf="@+id/start_date"
-        android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="@+id/end_date"
-        android:layout_marginEnd="8dp" android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/start_date"/>
-<Button
-        android:text="Button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/button3" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="34dp"
-        app:layout_constraintTop_toBottomOf="@+id/spinner"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_td_projectId"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="45dp" android:layout_marginStart="32dp"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_td_taskId"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="24dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_td_projectId"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_td_taskname"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="22dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_td_taskId"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_td_desc"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="21dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_td_taskname"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_td_taskStatus"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="21dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_td_desc"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_td_taskStartDate"
+            app:layout_constraintStart_toStartOf="@+id/tv_td_taskStatus" android:layout_marginTop="18dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_td_taskStatus"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_td_taskEndDate"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="22dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_td_taskStartDate"/>
+    <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+            android:layout_marginTop="90dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_td_taskEndDate" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" android:layout_marginEnd="8dp"/>
+    <Button
+            android:text="Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_td_submit"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="76dp"
+            app:layout_constraintTop_toBottomOf="@+id/spinner" app:layout_constraintEnd_toEndOf="parent"/>
 </android.support.constraint.ConstraintLayout>
