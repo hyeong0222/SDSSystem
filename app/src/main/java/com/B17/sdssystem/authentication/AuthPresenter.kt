@@ -1,5 +1,6 @@
 package com.B17.sdssystem.authentication
 
+import android.content.Context
 import com.B17.sdssystem.data.Login
 import com.B17.sdssystem.data.Msg
 import com.B17.sdssystem.network.ApiInterface
@@ -12,6 +13,7 @@ import retrofit2.Response
 
 class AuthPresenter(var authView : AuthContract.view) : AnkoLogger, AuthContract.presenter {
 
+
     override fun loginUser(et_email: String, et_password: String) {
 
         val apiInterface = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
@@ -20,8 +22,11 @@ class AuthPresenter(var authView : AuthContract.view) : AnkoLogger, AuthContract
         userLogin.enqueue(object: Callback<Login> {
 
             override fun onResponse(call: Call<Login>, response: Response<Login>) {
-                //  info {"smiths ----->" + response?.body()?.regList?.get(0)?.msg }
+                //  info { response?.body()?.regList?.get(0)?.msg }
+
                      authView.showLoginInfo(response.body()!!)
+
+
             }
 
             override fun onFailure(call: Call<Login>?, t: Throwable?) {

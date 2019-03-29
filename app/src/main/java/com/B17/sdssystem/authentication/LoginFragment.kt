@@ -1,6 +1,7 @@
 package com.B17.sdssystem.authentication
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -40,6 +41,12 @@ class LoginFragment : Fragment(), AuthContract.view , AnkoLogger {
 
     override fun showLoginInfo(login: Login?) {
         info {"LoginFragment "  + login?.useremail + " " + login?.userlastname + " " + login?.msg?.get(0) }
+        val editor = activity!!.getSharedPreferences("default", Context.MODE_PRIVATE).edit()
+        editor.putString("userid", login?.userid).apply()
+        editor.putString("appapikey", login?.appapikey).apply()
+        editor.putString("userrole", login?.userrole).apply()
+
+
         if (BuildConfig.FLAVOR.equals("manager")) {
             startActivity(context?.intentFor<ManagerActivity>()?.singleTop())
         } else {
