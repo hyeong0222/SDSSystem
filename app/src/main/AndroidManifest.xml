@@ -24,8 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".manager.subtask.TestActivity">
-        </activity>
+
         <activity android:name=".manager.assignment.AssignActivity">
         </activity>
         <activity
