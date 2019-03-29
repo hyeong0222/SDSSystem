@@ -39,7 +39,7 @@ class TaskListFragment : Fragment(), DevTaskAdapter.OnItemClickListener, AnkoLog
 
         taskDetailFragment.arguments = args
 
-        activity!!.supportFragmentManager.beginTransaction().replace(R.id.dev_act_container, taskDetailFragment)
+        activity!!.supportFragmentManager.beginTransaction().replace(R.id.fl_developerActivity, taskDetailFragment)
             .addToBackStack(null).commit()
     }
 
@@ -47,8 +47,7 @@ class TaskListFragment : Fragment(), DevTaskAdapter.OnItemClickListener, AnkoLog
     lateinit var viewModel : TaskListViewModel
     lateinit var devTaskList : LiveData<TaskListResponse>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
 
         var v = inflater.inflate(R.layout.fragment_task_list, container, false)

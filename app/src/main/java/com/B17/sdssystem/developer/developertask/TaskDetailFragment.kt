@@ -13,9 +13,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.TextView
 import com.B17.sdssystem.R
 import com.B17.sdssystem.data.TaskDetail
+import com.B17.sdssystem.developer.viewsubtask.ViewsubtaskFragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_task_detail.*
 import org.jetbrains.anko.AnkoLogger
@@ -27,26 +29,22 @@ class TaskDetailFragment : Fragment(), AdapterView.OnItemClickListener, AnkoLogg
 
 //    val sharedPref: SharedPreferences = activity!!.getSharedPreferences("default", Context.MODE_PRIVATE)
 
-     lateinit var userTaskDetails : TaskDetail
-
+    lateinit var userTaskDetails : TaskDetail
+    lateinit var taskDetails : LiveData<TaskDetail>
+    var status_id = -1
 
     override fun onClick(v: View?) {
 
-        var viewModel : TaskListViewModel = ViewModelProviders.of(this).get(TaskListViewModel::class.java)
+        val getValues = activity!!.getSharedPreferences("default", Context.MODE_PRIVATE)
 
-        
+        var viewModel : TaskListViewModel = ViewModelProviders.of(this).get(TaskListViewModel::class.java)
         var response = viewModel.updateTask(userTaskDetails.taskid,userTaskDetails.projectid,
-                                                 "",
-                                                 status_id.toString())
+            getValues.getString("userid", "54"), status_id.toString())
 
         response.observe(this, Observer {
             s -> activity?.longToast(s!!.msg.get(0))
         })
     }
-
-    lateinit var taskDetails : LiveData<TaskDetail>
-    var status_id = -1
-
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         status_id = position
@@ -61,27 +59,25 @@ class TaskDetailFragment : Fragment(), AdapterView.OnItemClickListener, AnkoLogg
         activity?.title = "Tasks Details"
 
 
-        tv_td_projectId.text = "PROJECT ID: "+ taskInfos.projectid
-        tv_td_taskId.text = "TASK ID: "+ taskInfos.taskid
+        tv_td_projectId.text = "Project ID: "+ taskInfos.projectid
+        tv_td_taskId.text = "Task ID: "+ taskInfos.taskid
 
 
         var viewModel : TaskListViewModel = ViewModelProviders.of(this).get(TaskListViewModel::class.java)
 
-          taskDetails  = viewModel.getTaskDetails(taskInfos.taskid,taskInfos.projectid)
-
+        taskDetails  = viewModel.getTaskDetails(taskInfos.taskid,taskInfos.projectid)
         taskDetails.observe(this, Observer { s ->
             info {"testing ------->" + s?.taskname }
             userTaskDetails = s!!
-            tv_td_desc.text = "TASK DESCRIPTION: " + s?.taskdesc
-            tv_td_taskname.text = "Task NAME: " +s?.taskname
-            tv_td_taskStartDate.text = "TASK START DATE: " +s?.startdate
-            tv_td_taskStatus.text = "TASK STATUS " +s?.taskstatus
-            tv_td_taskEndDate.text ="TASK END DATE " + s?.endstart
-
+            tv_td_desc.text = "Task Description: " + s?.taskdesc
+            tv_td_taskname.text = "Task Name: " +s?.taskname
+            tv_td_taskStartDate.text = "Task Start Date: " +s?.startdate
+            tv_td_taskStatus.text = "Task Status: " +s?.taskstatus
+            tv_td_taskEndDate.text ="Task End Date: " + s?.endstart
         })
 
 
-        val status = arrayOf("Start", "imcomplete", "complete")
+        val status = arrayOf("Start", "Incomplete", "Completed")
         spinner.adapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_dropdown_item, status)
 
         btn_td_submit.setOnClickListener(this)
@@ -90,7 +86,13 @@ class TaskDetailFragment : Fragment(), AdapterView.OnItemClickListener, AnkoLogg
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var v =  inflater.inflate(R.layout.fragment_task_detail, container, false)
 
-          return v
+        val btn_subtask : Button = v.findViewById(R.id.btn_subtask)
+        btn_subtask.setOnClickListener { v ->
+            activity!!.supportFragmentManager.beginTransaction().replace(R.id.fl_developerActivity, ViewsubtaskFragment())
+                .addToBackStack(null).commit()
+        }
+
+        return v
     }
 
 

@@ -31,7 +31,7 @@ class ViewsubtaskFragment : Fragment(), ViewsubtaskContract.View, SubTasksDetail
         val subTasksDetailsFragment = SubTasksDetailFragment()
         subTasksDetailsFragment.arguments = args
 
-        activity!!.supportFragmentManager.beginTransaction().replace(R.id.testContainer, subTasksDetailsFragment)
+        activity!!.supportFragmentManager.beginTransaction().replace(R.id.fl_developerActivity, subTasksDetailsFragment)
            .addToBackStack(null).commit()
     }
 
@@ -51,12 +51,8 @@ class ViewsubtaskFragment : Fragment(), ViewsubtaskContract.View, SubTasksDetail
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
-
         rv_subtask.layoutManager = LinearLayoutManager(context)
 
-
         presenter.getSubtasks()
-
     }
 }

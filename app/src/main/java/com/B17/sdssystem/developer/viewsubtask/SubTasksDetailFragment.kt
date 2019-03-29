@@ -29,40 +29,17 @@ private const val ARG_PARAM2 = "param2"
  *
  */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 class SubTasksDetailFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnClickListener {
     lateinit var subTasks : SubTasksDetailResponse
+    var status_id = -1
+
     override fun onClick(v: View?) {
         val viewModel = ViewModelProviders.of(this).get(SubTasksDetailViewModel::class.java)
 
         var response = viewModel.updateSubTasks(subTasks.subtaskid, subTasks.taskid, subTasks.projectid, "", status_id.toString())
-
-
-
-
-
         response.observe(this, Observer { s -> Toast.makeText(context, s?.msg?.get(0), Toast.LENGTH_LONG).show() })
     }
-
-    var status_id = -1
     override fun onNothingSelected(parent: AdapterView<*>?) {
-
-
-
-
-
 
     }
 
@@ -71,23 +48,8 @@ class SubTasksDetailFragment : Fragment(), AdapterView.OnItemSelectedListener, V
     }
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-
-
-
-
-
-
-
-
-
-
-
-
 
         return inflater.inflate(R.layout.fragment_sub_tasks_detail, container, false)
     }
@@ -98,32 +60,15 @@ class SubTasksDetailFragment : Fragment(), AdapterView.OnItemSelectedListener, V
         val details = arguments!!.getString("subtasks")
         val gson = Gson()
         subTasks = gson.fromJson(details, SubTasksDetailResponse::class.java)
-        activity?.title = "SubTask's Details"
-
-
+        activity?.title = "Subtask Details"
 
         tv_details.text = subTasks.subtaskname
         start_date.text = subTasks.startdate
-
-
         end_date.text = subTasks.endstart
-
         des.text = subTasks.subtaskdesc
 
-
-
-
-
-
-
-
-
-
-        val status = arrayOf("Choose Status", "Start", "imcomplete", "complete")
-        spinner.adapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_dropdown_item, status)
-
-
-
+        val status = arrayOf("Start", "Incomplete", "Completed")
+        spinner_task_details.adapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_dropdown_item, status)
 
         button3.setOnClickListener(this)
 

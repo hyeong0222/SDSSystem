@@ -15,6 +15,7 @@ import com.B17.sdssystem.R
 import com.B17.sdssystem.data.CreateTask
 import com.B17.sdssystem.data.ResponseCreateTask
 import kotlinx.android.synthetic.main.fragment_create_task_dialog.*
+import org.jetbrains.anko.longToast
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -54,7 +55,7 @@ class CreateTaskDialogFragment : DialogFragment() {
                 et_description.text.toString(), et_startDate.text.toString(), et_endDate.text.toString()
             )
             createTaskList.observe(this, Observer { s ->
-
+                activity!!.longToast(s!!.msg.get(0))
             })
         }
 

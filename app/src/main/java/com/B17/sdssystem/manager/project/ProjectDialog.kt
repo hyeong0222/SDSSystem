@@ -6,31 +6,38 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.EditText
+import android.widget.TextView
 import com.B17.sdssystem.R
-import com.B17.sdssystem.data.entries.AssignResponse
 import com.B17.sdssystem.data.entries.CreateProjectResponse
-import com.B17.sdssystem.developer.DatePicker
 import com.B17.sdssystem.network.ApiInterface
 import com.B17.sdssystem.network.RetrofitInstance
 import kotlinx.android.synthetic.main.project_dialog_fragment.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.error
 import org.jetbrains.anko.info
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class ProjectDialog : DialogFragment() {
+class ProjectDialog : DialogFragment(), AnkoLogger {
 
     val logger = AnkoLogger("ProjectDialog")
 
-    public interface DialogListener{ fun onFinishDialog(inputText : String)}
+    interface DialogListener{ fun onFinishDialog(inputText : String)}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.project_dialog_fragment, container, false)
+
+        val view : View = inflater.inflate(R.layout.project_dialog_fragment, container, false)
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+//        tv_startDate = view.findViewById(R.id.tv_start_date)
+//        tv_endDate = view.findViewById(R.id.tv_end_day)
 
         dialog.setTitle("Create New Project")
         tv_project_name.requestFocus()
@@ -43,15 +50,15 @@ class ProjectDialog : DialogFragment() {
     }
 
 
-    public fun processDatePickerResult(year: Int, month: Int, day: Int, tag: String) {
+    fun processDatePickerResult(year: Int, month: Int, day: Int, tag: String) {
 
-
+        error { "Method Call" }
         val month_string = (month + 1).toString()
         val day_string = day.toString()
         val year_string = year.toString()
 
         val date =  year_string + "-" + month_string + "-" + day_string
-
+        error { "Date" + " " + date }
 
         if (tag.equals("0")) {
             tv_start_date.setText(date)
@@ -61,13 +68,13 @@ class ProjectDialog : DialogFragment() {
             tv_end_day.setText(date)
         }
     }
+
     fun showDatePicker(tag: Int) {
-        val newFragment = DatePicker(this)
+        val newFragment = DatePicker()
         val args = Bundle()
         args.putString("tag", tag.toString())
         newFragment.arguments = args
         newFragment.show(activity?.supportFragmentManager, "datePicker" )
-
     }
 
     fun sendResult() {

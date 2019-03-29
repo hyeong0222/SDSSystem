@@ -12,7 +12,6 @@ import android.view.Menu
 import android.view.MenuItem
 import com.B17.sdssystem.R
 import com.B17.sdssystem.developer.developertask.TaskListFragment
-import com.B17.sdssystem.developer.viewsubtask.ViewsubtaskFragment
 import kotlinx.android.synthetic.main.activity_developer.*
 import kotlinx.android.synthetic.main.app_bar_developer.*
 
@@ -23,9 +22,9 @@ class DeveloperActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         setContentView(R.layout.activity_developer)
         setSupportActionBar(toolbar)
 
-        val subtaskFragment : Fragment = ViewsubtaskFragment()
+        val taskFragment : Fragment = TaskListFragment()
         val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fl_developerActivity, subtaskFragment).addToBackStack(null).commit()
+        transaction.replace(R.id.fl_developerActivity, taskFragment).addToBackStack(null).commit()
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close

@@ -2,69 +2,73 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/edit_name"
               android:layout_width="wrap_content" android:layout_height="wrap_content"
-              android:layout_gravity="center" android:orientation="vertical"  >
+              android:layout_gravity="center" android:orientation="vertical">
 
     <TextView
             android:id="@+id/lbl_project_name" android:text="Project Name"
-            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            android:layout_width="250dp" android:layout_height="wrap_content"/>
 
     <EditText
             android:id="@+id/tv_project_name"
-            android:layout_width="match_parent"  android:layout_height="wrap_content"
+            android:layout_width="250dp" android:layout_height="wrap_content"
             android:inputType="text"
-            android:imeOptions="actionDone" />
+            android:imeOptions="actionDone"/>
     <TextView
             android:id="@+id/lbl_project_status" android:text="Project Status"
-            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            android:layout_width="250dp" android:layout_height="wrap_content"/>
 
     <EditText
             android:id="@+id/tv_project_status"
-            android:layout_width="match_parent"  android:layout_height="wrap_content"
+            android:layout_width="250dp" android:layout_height="wrap_content"
             android:inputType="text"
-            android:imeOptions="actionDone" />
+            android:imeOptions="actionDone"/>
     <TextView
             android:id="@+id/lbl_project_desc" android:text="Project Description"
-            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            android:layout_width="250dp" android:layout_height="wrap_content"/>
 
     <EditText
             android:id="@+id/tv_project_desc"
-            android:layout_width="match_parent"  android:layout_height="wrap_content"
+            android:layout_width="250dp" android:layout_height="wrap_content"
             android:inputType="text"
-            android:imeOptions="actionDone" />
+            android:imeOptions="actionDone"/>
     <TextView
             android:id="@+id/lbl_start_date" android:text="Start Date"
-            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            android:layout_width="250dp" android:layout_height="wrap_content"/>
 
     <EditText
             android:id="@+id/tv_start_date"
-            android:layout_width="match_parent"  android:layout_height="wrap_content"
+            android:layout_width="250dp" android:layout_height="wrap_content"
             android:inputType="text"
-            android:imeOptions="actionDone" />
+            android:imeOptions="actionDone"/>
     <Button
             android:text="Select Date"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content" android:id="@+id/btn_start"/>
     <TextView
             android:id="@+id/lbl_end_date" android:text="End Day"
-            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            android:layout_width="250dp" android:layout_height="wrap_content"/>
 
     <EditText
-
-
             android:id="@+id/tv_end_day"
-            android:layout_width="match_parent"  android:layout_height="wrap_content"
+            android:layout_width="250dp" android:layout_height="wrap_content"
             android:inputType="text"
-            android:imeOptions="actionDone" />
+            android:imeOptions="actionDone"/>
     <Button
             android:text="Select Date"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content" android:id="@+id/btn_end"/>
-    <Button
-            android:text="Button"
-
-
-
-
+    <TextView
+            android:text="TextView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/button"/>
+            android:layout_height="wrap_content" android:id="@+id/tv_test1"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/tv_test2"/>
+    <Button
+            android:text="Add"
+
+
+            android:layout_width="250dp"
+            android:layout_height="wrap_content" android:id="@+id/button" android:layout_marginTop="30dp"/>
 </LinearLayout>
