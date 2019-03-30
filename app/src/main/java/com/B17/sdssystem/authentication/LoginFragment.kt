@@ -49,13 +49,17 @@ class LoginFragment : Fragment(), AuthContract.view , AnkoLogger {
         editor.putString("userid", login?.userid).apply()
         editor.putString("appapikey", login?.appapikey).apply()
         editor.putString("userrole", login?.userrole).apply()
+        info{"checking login details ----> " + login?.userid}
+
+       if(login?.userid ==null){
+           activity!!.longToast("Invalid Login Details")
+       }else if (BuildConfig.FLAVOR.equals("manager")) {
+        startActivity(context?.intentFor<ManagerActivity>()?.singleTop())
+            } else {
+        startActivity(context?.intentFor<DeveloperActivity>()?.singleTop())
+            }
 
 
-        if (BuildConfig.FLAVOR.equals("manager")) {
-            startActivity(context?.intentFor<ManagerActivity>()?.singleTop())
-        } else {
-            startActivity(context?.intentFor<DeveloperActivity>()?.singleTop())
-        }
     }
 
     override fun onCreateView(
@@ -72,11 +76,13 @@ class LoginFragment : Fragment(), AuthContract.view , AnkoLogger {
 
             awesomeValidation = AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT)
             awesomeValidation.addValidation(et_lgnEmail, Patterns.EMAIL_ADDRESS, "Invalid Email Id")
+            awesomeValidation.addValidation(et_logPW,".{8,}","Invalid Password")
 
 
 
             if (awesomeValidation.validate()){
-                authPresenter.loginUser(et_lgnEmail.toString(), et_logPW.toString())
+                info { "Checking user login details " + et_lgnEmail.toString() + " " + et_logPW.toString() }
+                authPresenter.loginUser(et_lgnEmail.editText?.text.toString(), et_logPW.editText?.text.toString())
             }
 
 

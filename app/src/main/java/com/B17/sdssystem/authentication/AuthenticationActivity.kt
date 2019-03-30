@@ -13,7 +13,6 @@ class AuthenticationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_authentication)
 
 
-
         var fg : Fragment = LoginFragment()
         getSupportFragmentManager().beginTransaction()
             .replace(R.id.auth_container, fg).addToBackStack(null)

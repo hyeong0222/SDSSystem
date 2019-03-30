@@ -1,5 +1,6 @@
 package com.B17.sdssystem.adapter
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +9,13 @@ import com.B17.sdssystem.R
 import com.B17.sdssystem.data.Subtask
 import kotlinx.android.synthetic.main.item_subtask.view.*
 
-class SubTaskAdapter(var subtaskList : List<Subtask>) : RecyclerView.Adapter<SubTaskAdapter.ViewHolder>() {
+class SubTaskAdapter(var subtaskList : List<Subtask>, val context : Context?) : RecyclerView.Adapter<SubTaskAdapter.ViewHolder>() {
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(p0.context).inflate(R.layout.item_subtask, p0, false))
     }
 
     override fun getItemCount(): Int {
-        return subtaskList?.size?:0
+        return subtaskList!!.size
     }
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {

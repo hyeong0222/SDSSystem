@@ -27,8 +27,8 @@ class TaskListFragment : Fragment(), DevTaskAdapter.OnItemClickListener, AnkoLog
     override fun onItemClick(view: View, position: Int) {
 
         val gson = Gson()
-        val json = gson.toJson(adapter.devTaskList.get(position))
-        info { adapter.devTaskList.get(position) }
+        val json = gson.toJson(adapter.devTaskList!!.get(position))
+        info { adapter.devTaskList!!.get(position) }
 
         val editor = activity!!.getSharedPreferences("default", Context.MODE_PRIVATE).edit()
         editor.putString("devtasks", json).apply()
@@ -51,6 +51,8 @@ class TaskListFragment : Fragment(), DevTaskAdapter.OnItemClickListener, AnkoLog
         // Inflate the layout for this fragment
 
         var v = inflater.inflate(R.layout.fragment_task_list, container, false)
+        val sharedPref = activity!!.getSharedPreferences("default", Context.MODE_PRIVATE)
+
 
         var rv : RecyclerView = v.findViewById(R.id.tasklist_recyclerView)
         rv.setHasFixedSize(true)
@@ -58,9 +60,9 @@ class TaskListFragment : Fragment(), DevTaskAdapter.OnItemClickListener, AnkoLog
 
          viewModel = ViewModelProviders.of(this).get(TaskListViewModel::class.java)
 
-        devTaskList = viewModel.requestTaskList("53")
+        devTaskList = viewModel.requestTaskList(sharedPref.getString("userid", null))
         devTaskList.observe(this, Observer { s ->
-            adapter = DevTaskAdapter(s!!.taskList, context)
+            adapter = DevTaskAdapter(s?.taskList, this.context)
             rv.adapter = adapter
             adapter.onItemClickListener = this
         })
