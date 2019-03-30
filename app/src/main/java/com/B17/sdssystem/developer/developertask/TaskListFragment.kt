@@ -31,6 +31,7 @@ class TaskListFragment : Fragment(), DevTaskAdapter.OnItemClickListener, AnkoLog
         info { adapter.devTaskList.get(position) }
 
         val editor = activity!!.getSharedPreferences("default", Context.MODE_PRIVATE).edit()
+
         editor.putString("devtasks", json).apply()
 
         val args = Bundle()
@@ -58,7 +59,37 @@ class TaskListFragment : Fragment(), DevTaskAdapter.OnItemClickListener, AnkoLog
 
          viewModel = ViewModelProviders.of(this).get(TaskListViewModel::class.java)
 
-        devTaskList = viewModel.requestTaskList("53")
+
+
+
+
+
+
+
+
+
+
+
+
+        val userid = activity?.getSharedPreferences("default", Context.MODE_PRIVATE)?.getString("userid", "")!!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        devTaskList = viewModel.requestTaskList(userid)
+
         devTaskList.observe(this, Observer { s ->
             adapter = DevTaskAdapter(s!!.taskList, context)
             rv.adapter = adapter

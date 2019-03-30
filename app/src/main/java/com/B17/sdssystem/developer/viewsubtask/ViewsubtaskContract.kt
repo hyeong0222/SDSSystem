@@ -7,5 +7,5 @@ interface ViewsubtaskContract {
 
 
     interface View{ fun setAdapter(subtasksdetails : List<SubTasksDetailResponse>)}
-    interface Presenter{ fun getSubtasks()}
+    interface Presenter{ fun getSubtasks(userid: String, tasksid: String)}
 }
