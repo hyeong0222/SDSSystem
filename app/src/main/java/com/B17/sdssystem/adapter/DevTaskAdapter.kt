@@ -10,7 +10,7 @@ import com.B17.sdssystem.R
 import com.B17.sdssystem.data.TaskList
 import kotlinx.android.synthetic.main.item_dev_task.view.*
 
-class DevTaskAdapter(var devTaskList : List<TaskList>, var context : Context?) : RecyclerView.Adapter<DevTaskAdapter.ViewHolder>(){
+class DevTaskAdapter(var devTaskList : List<TaskList>?, var context : Context?) : RecyclerView.Adapter<DevTaskAdapter.ViewHolder>(){
 
   lateinit var onItemClickListener : OnItemClickListener
 
@@ -25,13 +25,17 @@ class DevTaskAdapter(var devTaskList : List<TaskList>, var context : Context?) :
     }
 
     override fun getItemCount(): Int {
-      return  devTaskList.size
+      //  return devTaskList?.size?: 0
+        if (devTaskList ==null){
+            return 0
+        }
+        return devTaskList!!.size
     }
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
-         p0.tv_projectid.text = devTaskList.get(p1).projectid
-         p0.tv_taskid.text = devTaskList.get(p1).taskid
-         p0.tv_subtaskid.text = devTaskList.get(p1).subtaskid
+         p0.tv_projectid.text = devTaskList!!.get(p1).projectid
+         p0.tv_taskid.text = devTaskList!!.get(p1).taskid
+         p0.tv_subtaskid.text = devTaskList!!.get(p1).subtaskid
     }
 
 
@@ -47,7 +51,5 @@ class DevTaskAdapter(var devTaskList : List<TaskList>, var context : Context?) :
         var tv_taskid = itemview.tv_taskid
         var tv_subtaskid = itemview.tv_subtask_id
     }
-
-
 
 }
