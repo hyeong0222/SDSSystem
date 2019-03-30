@@ -38,6 +38,9 @@ class SubtaskFragment : Fragment(), AnkoLogger {
 
     private var TAG : String = "SubtaskFragment"
     private var subtasks : ArrayList<Subtask> = ArrayList<Subtask>()
+    val mPreferences = activity!!.getSharedPreferences("MANAGER", Context.MODE_PRIVATE)
+    var taskID : String? = mPreferences.getString("task", null)
+
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -49,8 +52,7 @@ class SubtaskFragment : Fragment(), AnkoLogger {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
 
-        val mPreferences = activity!!.getSharedPreferences("MANAGER", Context.MODE_PRIVATE)
-        var taskID : String? = mPreferences.getString("task", null)
+
 
         val viewModel : SubtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
         var subtaskList : LiveData<SubtaskResponse>? = viewModel.getSubtaskList()
@@ -71,6 +73,25 @@ class SubtaskFragment : Fragment(), AnkoLogger {
         floatingActionButton.setOnClickListener {
             showEditDialog()
         }
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val viewModel : SubtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
+        var subtaskList : LiveData<SubtaskResponse>? = viewModel.getSubtaskList()
+        subtaskList?.observe(this, Observer { s ->
+            val subtask : List<Subtask> = s!!.subtaskList
+            for (i in 0..subtask.size-1) {
+                if (subtask.get(i).taskid.equals(taskID)){
+                    subtasks.add(subtask.get(i))
+                }
+            }
+            rv_subtaskFrag.adapter = SubTaskAdapter(subtasks)
+
+        })
+
 
     }
 

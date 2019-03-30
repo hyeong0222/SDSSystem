@@ -10,30 +10,12 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/et_projectid"
-            android:hint="Project Id"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="65dp" app:layout_constraintEnd_toEndOf="@+id/et_taskid"/>
-    <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/et_taskid"
-            android:hint="Task ID"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="18dp"
-            app:layout_constraintTop_toBottomOf="@+id/et_projectid"
-            app:layout_constraintEnd_toEndOf="@+id/et_subtaskname"/>
-    <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
             android:id="@+id/et_subtaskname"
             android:hint="Subtask Name"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="13dp"
-            app:layout_constraintTop_toBottomOf="@+id/et_taskid"
-            app:layout_constraintEnd_toEndOf="@+id/et_subtask_status"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/et_subtask_status"
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="142dp"/>
     <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -41,7 +23,7 @@
             android:ems="10"
             android:id="@+id/et_subtask_status"
             android:hint="Subtask Status"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="17dp"
             app:layout_constraintTop_toBottomOf="@+id/et_subtaskname"
             app:layout_constraintEnd_toEndOf="@+id/et_subtask_desc"/>
     <EditText
@@ -51,7 +33,7 @@
             android:ems="10"
             android:id="@+id/et_subtask_desc"
             android:hint="Subtask Desc"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="21dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="20dp"
             app:layout_constraintTop_toBottomOf="@+id/et_subtask_status"
             app:layout_constraintEnd_toEndOf="@+id/et_startdate"/>
     <EditText
@@ -61,9 +43,9 @@
             android:ems="10"
             android:id="@+id/et_startdate"
             android:hint="Subtask Start Date"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="21dp"
             app:layout_constraintTop_toBottomOf="@+id/et_subtask_desc"
-            app:layout_constraintEnd_toEndOf="@+id/et_enddate"/>
+            app:layout_constraintEnd_toEndOf="@+id/btn_startdate"/>
     <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -71,14 +53,29 @@
             android:ems="10"
             android:id="@+id/et_enddate"
             android:hint="Subtask End Date"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/et_startdate"/>
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="19dp"
+            app:layout_constraintTop_toBottomOf="@+id/btn_startdate"
+            app:layout_constraintEnd_toEndOf="@+id/btn_endDate"/>
     <Button
             android:text="Submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/subtask_create_button"
-            android:layout_marginTop="19dp"
-            app:layout_constraintTop_toBottomOf="@+id/et_enddate" android:layout_marginEnd="46dp"
-            app:layout_constraintEnd_toEndOf="@+id/et_enddate"/>
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="17dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/btn_endDate"/>
+    <Button
+            android:text="Select Start Date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_startdate"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="11dp"
+            app:layout_constraintTop_toBottomOf="@+id/et_startdate" app:layout_constraintEnd_toEndOf="@+id/et_enddate"/>
+    <Button
+            android:text="Select Start Date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_endDate"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="14dp"
+            app:layout_constraintTop_toBottomOf="@+id/et_enddate"/>
 </android.support.constraint.ConstraintLayout>
