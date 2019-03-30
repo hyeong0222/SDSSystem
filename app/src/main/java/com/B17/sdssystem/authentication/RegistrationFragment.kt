@@ -12,6 +12,8 @@ import android.widget.TextView
 import com.B17.sdssystem.R
 import com.B17.sdssystem.data.Login
 import com.B17.sdssystem.data.Msg
+import com.basgeekball.awesomevalidation.AwesomeValidation
+import com.basgeekball.awesomevalidation.ValidationStyle
 import com.wajahatkarim3.easyvalidation.core.view_ktx.validEmail
 import com.wajahatkarim3.easyvalidation.core.view_ktx.validNumber
 import com.wajahatkarim3.easyvalidation.core.view_ktx.validator
@@ -29,6 +31,7 @@ class RegistrationFragment : Fragment(), AnkoLogger, AuthContract.view {
 
     lateinit var btn_Register : Button
     lateinit var tv_gotAccount : TextView
+    lateinit var awesomeValidation: AwesomeValidation
 
     private val authPresenter = AuthPresenter(this)
 
@@ -49,9 +52,10 @@ class RegistrationFragment : Fragment(), AnkoLogger, AuthContract.view {
         // Inflate the layout for this fragment
        var v =  inflater.inflate(R.layout.fragment_registration, container, false)
         btn_Register = v.findViewById(R.id.btn_Register)
-        btn_Register.setOnClickListener {
+       /* btn_Register.setOnClickListener {
 
-            if(et_fname.text.isEmpty() || et_lname.text.isEmpty()){
+
+        *//*    if(et_fname.text.isEmpty() || et_lname.text.isEmpty()){
                activity?.longToast("Names cannot be empty")
             } else if(et_email.text.isEmpty() || !et_email.validEmail()){
                 activity?.longToast("Please enter a valid Email Address")
@@ -82,7 +86,7 @@ class RegistrationFragment : Fragment(), AnkoLogger, AuthContract.view {
             activity?.getSupportFragmentManager()?.beginTransaction()
                 ?.replace(R.id.auth_container, fg)?.addToBackStack(null)
                 ?.commit();
-        }
+        }*/
         return v
     }
 }

@@ -22,7 +22,8 @@ class AuthPresenter(var authView : AuthContract.view) : AnkoLogger, AuthContract
         userLogin.enqueue(object: Callback<Login> {
 
             override fun onResponse(call: Call<Login>, response: Response<Login>) {
-                //  info { response?.body()?.regList?.get(0)?.msg }
+                // info { response?.body()?.regList?.get(0)?.msg }
+                info { "AuthPresenter" + response?.body()?.userrole }
 
                      authView.showLoginInfo(response.body()!!)
 
