@@ -43,7 +43,13 @@ class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
         val userid = ""  // TODO: change to getargument
         val assignViewModel = ViewModelProviders.of(this).get(AssignViewModel::class.java)
         var assignLiveData = assignViewModel.assign(projectIDSelected,userid, taskIDSelected, subtaskIDSelected)
-        assignLiveData.observe(this, Observer { s -> Toast.makeText(context, s!!.msg.get(0), Toast.LENGTH_LONG).show() })
+        assignLiveData.observe(this, Observer { /*s -> Toast.makeText(context, s!!.msg.get(0), Toast.LENGTH_LONG).show()*/ })
+
+
+
+
+        var assignTasksLiveData = assignViewModel.assignTasks(projectIDSelected, taskIDSelected, userid)
+        assignTasksLiveData.observe(this, Observer { s -> Toast.makeText(context, s!!.msg.get(0), Toast.LENGTH_LONG).show() })
     }
 
     var projectsList : ArrayList<String> = ArrayList<String>()

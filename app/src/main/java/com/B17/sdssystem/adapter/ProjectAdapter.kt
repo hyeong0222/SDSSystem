@@ -24,7 +24,7 @@ class ProjectAdapter(val projects: List<Project>?) : RecyclerView.Adapter<Projec
 
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
-        p0.id.text = (projects?.get(p1)?.id)
+        p0.id.text = (projects?.get(p1)?.projectname)
         p0.status.text = (projects?.get(p1)?.projectstatus)
         p0.startDate.text = (projects?.get(p1)?.startdate)
         p0.desc.text = (projects?.get(p1)?.projectdesc)
