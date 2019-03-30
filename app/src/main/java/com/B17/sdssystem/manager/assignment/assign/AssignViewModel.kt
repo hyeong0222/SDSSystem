@@ -15,11 +15,6 @@ import retrofit2.Response
 class AssignViewModel : ViewModel() {
     val logger = AnkoLogger("AssignViewModel")
 
-
-
-
-
-
     var assignResponse : MutableLiveData<AssignResponse> = MutableLiveData()
     fun assign(project_id : String, user_id: String, task_id: String, subtasks_id : String) : LiveData<AssignResponse>{
 
@@ -36,8 +31,6 @@ class AssignViewModel : ViewModel() {
 
                 assignResponse.value = response.body()
             }
-
-
         })
 
         return assignResponse

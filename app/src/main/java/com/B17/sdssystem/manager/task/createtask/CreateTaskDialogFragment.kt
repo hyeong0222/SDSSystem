@@ -5,6 +5,8 @@ import android.app.DatePickerDialog
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
@@ -31,19 +33,14 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class CreateTaskDialogFragment : DialogFragment(), AnkoLogger {
+class CreateTaskDialogFragment : DialogFragment(), AnkoLogger, DialogInterface.OnDismissListener {
 
+    private var onDismissListener: DialogInterface.OnDismissListener? = null
     lateinit var calendarFragment : CalendarFragment
     val logger = AnkoLogger("Create Task Dialog")
     val REQUEST_CODE = 100
 
-
-//    interface DialogListener {
-//        fun onFinishDialog(inputText: String)
-//    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         val view: View = inflater.inflate(R.layout.fragment_create_task_dialog, container, false)
         return view
     }
@@ -59,6 +56,9 @@ class CreateTaskDialogFragment : DialogFragment(), AnkoLogger {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val mPreferences = activity!!.getSharedPreferences("MANAGER", Context.MODE_PRIVATE)
+        var projectID : String = mPreferences.getString("project", null)
 
         calendarFragment = CalendarFragment()
 
@@ -82,15 +82,27 @@ class CreateTaskDialogFragment : DialogFragment(), AnkoLogger {
 
         btn_save.setOnClickListener {
             var createTaskList: LiveData<ResponseCreateTask> = createTaskModel.sendCreateTaskRequest(
-                "203",
-                et_taskName.text.toString(), "1",
+                projectID, et_taskName.text.toString(), "1",
                 et_description.text.toString(), et_startDate.text.toString(), et_endDate.text.toString()
             )
             createTaskList.observe(this, Observer { s ->
                 activity!!.longToast(s!!.msg.get(0))
             })
-        }
 
+            context?.longToast("Task Created")
+            dismiss()
+        }
+    }
+
+    fun setOnDismissListener(onDismissListener: DialogInterface.OnDismissListener) {
+        this.onDismissListener = onDismissListener
+    }
+
+    override fun onDismiss(dialog: DialogInterface?) {
+        super.onDismiss(dialog)
+        if (onDismissListener != null) {
+            onDismissListener!!.onDismiss(dialog)
+        }
     }
 }
 

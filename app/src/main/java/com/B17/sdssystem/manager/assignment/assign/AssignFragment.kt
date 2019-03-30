@@ -37,6 +37,7 @@ private const val ARG_PARAM2 = "param2"
  */
 
 class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
+
     override fun onClick(v: View?) {
 
         val userid = ""  // TODO: change to getargument
@@ -84,7 +85,7 @@ class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
 
                     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                         taskIDSelected = tasks!!.get(position).taskid
-                        subtaskSpinner(tasks!!.get(position).taskid)
+                        subtaskSpinner(projectIDSelected, tasks!!.get(position).taskid)
                         subtaskListSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                             override fun onNothingSelected(parent: AdapterView<*>?) {
                                 context!!.longToast("Please select a subtask")
@@ -103,14 +104,7 @@ class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
-
-
-
         btnAssign.setOnClickListener(this)
-
-
-
     }
 
 
@@ -150,7 +144,7 @@ class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
         })
     }
 
-    fun subtaskSpinner(taskid : String) {
+    fun subtaskSpinner(projectid : String, taskid : String) {
         var subtaskModel : SubtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
         var subtaskList : LiveData<SubtaskResponse>? = subtaskModel.getSubtaskList()
         subtaskList?.observe(this, Observer { s ->
@@ -158,7 +152,7 @@ class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
             subtasksList.clear()
             var subtaskItems : List<Subtask>? = s?.subtaskList
             for (i in 0..subtasks!!.size - 1) {
-                if (subtaskItems?.get(i)?.taskid.equals(taskid)){
+                if (subtaskItems?.get(i)?.projectid.equals(projectid) && subtaskItems?.get(i)?.taskid.equals(taskid)){
                     var item : String = subtaskItems?.get(i)?.subtaskid + ". " + subtaskItems?.get(i)?.subtaskname
                     subtasksList.add(item)
                 }
@@ -167,6 +161,4 @@ class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
             subtaskListSpinner.adapter = aa
         })
     }
-
-
 }
