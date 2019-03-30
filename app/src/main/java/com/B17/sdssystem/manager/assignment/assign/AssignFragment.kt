@@ -4,6 +4,7 @@ package com.B17.sdssystem.manager.assignment.assign
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -39,7 +40,7 @@ private const val ARG_PARAM2 = "param2"
 class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
     override fun onClick(v: View?) {
 
-        val userid = ""  // TODO: change to getargument
+        val userid = activity!!.getSharedPreferences("default", Context.MODE_PRIVATE).getString("userid", "")  // TODO: change to getargument
         val assignViewModel = ViewModelProviders.of(this).get(AssignViewModel::class.java)
         var assignLiveData = assignViewModel.assign(projectIDSelected,userid, taskIDSelected, subtaskIDSelected)
         assignLiveData.observe(this, Observer { /*s -> Toast.makeText(context, s!!.msg.get(0), Toast.LENGTH_LONG).show()*/ })
@@ -48,7 +49,9 @@ class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
 
 
         var assignTasksLiveData = assignViewModel.assignTasks(projectIDSelected, taskIDSelected, userid)
-        assignTasksLiveData.observe(this, Observer { s -> Toast.makeText(context, s!!.msg.get(0), Toast.LENGTH_LONG).show() })
+        assignTasksLiveData.observe(this, Observer { /*s -> Toast.makeText(context, s!!.msg.get(0), Toast.LENGTH_LONG).show()*/ })
+        var assignSubTasksLiveData = assignViewModel.assignSubTasks(subtaskIDSelected, taskIDSelected, projectIDSelected, userid)
+        assignSubTasksLiveData.observe(this, Observer { s -> Toast.makeText(context, s!!.msg.get(0), Toast.LENGTH_LONG).show() })
     }
 
     var projectsList : ArrayList<String> = ArrayList<String>()

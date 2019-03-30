@@ -15,10 +15,10 @@ class ViewsubtaskPresenter(val view : ViewsubtaskContract.View) : ViewsubtaskCon
     val logger = AnkoLogger("ViewsubtaskPresenter")
     val retrofitInstance = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
 
-    override fun getSubtasks() {
+    override fun getSubtasks(userid: String, tasksid: String) {
 
         val subTasksDetails = ArrayList<SubTasksDetailResponse>()
-        val subtasksCall = retrofitInstance.getSubtasks("65", "112")
+        val subtasksCall = retrofitInstance.getSubtasks(userid, tasksid)
         subtasksCall.enqueue(object : Callback<SubTaskResponse>{
             override fun onFailure(call: Call<SubTaskResponse>, t: Throwable) {
                 logger.info { t.message }

@@ -32,6 +32,9 @@ class TaskDetailFragment : Fragment(), AdapterView.OnItemClickListener, AnkoLogg
     lateinit var userTaskDetails : TaskDetail
     lateinit var taskDetails : LiveData<TaskDetail>
     var status_id = -1
+    lateinit var tasksid : String
+
+
 
     override fun onClick(v: View?) {
 
@@ -52,6 +55,7 @@ class TaskDetailFragment : Fragment(), AdapterView.OnItemClickListener, AnkoLogg
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
 
         var taskInfo = arguments!!.getString("devtasks")
         val gson = Gson()
@@ -74,6 +78,9 @@ class TaskDetailFragment : Fragment(), AdapterView.OnItemClickListener, AnkoLogg
             tv_td_taskStartDate.text = "Task Start Date: " +s?.startdate
             tv_td_taskStatus.text = "Task Status: " +s?.taskstatus
             tv_td_taskEndDate.text ="Task End Date: " + s?.endstart
+
+
+            tasksid = userTaskDetails.taskid
         })
 
 
@@ -85,10 +92,15 @@ class TaskDetailFragment : Fragment(), AdapterView.OnItemClickListener, AnkoLogg
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var v =  inflater.inflate(R.layout.fragment_task_detail, container, false)
-
+        val arg = Bundle()
         val btn_subtask : Button = v.findViewById(R.id.btn_subtask)
+        arg.putString("tasksid", tasksid)
+        val viewsubtaskFragment = ViewsubtaskFragment()
+
+        viewsubtaskFragment.arguments = arg
         btn_subtask.setOnClickListener { v ->
-            activity!!.supportFragmentManager.beginTransaction().replace(R.id.fl_developerActivity, ViewsubtaskFragment())
+
+            activity!!.supportFragmentManager.beginTransaction().replace(R.id.fl_developerActivity, viewsubtaskFragment)
                 .addToBackStack(null).commit()
         }
 
