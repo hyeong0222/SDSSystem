@@ -10,7 +10,7 @@
                                         android:layout_height="wrap_content"
                                         android:elevation="10dp"
                                         app:cardCornerRadius="10dp"
-                                        app:cardBackgroundColor="@color/rgn_background" android:id="@+id/cardView3"
+                                        android:id="@+id/cardView3"
                                         app:layout_constraintTop_toTopOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent" android:layout_margin="10dp">
