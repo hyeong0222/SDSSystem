@@ -40,7 +40,7 @@ private const val ARG_PARAM2 = "param2"
 class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
     override fun onClick(v: View?) {
 
-        val userid = activity!!.getSharedPreferences("default", Context.MODE_PRIVATE).getString("userid", "")  // TODO: change to getargument
+        val userid = activity!!.getSharedPreferences("MANAGER", Context.MODE_PRIVATE).getString("employee", "")  // TODO: change to getargument
         val assignViewModel = ViewModelProviders.of(this).get(AssignViewModel::class.java)
         var assignLiveData = assignViewModel.assign(projectIDSelected,userid, taskIDSelected, subtaskIDSelected)
         assignLiveData.observe(this, Observer { /*s -> Toast.makeText(context, s!!.msg.get(0), Toast.LENGTH_LONG).show()*/ })
@@ -50,14 +50,13 @@ class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
 
         var assignTasksLiveData = assignViewModel.assignTasks(projectIDSelected, taskIDSelected, userid)
         assignTasksLiveData.observe(this, Observer { /*s -> Toast.makeText(context, s!!.msg.get(0), Toast.LENGTH_LONG).show()*/ })
-        var assignSubTasksLiveData = assignViewModel.assignSubTasks(subtaskIDSelected, taskIDSelected, projectIDSelected, userid)
+        var assignSubTasksLiveData = assignViewModel.assignSubTasks(projectIDSelected, taskIDSelected, subtaskIDSelected, userid)
         assignSubTasksLiveData.observe(this, Observer { s -> Toast.makeText(context, s!!.msg.get(0), Toast.LENGTH_LONG).show() })
     }
 
     var projectsList : ArrayList<String> = ArrayList<String>()
     var tasksList : ArrayList<String> = ArrayList<String>()
     var subtasksList : ArrayList<String> = ArrayList<String>()
-
     var projects : List<Project> = ArrayList<Project>()
     var tasks : List<Task>? = ArrayList<Task>()
     var subtasks : List<Subtask>? = ArrayList<Subtask>()
@@ -65,11 +64,13 @@ class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
     lateinit var projectListSpinner : Spinner
     lateinit var taskListSpinner : Spinner
     lateinit var subtaskListSpinner : Spinner
-
     var projectIDSelected : String = ""
     var taskIDSelected : String = ""
     var subtaskIDSelected : String = ""
 
+    val tasksIDList : ArrayList<String> = ArrayList()
+
+    val subtasksIDList : ArrayList<String> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view : View = inflater.inflate(R.layout.fragment_assign, container, false)
@@ -92,7 +93,7 @@ class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
                     }
 
                     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                        taskIDSelected = tasks!!.get(position).taskid
+                        taskIDSelected = tasksIDList!!.get(position)
                         subtaskSpinner(tasks!!.get(position).taskid)
                         subtaskListSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -100,7 +101,7 @@ class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
                             }
 
                             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                                subtaskIDSelected = subtasks!!.get(position).subtaskid
+                                subtaskIDSelected = subtasksIDList!!.get(position)
                             }
                         }
                     }
@@ -146,11 +147,28 @@ class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
         var taskList : LiveData<List<Task>> = taskModel.sendTaskRequest()
         taskList.observe(this, Observer { s ->
             tasksList.clear()
+            tasksIDList.clear()
             tasks = s
             for (i in 0..s!!.size - 1) {
                 if (s.get(i).projectid.equals(id)) {
                     var item : String = s.get(i).taskid + ". " + s.get(i).taskname
                     tasksList.add(item)
+
+                    var id = s.get(i).taskid
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    tasksIDList.add(id)
                 }
             }
 
@@ -165,11 +183,44 @@ class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
         subtaskList?.observe(this, Observer { s ->
             subtasks = s!!.subtaskList
             subtasksList.clear()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            subtasksIDList.clear()
             var subtaskItems : List<Subtask>? = s?.subtaskList
             for (i in 0..subtasks!!.size - 1) {
                 if (subtaskItems?.get(i)?.taskid.equals(taskid)){
                     var item : String = subtaskItems?.get(i)?.subtaskid + ". " + subtaskItems?.get(i)?.subtaskname
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     subtasksList.add(item)
+                    var id : String = subtaskItems?.get(i)?.subtaskid!!
+                    subtasksIDList.add(id)
                 }
             }
             val aa = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, subtasksList)
