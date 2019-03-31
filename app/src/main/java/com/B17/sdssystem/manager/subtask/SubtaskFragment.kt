@@ -36,7 +36,6 @@ class SubtaskFragment : Fragment(), AnkoLogger, DialogInterface.OnDismissListene
     private lateinit var subtaskAdapter : SubTaskAdapter
 
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         var v = inflater.inflate(R.layout.fragment_sub_task, container, false)
@@ -74,9 +73,7 @@ class SubtaskFragment : Fragment(), AnkoLogger, DialogInterface.OnDismissListene
             subtaskAdapter.notifyDataSetChanged()
             rv_subtaskFrag.adapter = subtaskAdapter
         })
-
         d.show(fragmentManager,"Dialog")
-
     }
 
     private fun showEditDialog() {
@@ -96,6 +93,7 @@ class SubtaskFragment : Fragment(), AnkoLogger, DialogInterface.OnDismissListene
         val viewModel : SubtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
         var subtaskList : LiveData<SubtaskResponse>? = viewModel.getSubtaskList()
         subtaskList?.observe(this, Observer { s ->
+            subtasks.clear()
             val subtask : List<Subtask> = s!!.subtaskList
             for (i in 0..subtask.size-1) {
                 if (subtask.get(i).taskid.equals(taskID)){
