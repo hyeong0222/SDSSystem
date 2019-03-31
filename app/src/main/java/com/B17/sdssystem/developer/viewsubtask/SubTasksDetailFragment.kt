@@ -3,6 +3,7 @@ package com.B17.sdssystem.developer.viewsubtask
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -36,7 +37,12 @@ class SubTasksDetailFragment : Fragment(), AdapterView.OnItemSelectedListener, V
     override fun onClick(v: View?) {
         val viewModel = ViewModelProviders.of(this).get(SubTasksDetailViewModel::class.java)
 
-        var response = viewModel.updateSubTasks(subTasks.subtaskid, subTasks.taskid, subTasks.projectid, "", status_id.toString())
+
+
+
+        val userid = activity!!.getSharedPreferences("default", Context.MODE_PRIVATE).getString("userid", "")
+
+        var response = viewModel.updateSubTasks(subTasks.subtaskid, subTasks.taskid, subTasks.projectid, userid, status_id.toString())
         response.observe(this, Observer { s -> Toast.makeText(context, s?.msg?.get(0), Toast.LENGTH_LONG).show() })
     }
     override fun onNothingSelected(parent: AdapterView<*>?) {

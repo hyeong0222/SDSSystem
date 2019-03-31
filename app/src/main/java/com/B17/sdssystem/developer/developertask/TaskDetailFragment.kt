@@ -48,7 +48,6 @@ class TaskDetailFragment : Fragment(), AdapterView.OnItemClickListener, AnkoLogg
             s -> activity?.longToast(s!!.msg.get(0))
         })
     }
-
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         status_id = position
     }
@@ -88,21 +87,26 @@ class TaskDetailFragment : Fragment(), AdapterView.OnItemClickListener, AnkoLogg
         spinner.adapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_dropdown_item, status)
 
         btn_td_submit.setOnClickListener(this)
-    }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var v =  inflater.inflate(R.layout.fragment_task_detail, container, false)
-        val arg = Bundle()
-        val btn_subtask : Button = v.findViewById(R.id.btn_subtask)
-        arg.putString("tasksid", tasksid)
-        val viewsubtaskFragment = ViewsubtaskFragment()
 
-        viewsubtaskFragment.arguments = arg
+
         btn_subtask.setOnClickListener { v ->
+            val arg = Bundle()
+            val btn_subtask : Button = v.findViewById(R.id.btn_subtask)
+
+
+            arg.putString("tasksid", tasksid)
+            val viewsubtaskFragment = ViewsubtaskFragment()
+            viewsubtaskFragment.arguments = arg
 
             activity!!.supportFragmentManager.beginTransaction().replace(R.id.fl_developerActivity, viewsubtaskFragment)
                 .addToBackStack(null).commit()
         }
+
+    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        var v =  inflater.inflate(R.layout.fragment_task_detail, container, false)
+
 
         return v
     }
