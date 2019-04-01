@@ -68,7 +68,7 @@ class RegistrationFragment : Fragment(), AnkoLogger, AuthContract.view {
             awesomeValidation.addValidation( et_lname, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", "Invalid Name");
             awesomeValidation.addValidation(et_phone, Patterns.PHONE, "Invalid Phone Number");
             awesomeValidation.addValidation(et_password,".{8,}","Invalid Password")
-            awesomeValidation.addValidation(et_comSize, com.google.common.collect.Range.closed(1,1000000), "Invalid Input")
+            awesomeValidation.addValidation(et_comSize, com.google.common.collect.Range.closed(0,1000000), "Invalid Input")
 
 
             if (awesomeValidation.validate() ){
