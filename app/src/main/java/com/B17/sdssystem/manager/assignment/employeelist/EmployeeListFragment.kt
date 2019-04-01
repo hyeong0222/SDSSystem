@@ -46,6 +46,10 @@ class EmployeeListFragment : Fragment(), AnkoLogger, EmployeeListAdapter.OnItemC
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        activity!!.title = "EMPLOYEE LIST"
+    }
     override fun onItemClick(view: View, position: Int) {
         val editor = activity!!.getSharedPreferences("MANAGER", Context.MODE_PRIVATE).edit()
         editor.putString("employee", employeeListAdapter.employeeList?.get(position)?.empid).apply()

@@ -34,7 +34,7 @@ class DevTaskAdapter(var devTaskList : List<TaskList>?, var context : Context?) 
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
          p0.tv_projectid.text = devTaskList!!.get(p1).projectid
-         p0.tv_taskid.text = devTaskList!!.get(p1).taskid
+         p0.tv_taskid.text = "TASK ID:     "+devTaskList!!.get(p1).taskid
          p0.tv_subtaskid.text = devTaskList!!.get(p1).subtaskid
     }
 

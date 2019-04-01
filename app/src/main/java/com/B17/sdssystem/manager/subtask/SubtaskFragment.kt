@@ -48,8 +48,9 @@ class SubtaskFragment : Fragment(), AnkoLogger, DialogInterface.OnDismissListene
         var floatingActionButton = v.findViewById<FloatingActionButton>(R.id.floatingActionButton)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-        subtasks.clear()
+        //subtasks.clear()
         subtaskNetworkCall()
+        subtasks.clear()
         subtaskAdapter = SubTaskAdapter(subtasks,context)
         recyclerView.adapter = subtaskAdapter
 
@@ -63,6 +64,7 @@ class SubtaskFragment : Fragment(), AnkoLogger, DialogInterface.OnDismissListene
     override fun onResume() {
         super.onResume()
         info{ "onResume ---->"}
+        activity!!.title = "SUBTASKS"
 
         subtasks.clear()
 

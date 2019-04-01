@@ -1,10 +1,15 @@
 package com.B17.sdssystem.authentication
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.B17.sdssystem.BuildConfig
 import com.B17.sdssystem.R
+import com.B17.sdssystem.splashscreen.DeveloperSplashActivity
+import com.B17.sdssystem.splashscreen.ManagerSplashActivity
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.singleTop
 
 class AuthenticationActivity : AppCompatActivity() {
 
@@ -12,11 +17,16 @@ class AuthenticationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_authentication)
 
+        if (BuildConfig.FLAVOR.equals("manager")) {
 
-        var fg : Fragment = LoginFragment()
-        getSupportFragmentManager().beginTransaction()
-            .replace(R.id.auth_container, fg).addToBackStack(null)
-            .commit();
+             /*startActivity(intentFor<ManagerSplashActivity>())*/
+             var myIntent = Intent(this, ManagerSplashActivity::class.java)
+             startActivity(myIntent)
+        } else {
+            var myIntent = Intent(this, DeveloperSplashActivity::class.java)
+            startActivity(myIntent)
+        }
+
 
     }
 }

@@ -36,6 +36,7 @@ class RegistrationFragment : Fragment(), AnkoLogger, AuthContract.view {
     lateinit var btn_Register : Button
     lateinit var tv_gotAccount : TextView
     lateinit var awesomeValidation: AwesomeValidation
+    lateinit var fagcontainer : ViewGroup
 
     private val authPresenter = AuthPresenter(this)
 
@@ -44,7 +45,7 @@ class RegistrationFragment : Fragment(), AnkoLogger, AuthContract.view {
         activity?.longToast(msg!!.msg.get(0))
 
         var fg : Fragment = LoginFragment()
-        activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.auth_container, fg)!!.addToBackStack(null)
+        activity?.supportFragmentManager?.beginTransaction()?.replace(fagcontainer.id, fg)!!.addToBackStack(null)
             .commit();
     }
 
@@ -55,7 +56,7 @@ class RegistrationFragment : Fragment(), AnkoLogger, AuthContract.view {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+                 fagcontainer = container!!
         // Inflate the layout for this fragment
        var v =  inflater.inflate(R.layout.fragment_registration, container, false)
         btn_Register = v.findViewById(R.id.btn_Register)
@@ -87,13 +88,12 @@ class RegistrationFragment : Fragment(), AnkoLogger, AuthContract.view {
         }
 
 
-
         tv_gotAccount = v.findViewById(R.id.tv_gotAccount)
         tv_gotAccount.setOnClickListener {
             var fg : Fragment = LoginFragment()
             //  Fragment fg = new LoginFragment();
             activity?.getSupportFragmentManager()?.beginTransaction()
-                ?.replace(R.id.auth_container, fg)?.addToBackStack(null)
+                ?.replace(fagcontainer.id, fg)?.addToBackStack(null)
                 ?.commit();
         }
         return v
