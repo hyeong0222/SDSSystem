@@ -14,16 +14,15 @@
             android:src="@drawable/manager_splash_screen"
             android:id="@+id/imageView2"
             app:layout_constraintStart_toStartOf="@+id/tv_managerSplashScreen"
-            android:layout_marginStart="9dp" android:layout_marginBottom="12dp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_managerSplashScreen"/>
+            app:layout_constraintBottom_toBottomOf="@+id/tv_managerSplashScreen" android:layout_marginStart="9dp"
+            android:layout_marginBottom="23dp"/>
     <TextView
             android:text="MANAGER EDITION"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_managerSplashScreen" android:textSize="24sp"
             android:textStyle="bold" android:textColor="#55BC55"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="269dp"/>
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="301dp"/>
 
 </android.support.constraint.ConstraintLayout>

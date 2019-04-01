@@ -47,7 +47,8 @@ class SubtaskFragment : Fragment(), AnkoLogger, DialogInterface.OnDismissListene
         var floatingActionButton = v.findViewById<FloatingActionButton>(R.id.floatingActionButton)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-        //subtasks.clear()
+
+      //  subtasks.clear()
         subtaskNetworkCall()
         subtasks.clear()
         subtaskAdapter = SubTaskAdapter(subtasks,context)

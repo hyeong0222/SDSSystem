@@ -45,7 +45,7 @@ class ViewsubtaskFragment : Fragment(), ViewsubtaskContract.View, SubTasksDetail
 
     override fun onResume() {
         super.onResume()
-        activity!!.title = "CHANGE SUBTASK STATUS"
+        activity!!.title = " SUBTASK "
     }
 
 
