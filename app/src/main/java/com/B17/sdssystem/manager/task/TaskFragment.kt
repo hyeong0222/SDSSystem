@@ -64,6 +64,8 @@ class TaskFragment : Fragment(), AnkoLogger, TaskAdapter.OnItemClickListener, Di
     override fun onResume() {
         super.onResume()
 
+        activity!!.title = "TASKS"
+
         error { "onResume" }
         tasks.clear()
 

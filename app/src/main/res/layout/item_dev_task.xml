@@ -27,7 +27,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     <TextView
-                            android:text="Project ID:"
+                            android:text="PROJECT ID:"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" tools:layout_editor_absoluteY="0dp"
                             tools:layout_editor_absoluteX="16dp" android:id="@+id/textView11"
@@ -37,35 +37,35 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" tools:layout_editor_absoluteY="0dp"
                             tools:layout_editor_absoluteX="80dp" android:id="@+id/tv_project_id"
-                            android:layout_marginLeft="10dp"/>
+                            android:layout_marginLeft="10dp" android:textStyle="bold"/>
                 </LinearLayout>
                 <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     <TextView
-                            android:text="Task ID:"
+                            android:text="TASK ID:"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" android:id="@+id/tv_taskid"
                             android:layout_marginStart="20dp" android:textStyle="bold"/>
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" android:id="@+id/tv_task_id"
-                            android:layout_marginStart="10dp"/>
+                            android:layout_marginStart="10dp" android:textStyle="bold"/>
                 </LinearLayout>
                 <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     <TextView
-                            android:text="Sub Task Id :"
+                            android:text="SUBTASK ID :"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" android:id="@+id/textView9"
                             android:layout_marginStart="20dp" android:textStyle="bold"/>
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" android:id="@+id/tv_subtask_id"
-                            android:layout_marginStart="10dp"/>
+                            android:layout_marginStart="10dp" android:textStyle="bold"/>
                 </LinearLayout>
             </LinearLayout>
         </android.support.constraint.ConstraintLayout>

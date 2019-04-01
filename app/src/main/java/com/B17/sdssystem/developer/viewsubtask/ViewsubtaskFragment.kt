@@ -43,6 +43,11 @@ class ViewsubtaskFragment : Fragment(), ViewsubtaskContract.View, SubTasksDetail
         adapter.onItemClickListener = this
     }
 
+    override fun onResume() {
+        super.onResume()
+        activity!!.title = "CHANGE SUBTASK STATUS"
+    }
+
 
     val presenter = ViewsubtaskPresenter(this)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,9 @@ import com.B17.sdssystem.data.entries.Project
 import com.B17.sdssystem.manager.task.TaskFragment
 import kotlinx.android.synthetic.main.project_fragment.*
 import kotlinx.android.synthetic.main.project_fragment.view.*
+
+
+
 
 class ProjectFragment : Fragment(), ProjectContract.View, ProjectDialog.DialogListener, ProjectAdapter.OnItemClickListener {
     lateinit var adapter : ProjectAdapter
@@ -40,11 +44,17 @@ class ProjectFragment : Fragment(), ProjectContract.View, ProjectDialog.DialogLi
         rvProject.adapter = adapter
     }
 
+    override fun onResume() {
+        super.onResume()
+        activity!!.title = "PROJECTS"
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         rvProject.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
 
         fab_project.setOnClickListener { showEditDialog() }
+
     }
 
     val presenter : ProjectPresenter by lazy {
@@ -55,6 +65,7 @@ class ProjectFragment : Fragment(), ProjectContract.View, ProjectDialog.DialogLi
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.project_fragment, container, false)
+
         presenter.getProjects()
 
         return view

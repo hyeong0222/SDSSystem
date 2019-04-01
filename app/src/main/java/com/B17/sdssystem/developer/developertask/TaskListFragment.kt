@@ -71,5 +71,11 @@ class TaskListFragment : Fragment(), DevTaskAdapter.OnItemClickListener, AnkoLog
         return v
     }
 
+    override fun onResume() {
+        super.onResume()
+        activity!!.title = "CHANGE TASK STATUS"
+    }
+
+
 
 }

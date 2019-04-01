@@ -8,4 +8,9 @@
         android:id="@+id/auth_container"
         tools:context=".authentication.AuthenticationActivity">
 
+    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:id="@+id/textView17"
+              android:text="AUTHENTICATION ACTIVITY"
+              app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+              android:layout_marginTop="332dp" app:layout_constraintEnd_toEndOf="parent"/>
+
 </android.support.constraint.ConstraintLayout>

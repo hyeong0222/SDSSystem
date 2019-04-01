@@ -85,7 +85,7 @@ class SubtaskDialogFragment : DialogFragment(), AnkoLogger, DialogInterface.OnDi
         subtask_create_button.setOnClickListener {
 
             var createsubtask : LiveData<ResponseCreateSubtask>? = viewModel.createSubtask(projectID.toString(),taskID.toString(),et_subtaskname.text.toString(),
-                "1", et_subtask_desc.text.toString(),et_startdate.text.toString(),
+                "1",et_subtask_desc.text.toString(),et_startdate.text.toString(),
                 et_enddate.text.toString())
 
             createsubtask?.observe(this, Observer {t ->

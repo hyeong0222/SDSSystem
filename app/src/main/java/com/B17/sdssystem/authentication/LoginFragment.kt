@@ -20,9 +20,6 @@ import com.B17.sdssystem.manager.ManagerActivity
 import com.basgeekball.awesomevalidation.AwesomeValidation
 import com.basgeekball.awesomevalidation.ValidationStyle
 import kotlinx.android.synthetic.main.fragment_login.*
-import com.wajahatkarim3.easyvalidation.core.view_ktx.validEmail
-import com.wajahatkarim3.easyvalidation.core.view_ktx.validNumber
-import com.wajahatkarim3.easyvalidation.core.view_ktx.validator
 import org.jetbrains.anko.*
 
 
@@ -38,12 +35,14 @@ class LoginFragment : Fragment(), AuthContract.view , AnkoLogger {
     lateinit var tv_createAccount : TextView
     lateinit var awesomeValidation: AwesomeValidation
 
+
     //msg is a list
     override fun showRegInfo(msg : Msg?) {
 
     }
 
     override fun showLoginInfo(login: Login?) {
+
         info {"LoginFragment "  + login?.useremail + " " + login?.userlastname + " " + login?.msg?.get(0) }
         val editor = activity!!.getSharedPreferences("default", Context.MODE_PRIVATE).edit()
         editor.putString("userid", login?.userid).apply()
@@ -62,40 +61,36 @@ class LoginFragment : Fragment(), AuthContract.view , AnkoLogger {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        var v = inflater.inflate(R.layout.fragment_login, container, false)
+    override fun onResume() {
+        super.onResume()
+        activity!!.title = "LOGIN"
+    }
 
+    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+             var v = inflater.inflate(R.layout.fragment_login, container, false)
+            //   awesomeValidation.addValidation(et_logPW,)
 
-     //   awesomeValidation.addValidation(et_logPW,)
-
-        btnLogin = v.findViewById(R.id.btnLogin )
-        btnLogin.setOnClickListener {
+            btnLogin = v.findViewById(R.id.btnLogin )
+            btnLogin.setOnClickListener {
 
             awesomeValidation = AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT)
             awesomeValidation.addValidation(et_lgnEmail, Patterns.EMAIL_ADDRESS, "Invalid Email Id")
             awesomeValidation.addValidation(et_logPW,".{8,}","Invalid Password")
 
-
-
             if (awesomeValidation.validate()){
                 info { "Checking user login details " + et_lgnEmail.toString() + " " + et_logPW.toString() }
                 authPresenter.loginUser(et_lgnEmail.editText?.text.toString(), et_logPW.editText?.text.toString())
             }
-
-
-
        }
 
         tv_createAccount = v.findViewById(R.id.tv_createAccount)
-
         tv_createAccount.setOnClickListener {
+
             var fg: Fragment = RegistrationFragment()
             //  Fragment fg = new LoginFragment();
+
             activity?.getSupportFragmentManager()?.beginTransaction()
-                ?.replace(R.id.auth_container, fg)?.addToBackStack(null)
+                ?.replace(container!!.id, fg)?.addToBackStack(null)
                 ?.commit();
         }
         return v
