@@ -73,145 +73,143 @@ class AssignFragment : Fragment(), ProjectContract.View, View.OnClickListener {
         }
 
     }
-        var projectsList: ArrayList<String> = ArrayList<String>()
-        var tasksList: ArrayList<String> = ArrayList<String>()
-        var subtasksList: ArrayList<String> = ArrayList<String>()
-        var projects: List<Project> = ArrayList<Project>()
-        var tasks: List<Task>? = ArrayList<Task>()
-        var subtasks: List<Subtask>? = ArrayList<Subtask>()
+    var projectsList: ArrayList<String> = ArrayList<String>()
+    var tasksList: ArrayList<String> = ArrayList<String>()
+    var subtasksList: ArrayList<String> = ArrayList<String>()
+    var projects: List<Project>? = ArrayList<Project>()
+    var tasks: ArrayList<Task>? = ArrayList<Task>()
+    var subtasks: ArrayList<Subtask>? = ArrayList<Subtask>()
 
-        lateinit var projectListSpinner: Spinner
-        lateinit var taskListSpinner: Spinner
-        lateinit var subtaskListSpinner: Spinner
+    lateinit var projectListSpinner: Spinner
+    lateinit var taskListSpinner: Spinner
+    lateinit var subtaskListSpinner: Spinner
 
-        var projectIDSelected: String = ""
-        var taskIDSelected: String = ""
-        var subtaskIDSelected: String = ""
+    var projectIDSelected: String = ""
+    var taskIDSelected: String = ""
+    var subtaskIDSelected: String = ""
 
-        val tasksIDList: ArrayList<String> = ArrayList()
-        val subtasksIDList: ArrayList<String> = ArrayList()
+    val tasksIDList: ArrayList<String> = ArrayList()
+    val subtasksIDList: ArrayList<String> = ArrayList()
 
-        val emptyList = ArrayList<String>()
+    val emptyList = ArrayList<String>()
 
-        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            val view: View = inflater.inflate(R.layout.fragment_assign, container, false)
-            projectListSpinner = view.findViewById(R.id.spinner_project)
-            taskListSpinner = view.findViewById(R.id.spinner_task)
-            subtaskListSpinner = view.findViewById(R.id.spinner_subtask)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view: View = inflater.inflate(R.layout.fragment_assign, container, false)
+        projectListSpinner = view.findViewById(R.id.spinner_project)
+        taskListSpinner = view.findViewById(R.id.spinner_task)
+        subtaskListSpinner = view.findViewById(R.id.spinner_subtask)
 
+        presenter.getProjects()
+        projectListSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                context!!.longToast("Please select a project")
+            }
 
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                projectIDSelected = projects!!.get(position).id
+                taskIDSelected = ""
+                subtaskIDSelected = ""
+                taskSpinner(projectIDSelected)
+                taskListSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                        context!!.longToast("Please select a task")
+                    }
 
+                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                        taskIDSelected = tasks!!.get(position).taskid
+                        subtaskSpinner(projectIDSelected, taskIDSelected)
+                        subtaskIDSelected = ""
+                        subtaskListSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                            override fun onNothingSelected(parent: AdapterView<*>?) {
+                                context!!.longToast("Please select a subtask")
+                            }
 
-            presenter.getProjects()
-            projectListSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    context!!.longToast("Please select a project")
-                }
-
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    projectIDSelected = projects.get(position).id
-                    taskIDSelected = ""
-                    subtaskIDSelected = ""
-                    taskSpinner(projects.get(position).id)
-                    taskListSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                        override fun onNothingSelected(parent: AdapterView<*>?) {
-                            context!!.longToast("Please select a task")
-                        }
-
-                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            taskIDSelected = tasksIDList!!.get(position)
-                            subtaskSpinner(tasks!!.get(position).taskid)
-                            subtaskIDSelected = ""
-                            subtaskListSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                                override fun onNothingSelected(parent: AdapterView<*>?) {
-                                    context!!.longToast("Please select a subtask")
-                                }
-
-                                override fun onItemSelected(
-                                    parent: AdapterView<*>?,
-                                    view: View?,
-                                    position: Int,
-                                    id: Long
-                                ) {
-                                    subtaskIDSelected = subtasksIDList!!.get(position)
-                                }
+                            override fun onItemSelected(
+                                parent: AdapterView<*>?,
+                                view: View?,
+                                position: Int,
+                                id: Long
+                            ) {
+                                subtaskIDSelected = subtasksIDList!!.get(position)
                             }
                         }
                     }
                 }
             }
-            return view
+        }
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        btnAssign.setOnClickListener(this)
+    }
+
+
+    override fun setAdapter(projects: List<Project>?) {
+
+        this.projects = projects
+        for (i in 0..projects!!.size - 1) {
+            var item: String = projects.get(i).id + ". " + projects.get(i).projectname
+            projectsList.add(item)
         }
 
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val aa = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, projectsList)
+        projectListSpinner.adapter = aa
+    }
 
-            btnAssign.setOnClickListener(this)
-        }
+    val presenter: ProjectPresenter by lazy {
+        ProjectPresenter(
+            this
+        )
+    }
 
+    fun taskSpinner(id: String) {
+        var taskModel: TaskViewModel = ViewModelProviders.of(this).get(TaskViewModel::class.java)
+        var taskList: LiveData<List<Task>> = taskModel.sendTaskRequest()
+        taskList.observe(this, Observer { s ->
+            tasks?.clear()
+            tasksList.clear()
+            tasksIDList.clear()
+//            tasks = s
+            for (i in 0..s!!.size - 1) {
+                if (s.get(i).projectid.equals(id)) {
+                    tasks?.add(s.get(i))
 
-        override fun setAdapter(projects: List<Project>?) {
+                    var item: String = s.get(i).taskid + ". " + s.get(i).taskname
+                    tasksList.add(item)
 
-            for (i in 0..projects!!.size - 1) {
-                this.projects = projects
-                var item: String = projects.get(i).id + ". " + projects.get(i).projectname
-                projectsList.add(item)
+                    var id = s.get(i).taskid
+                    tasksIDList.add(id)
+                }
             }
 
-            val aa = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, projectsList)
-            projectListSpinner.adapter = aa
-        }
+            val aa = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, tasksList)
+            taskListSpinner.adapter = aa
+        })
+    }
 
-        val presenter: ProjectPresenter by lazy {
-            ProjectPresenter(
-                this
-            )
-        }
-
-        fun taskSpinner(id: String) {
-            var taskModel: TaskViewModel = ViewModelProviders.of(this).get(TaskViewModel::class.java)
-            var taskList: LiveData<List<Task>> = taskModel.sendTaskRequest()
-            taskList.observe(this, Observer { s ->
-                tasksList.clear()
-                tasksIDList.clear()
-                tasks = s
-                for (i in 0..s!!.size - 1) {
-                    if (s.get(i).projectid.equals(id)) {
-                        var item: String = s.get(i).taskid + ". " + s.get(i).taskname
-                        tasksList.add(item)
-
-                        var id = s.get(i).taskid
-                        tasksIDList.add(id)
-                    }
+    fun subtaskSpinner(projectId: String, taskid: String) {
+        var subtaskModel: SubtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
+        var subtaskList: LiveData<SubtaskResponse>? = subtaskModel.getSubtaskList()
+        subtaskList?.observe(this, Observer { s ->
+            subtasks?.clear()
+            subtasksList.clear()
+            subtasksIDList.clear()
+            var subtaskItems : List<Subtask>? = s?.subtaskList
+            for (i in 0..subtaskItems!!.size - 1) {
+                if (subtaskItems?.get(i)?.taskid.equals(taskid)) {
+                    subtasks?.add(subtaskItems?.get(i))
+                    var item: String = subtaskItems?.get(i)?.subtaskid + ". " + subtaskItems?.get(i)?.subtaskname
+                    subtasksList.add(item)
+                    var id: String = subtaskItems?.get(i)?.subtaskid!!
+                    subtasksIDList.add(id)
                 }
-
-                val aa = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, tasksList)
-                taskListSpinner.adapter = aa
-            })
-        }
-
-        fun subtaskSpinner(taskid: String) {
-            var subtaskModel: SubtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
-            var subtaskList: LiveData<SubtaskResponse>? = subtaskModel.getSubtaskList()
-            subtaskList?.observe(this, Observer { s ->
-                subtasks = s!!.subtaskList
-                subtasksList.clear()
-                subtasksIDList.clear()
-                var subtaskItems: List<Subtask>? = s?.subtaskList
-                for (i in 0..subtasks!!.size - 1) {
-                    if (subtaskItems?.get(i)?.taskid.equals(taskid)) {
-                        var item: String = subtaskItems?.get(i)?.subtaskid + ". " + subtaskItems?.get(i)?.subtaskname
-                        subtasksList.add(item)
-                        var id: String = subtaskItems?.get(i)?.subtaskid!!
-                        subtasksIDList.add(id)
-                    }
-                }
-                val aa = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, subtasksList)
-                subtaskListSpinner.adapter = aa
-            })
-        }
-
-
-
+            }
+            val aa = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, subtasksList)
+            subtaskListSpinner.adapter = aa
+        })
+    }
 }
 
 

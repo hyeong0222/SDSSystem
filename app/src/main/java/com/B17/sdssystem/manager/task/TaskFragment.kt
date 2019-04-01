@@ -64,7 +64,7 @@ class TaskFragment : Fragment(), AnkoLogger, TaskAdapter.OnItemClickListener, Di
     override fun onResume() {
         super.onResume()
 
-        activity!!.title = "TASKS"
+//        activity!!.title = "TASKS"
 
         error { "onResume" }
         tasks.clear()
@@ -83,7 +83,7 @@ class TaskFragment : Fragment(), AnkoLogger, TaskAdapter.OnItemClickListener, Di
             taskAdapter.onItemClickListener = this
         })
 
-        d.show(fragmentManager, "Dialog")
+//        d.show(fragmentManager, "Dialog")
     }
 
     override fun onItemClick(view: View, position: Int) {
