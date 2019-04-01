@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -19,6 +21,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+
+
+
+
+
+
+
+
     }
     // Flavors
     flavorDimensions "version"
@@ -32,6 +43,8 @@ android {
             applicationIdSuffix ".developer"
         }
     }
+
+
 }
 
 dependencies {
