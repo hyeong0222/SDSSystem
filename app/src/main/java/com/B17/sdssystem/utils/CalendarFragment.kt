@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import android.widget.Toast
 import com.B17.sdssystem.R
 import com.B17.sdssystem.manager.project.ProjectDialog
 
@@ -37,14 +38,24 @@ class CalendarFragment : DialogFragment(), DatePickerDialog.OnDateSetListener, A
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         calendar.set(Calendar.YEAR, year)
         calendar.set(Calendar.MONTH, month)
+
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
+        view?.minDate = System.currentTimeMillis()
         // Formatting time in correct form
-        var formatData = SimpleDateFormat("YYYY-MM-dd", Locale.ENGLISH).format(calendar.time)
+        var formatData = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(calendar.time)
+        if (calendar.timeInMillis < System.currentTimeMillis()) {
 
-        error { TAG + formatData }
+            Toast.makeText(context, "Please Select Date after Today", Toast.LENGTH_LONG).show()
+        } else {
+            error { TAG + formatData }
 
-        targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, Intent().putExtra("formatData", formatData))
+            targetFragment?.onActivityResult(
+                targetRequestCode,
+                Activity.RESULT_OK,
+                Intent().putExtra("formatData", formatData)
+            )
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -53,7 +64,22 @@ class CalendarFragment : DialogFragment(), DatePickerDialog.OnDateSetListener, A
         var month = calendar.get(Calendar.MONTH)
         var day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        return DatePickerDialog(activity, this@CalendarFragment, year, month, day)
+
+
+
+
+
+
+
+
+
+
+
+
+        var datePicker = DatePickerDialog(activity, this@CalendarFragment, year, month, day)
+        datePicker.datePicker.minDate = System.currentTimeMillis()
+
+        return datePicker
     }
 
 

@@ -13,6 +13,7 @@ import com.B17.sdssystem.adapter.ProjectAdapter
 import com.B17.sdssystem.data.entries.Project
 import com.B17.sdssystem.manager.task.TaskFragment
 import kotlinx.android.synthetic.main.project_fragment.*
+import kotlinx.android.synthetic.main.project_fragment.view.*
 
 class ProjectFragment : Fragment(), ProjectContract.View, ProjectDialog.DialogListener, ProjectAdapter.OnItemClickListener {
     lateinit var adapter : ProjectAdapter
@@ -41,7 +42,8 @@ class ProjectFragment : Fragment(), ProjectContract.View, ProjectDialog.DialogLi
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        rvProject.layoutManager = LinearLayoutManager(context)
+        rvProject.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
+
         fab_project.setOnClickListener { showEditDialog() }
     }
 
