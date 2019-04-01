@@ -28,6 +28,8 @@ class ProjectDialog : DialogFragment(), AnkoLogger {
 
     lateinit var calendarFragment : CalendarFragment
 
+
+
     interface DialogListener{ fun onFinishDialog(inputText : String)}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

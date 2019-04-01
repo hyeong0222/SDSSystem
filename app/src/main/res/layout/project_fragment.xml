@@ -14,7 +14,9 @@
 
 
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:stackFromEnd="true"
+            app:reverseLayout="true"/>
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_project"

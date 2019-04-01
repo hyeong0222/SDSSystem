@@ -26,7 +26,6 @@ class SubtaskViewModel : ViewModel(), AnkoLogger{
 
         subtaskList.enqueue(object : Callback<SubtaskResponse> {
             override fun onResponse(call: Call<SubtaskResponse>, response: Response<SubtaskResponse>) {
-                info {"--->" +response?.body()?.subtaskList?.get(0)?.subtaskdesc}
                 subtaskResponse?.value = response.body()
             }
             override fun onFailure(call: Call<SubtaskResponse>?, t: Throwable?) {

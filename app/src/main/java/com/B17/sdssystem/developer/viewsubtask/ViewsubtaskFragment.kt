@@ -15,6 +15,7 @@ import com.B17.sdssystem.developer.viewsubtask.SubTasksDetailFragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_sub_tasks_detail.*
 import kotlinx.android.synthetic.main.fragment_viewsubtask.*
+import org.jetbrains.anko.defaultSharedPreferences
 
 class ViewsubtaskFragment : Fragment(), ViewsubtaskContract.View, SubTasksDetailsAdapter.OnItemClickListener {
 
@@ -53,6 +54,20 @@ class ViewsubtaskFragment : Fragment(), ViewsubtaskContract.View, SubTasksDetail
 
         rv_subtask.layoutManager = LinearLayoutManager(context)
 
-        presenter.getSubtasks()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        presenter.getSubtasks(activity!!.getSharedPreferences("default", Context.MODE_PRIVATE).getString("userid", "")!!, arguments!!.getString("tasksid"))
     }
 }

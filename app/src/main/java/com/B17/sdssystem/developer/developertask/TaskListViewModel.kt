@@ -45,11 +45,19 @@ class TaskListViewModel : ViewModel(), AnkoLogger {
          fun requestTaskList(user_id: String) : MutableLiveData<TaskListResponse> {
 
          val apiInterface = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
-         var taskList = apiInterface.viewTasks(user_id)
+
+
+
+             var taskList = apiInterface.viewTasks(user_id)
+
+
+
+
 
          taskList.enqueue(object : Callback<TaskListResponse> {
 
             override fun onResponse(call: Call<TaskListResponse>, response: Response<TaskListResponse>) {
+
                 taskListResponse.value = response.body()
             }
 

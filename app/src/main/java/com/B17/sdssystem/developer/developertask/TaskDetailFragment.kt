@@ -32,6 +32,9 @@ class TaskDetailFragment : Fragment(), AdapterView.OnItemClickListener, AnkoLogg
     lateinit var userTaskDetails : TaskDetail
     lateinit var taskDetails : LiveData<TaskDetail>
     var status_id = -1
+    lateinit var tasksid : String
+
+
 
     override fun onClick(v: View?) {
 
@@ -45,13 +48,13 @@ class TaskDetailFragment : Fragment(), AdapterView.OnItemClickListener, AnkoLogg
             s -> activity?.longToast(s!!.msg.get(0))
         })
     }
-
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         status_id = position
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
 
         var taskInfo = arguments!!.getString("devtasks")
         val gson = Gson()
@@ -74,6 +77,9 @@ class TaskDetailFragment : Fragment(), AdapterView.OnItemClickListener, AnkoLogg
             tv_td_taskStartDate.text = "Task Start Date: " +s?.startdate
             tv_td_taskStatus.text = "Task Status: " +s?.taskstatus
             tv_td_taskEndDate.text ="Task End Date: " + s?.endstart
+
+
+            tasksid = userTaskDetails.taskid
         })
 
 
@@ -81,16 +87,26 @@ class TaskDetailFragment : Fragment(), AdapterView.OnItemClickListener, AnkoLogg
         spinner.adapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_dropdown_item, status)
 
         btn_td_submit.setOnClickListener(this)
-    }
 
+
+
+        btn_subtask.setOnClickListener { v ->
+            val arg = Bundle()
+            val btn_subtask : Button = v.findViewById(R.id.btn_subtask)
+
+
+            arg.putString("tasksid", tasksid)
+            val viewsubtaskFragment = ViewsubtaskFragment()
+            viewsubtaskFragment.arguments = arg
+
+            activity!!.supportFragmentManager.beginTransaction().replace(R.id.fl_developerActivity, viewsubtaskFragment)
+                .addToBackStack(null).commit()
+        }
+
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var v =  inflater.inflate(R.layout.fragment_task_detail, container, false)
 
-        val btn_subtask : Button = v.findViewById(R.id.btn_subtask)
-        btn_subtask.setOnClickListener { v ->
-            activity!!.supportFragmentManager.beginTransaction().replace(R.id.fl_developerActivity, ViewsubtaskFragment())
-                .addToBackStack(null).commit()
-        }
 
         return v
     }

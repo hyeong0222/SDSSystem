@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,8 @@ import com.B17.sdssystem.data.Login
 import com.B17.sdssystem.data.Msg
 import com.B17.sdssystem.developer.DeveloperActivity
 import com.B17.sdssystem.manager.ManagerActivity
+import com.basgeekball.awesomevalidation.AwesomeValidation
+import com.basgeekball.awesomevalidation.ValidationStyle
 import kotlinx.android.synthetic.main.fragment_login.*
 import com.wajahatkarim3.easyvalidation.core.view_ktx.validEmail
 import com.wajahatkarim3.easyvalidation.core.view_ktx.validNumber
@@ -33,6 +36,7 @@ class LoginFragment : Fragment(), AuthContract.view , AnkoLogger {
     private val authPresenter = AuthPresenter(this)
     lateinit var btnLogin : Button
     lateinit var tv_createAccount : TextView
+    lateinit var awesomeValidation: AwesomeValidation
 
     //msg is a list
     override fun showRegInfo(msg : Msg?) {
@@ -45,13 +49,17 @@ class LoginFragment : Fragment(), AuthContract.view , AnkoLogger {
         editor.putString("userid", login?.userid).apply()
         editor.putString("appapikey", login?.appapikey).apply()
         editor.putString("userrole", login?.userrole).apply()
+        info{"checking login details ----> " + login?.userid}
+
+       if(login?.userid ==null){
+           activity!!.longToast("Invalid Login Details")
+       }else if (BuildConfig.FLAVOR.equals("manager")) {
+        startActivity(context?.intentFor<ManagerActivity>()?.singleTop())
+            } else {
+        startActivity(context?.intentFor<DeveloperActivity>()?.singleTop())
+            }
 
 
-        if (BuildConfig.FLAVOR.equals("manager")) {
-            startActivity(context?.intentFor<ManagerActivity>()?.singleTop())
-        } else {
-            startActivity(context?.intentFor<DeveloperActivity>()?.singleTop())
-        }
     }
 
     override fun onCreateView(
@@ -60,15 +68,25 @@ class LoginFragment : Fragment(), AuthContract.view , AnkoLogger {
     ): View? {
         var v = inflater.inflate(R.layout.fragment_login, container, false)
 
+
+     //   awesomeValidation.addValidation(et_logPW,)
+
         btnLogin = v.findViewById(R.id.btnLogin )
         btnLogin.setOnClickListener {
-           if (et_lgnEmail.text.isEmpty() || !et_lgnEmail.validEmail()) {
-               activity?.longToast("Invalid Email Address")
-           } else if (!et_logPW.validator().nonEmpty().minLength(6).check()) {
-               activity?.longToast("invalid password")
-           } else {
-               authPresenter.loginUser(et_lgnEmail.text.toString(), et_logPW.text.toString())
-           }
+
+            awesomeValidation = AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT)
+            awesomeValidation.addValidation(et_lgnEmail, Patterns.EMAIL_ADDRESS, "Invalid Email Id")
+            awesomeValidation.addValidation(et_logPW,".{8,}","Invalid Password")
+
+
+
+            if (awesomeValidation.validate()){
+                info { "Checking user login details " + et_lgnEmail.toString() + " " + et_logPW.toString() }
+                authPresenter.loginUser(et_lgnEmail.editText?.text.toString(), et_logPW.editText?.text.toString())
+            }
+
+
+
        }
 
         tv_createAccount = v.findViewById(R.id.tv_createAccount)
