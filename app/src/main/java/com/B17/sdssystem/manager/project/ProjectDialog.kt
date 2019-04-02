@@ -74,7 +74,7 @@ class ProjectDialog : DialogFragment(), AnkoLogger {
     fun sendResult() {
 
         val apiInterface = RetrofitInstance().getRetrofitInstance().create(ApiInterface::class.java)
-        val createCall = apiInterface.createProject(tv_project_name.text.toString(), tv_project_status.text.toString(), tv_project_desc.text.toString(), tv_start_date.text.toString(), tv_end_date.text.toString())
+        val createCall = apiInterface.createProject(tv_project_name.text.toString(), "1", tv_project_desc.text.toString(), tv_start_date.text.toString(), tv_end_date.text.toString())
         createCall.enqueue(object : Callback<CreateProjectResponse> {
             override fun onFailure(call: Call<CreateProjectResponse>, t: Throwable) {
                 logger.info { t.message }
