@@ -31,6 +31,7 @@ class SubtaskDialogFragment : DialogFragment(), AnkoLogger, DialogInterface.OnDi
 
     val REQUEST_CODE = 100
     private var onDismissListener: DialogInterface.OnDismissListener? = null
+    private var onCancelListener: DialogInterface.OnCancelListener? = null
 
     lateinit var calendarFragment : CalendarFragment
     interface DialogListener{ fun onFinishDialog(inputText : String)}
@@ -105,6 +106,17 @@ class SubtaskDialogFragment : DialogFragment(), AnkoLogger, DialogInterface.OnDi
         super.onDismiss(dialog)
         if (onDismissListener != null) {
             onDismissListener!!.onDismiss(dialog)
+        }
+    }
+
+    fun setOnCancelListener(onCancelListener: DialogInterface.OnCancelListener) {
+        this.onCancelListener = onCancelListener
+    }
+
+    override fun onCancel(dialog: DialogInterface?) {
+        super.onCancel(dialog)
+        if (onCancelListener != null) {
+            onCancelListener!!.onCancel(dialog)
         }
     }
 

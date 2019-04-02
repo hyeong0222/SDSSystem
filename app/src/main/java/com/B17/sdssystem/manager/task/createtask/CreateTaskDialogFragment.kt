@@ -36,6 +36,7 @@ private const val ARG_PARAM2 = "param2"
 class CreateTaskDialogFragment : DialogFragment(), AnkoLogger, DialogInterface.OnDismissListener {
 
     private var onDismissListener: DialogInterface.OnDismissListener? = null
+    private var onCancelListener : DialogInterface.OnCancelListener? = null
     lateinit var calendarFragment : CalendarFragment
     val logger = AnkoLogger("Create Task Dialog")
     val REQUEST_CODE = 100
@@ -104,5 +105,17 @@ class CreateTaskDialogFragment : DialogFragment(), AnkoLogger, DialogInterface.O
             onDismissListener!!.onDismiss(dialog)
         }
     }
+
+    fun setOnCancelListener(onCancelListener: DialogInterface.OnCancelListener) {
+        this.onCancelListener = onCancelListener
+    }
+
+    override fun onCancel(dialog: DialogInterface?) {
+        super.onCancel(dialog)
+        if (onCancelListener != null) {
+            onCancelListener!!.onCancel(dialog)
+        }
+    }
+
 }
 

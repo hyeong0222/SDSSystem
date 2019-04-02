@@ -49,10 +49,28 @@ class TaskFragment : Fragment(), AnkoLogger, TaskAdapter.OnItemClickListener, Di
         rv_task.layoutManager = LinearLayoutManager(this.context)
 
         tasks.clear()
-        networkCall()
-        taskAdapter = TaskAdapter(tasks, context)
-        rv_task.adapter = taskAdapter
-        taskAdapter.onItemClickListener = this
+//        networkCall()
+
+        val mPreferences = activity!!.getSharedPreferences("MANAGER", Context.MODE_PRIVATE)
+        var projectID : String? = mPreferences.getString("project", null)
+
+        var taskModel : TaskViewModel = ViewModelProviders.of(this).get(TaskViewModel::class.java)
+        var taskList : LiveData<List<Task>> = taskModel.sendTaskRequest()
+        taskList.observe(this, Observer { s ->
+            tasks.clear()
+            for (i in 0..s!!.size - 1) {
+                if (s.get(i).projectid.equals(projectID)) {
+                    tasks.add(s.get(i))
+                }
+            }
+            taskAdapter = TaskAdapter(tasks, context)
+            rv_task.adapter = taskAdapter
+            taskAdapter.onItemClickListener = this
+        })
+
+//        taskAdapter = TaskAdapter(tasks, context)
+//        rv_task.adapter = taskAdapter
+//        taskAdapter.onItemClickListener = this
 
         fab_task.setOnClickListener { view ->
             showEditDialog()
@@ -69,21 +87,55 @@ class TaskFragment : Fragment(), AnkoLogger, TaskAdapter.OnItemClickListener, Di
         error { "onResume" }
         tasks.clear()
 
-        val d = CreateTaskDialogFragment()
+        val d : CreateTaskDialogFragment = CreateTaskDialogFragment()
 
         d.setOnDismissListener(DialogInterface.OnDismissListener {
             error { "-------------------------- Dialog Dimiss Check in onResume" }
 
-            networkCall()
-            rv_task.removeAllViews()
-            taskAdapter = TaskAdapter(tasks, context)
-            taskAdapter.notifyDataSetChanged()
-            rv_task.adapter = taskAdapter
-
+//            networkCall()
+//            rv_task.removeAllViews()
+//            taskAdapter = TaskAdapter(tasks, context)
+//            taskAdapter.notifyDataSetChanged()
+//            rv_task.adapter = taskAdapter
+//
             taskAdapter.onItemClickListener = this
         })
 
-//        d.show(fragmentManager, "Dialog")
+        d.setOnCancelListener(DialogInterface.OnCancelListener {
+            error {"--------------------------_Dialog Cancelled in onResume"}
+//            networkCall()
+
+            val mPreferences = activity!!.getSharedPreferences("MANAGER", Context.MODE_PRIVATE)
+            var projectID : String? = mPreferences.getString("project", null)
+
+            var taskModel : TaskViewModel = ViewModelProviders.of(this).get(TaskViewModel::class.java)
+            var taskList : LiveData<List<Task>> = taskModel.sendTaskRequest()
+            taskList.observe(this, Observer { s ->
+                tasks.clear()
+                for (i in 0..s!!.size - 1) {
+                    if (s.get(i).projectid.equals(projectID)) {
+                        tasks.add(s.get(i))
+                    }
+                }
+                rv_task.removeAllViews()
+                taskAdapter = TaskAdapter(tasks, context)
+                taskAdapter.notifyDataSetChanged()
+                rv_task.adapter = taskAdapter
+            })
+
+//            rv_task.removeAllViews()
+//            taskAdapter = TaskAdapter(tasks, context)
+//            taskAdapter.notifyDataSetChanged()
+//            rv_task.adapter = taskAdapter
+
+
+        })
+
+        fab_task.setOnClickListener { view ->
+            showEditDialog()
+        }
+
+//        d.show(fragmentManager, "")
     }
 
     override fun onItemClick(view: View, position: Int) {

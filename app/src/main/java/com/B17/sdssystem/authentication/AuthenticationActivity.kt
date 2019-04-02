@@ -10,11 +10,14 @@ import com.B17.sdssystem.splashscreen.DeveloperSplashActivity
 import com.B17.sdssystem.splashscreen.ManagerSplashActivity
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.singleTop
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 class AuthenticationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Fabric.with(this, Crashlytics())
         setContentView(R.layout.activity_authentication)
 
         if (BuildConfig.FLAVOR.equals("manager")) {

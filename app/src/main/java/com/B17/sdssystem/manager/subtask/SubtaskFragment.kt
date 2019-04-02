@@ -49,10 +49,27 @@ class SubtaskFragment : Fragment(), AnkoLogger, DialogInterface.OnDismissListene
         recyclerView.layoutManager = LinearLayoutManager(this.context)
 
       //  subtasks.clear()
-        subtaskNetworkCall()
+//        subtaskNetworkCall()
         subtasks.clear()
-        subtaskAdapter = SubTaskAdapter(subtasks,context)
-        recyclerView.adapter = subtaskAdapter
+        val mPreferences = activity!!.getSharedPreferences("MANAGER", Context.MODE_PRIVATE)
+        var taskID : String? = mPreferences.getString("task", null)
+
+        val viewModel : SubtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
+        var subtaskList : LiveData<SubtaskResponse>? = viewModel.getSubtaskList()
+        subtaskList?.observe(this, Observer { s ->
+            subtasks.clear()
+            val subtask : List<Subtask> = s!!.subtaskList
+            for (i in 0..subtask.size-1) {
+                if (subtask.get(i).taskid.equals(taskID)){
+                    subtasks.add(subtask.get(i))
+                }
+            }
+            subtaskAdapter = SubTaskAdapter(subtasks,context)
+            recyclerView.adapter = subtaskAdapter
+        })
+
+//        subtaskAdapter = SubTaskAdapter(subtasks,context)
+//        recyclerView.adapter = subtaskAdapter
 
         floatingActionButton.setOnClickListener {
             showEditDialog()
@@ -70,13 +87,37 @@ class SubtaskFragment : Fragment(), AnkoLogger, DialogInterface.OnDismissListene
 
         val d = SubtaskDialogFragment()
         d.setOnDismissListener(DialogInterface.OnDismissListener {
-            subtaskNetworkCall()
-            rv_subtaskFrag.removeAllViews()
-            subtaskAdapter = SubTaskAdapter(subtasks,context)
-            subtaskAdapter.notifyDataSetChanged()
-            rv_subtaskFrag.adapter = subtaskAdapter
+//            subtaskNetworkCall()
+//            rv_subtaskFrag.removeAllViews()
+//            subtaskAdapter = SubTaskAdapter(subtasks,context)
+//            subtaskAdapter.notifyDataSetChanged()
+//            rv_subtaskFrag.adapter = subtaskAdapter
         })
-        d.show(fragmentManager,"Dialog")
+
+        d.setOnCancelListener(DialogInterface.OnCancelListener {
+            error {"--------------------------_Dialog Cancelled in onResume"}
+
+            val mPreferences = activity!!.getSharedPreferences("MANAGER", Context.MODE_PRIVATE)
+            var taskID : String? = mPreferences.getString("task", null)
+
+            val viewModel : SubtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
+            var subtaskList : LiveData<SubtaskResponse>? = viewModel.getSubtaskList()
+            subtaskList?.observe(this, Observer { s ->
+                subtasks.clear()
+                val subtask : List<Subtask> = s!!.subtaskList
+                for (i in 0..subtask.size-1) {
+                    if (subtask.get(i).taskid.equals(taskID)){
+                        subtasks.add(subtask.get(i))
+                    }
+                }
+                rv_subtaskFrag.removeAllViews()
+                subtaskAdapter = SubTaskAdapter(subtasks,context)
+                subtaskAdapter.notifyDataSetChanged()
+                rv_subtaskFrag.adapter = subtaskAdapter
+            })
+
+        })
+//        d.show(fragmentManager,"Dialog")
     }
 
     private fun showEditDialog() {
@@ -88,24 +129,23 @@ class SubtaskFragment : Fragment(), AnkoLogger, DialogInterface.OnDismissListene
 
     }
 
-    private fun subtaskNetworkCall(){
-
-        val mPreferences = activity!!.getSharedPreferences("MANAGER", Context.MODE_PRIVATE)
-        var taskID : String? = mPreferences.getString("task", null)
-
-        val viewModel : SubtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
-        var subtaskList : LiveData<SubtaskResponse>? = viewModel.getSubtaskList()
-        subtaskList?.observe(this, Observer { s ->
-            subtasks.clear()
-            val subtask : List<Subtask> = s!!.subtaskList
-            for (i in 0..subtask.size-1) {
-                if (subtask.get(i).taskid.equals(taskID)){
-                    subtasks.add(subtask.get(i))
-                }
-            }
-        })
-
-    }
+//    private fun subtaskNetworkCall(){
+//
+//        val mPreferences = activity!!.getSharedPreferences("MANAGER", Context.MODE_PRIVATE)
+//        var taskID : String? = mPreferences.getString("task", null)
+//
+//        val viewModel : SubtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel::class.java)
+//        var subtaskList : LiveData<SubtaskResponse>? = viewModel.getSubtaskList()
+//        subtaskList?.observe(this, Observer { s ->
+//            subtasks.clear()
+//            val subtask : List<Subtask> = s!!.subtaskList
+//            for (i in 0..subtask.size-1) {
+//                if (subtask.get(i).taskid.equals(taskID)){
+//                    subtasks.add(subtask.get(i))
+//                }
+//            }
+//        })
+//    }
 
     override fun onDismiss(dialog: DialogInterface?) {
         error { "-------------------------- Dialog Dismiss Check" }

@@ -73,15 +73,21 @@ class LoginFragment : Fragment(), AuthContract.view , AnkoLogger {
             btnLogin = v.findViewById(R.id.btnLogin )
             btnLogin.setOnClickListener {
 
-            awesomeValidation = AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT)
-            awesomeValidation.addValidation(et_lgnEmail, Patterns.EMAIL_ADDRESS, "Invalid Email Id")
-            awesomeValidation.addValidation(et_logPW,".{8,}","Invalid Password")
+                awesomeValidation = AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT)
+                awesomeValidation.addValidation(et_lgnEmail, Patterns.EMAIL_ADDRESS, "Invalid Email Id")
+                awesomeValidation.addValidation(et_logPW,".{8,}","Invalid Password")
 
-            if (awesomeValidation.validate()){
-                info { "Checking user login details " + et_lgnEmail.toString() + " " + et_logPW.toString() }
-                authPresenter.loginUser(et_lgnEmail.editText?.text.toString(), et_logPW.editText?.text.toString())
+                if (awesomeValidation.validate()){
+                    info { "Checking user login details " + et_lgnEmail.toString() + " " + et_logPW.toString() }
+                    authPresenter.loginUser(et_lgnEmail.editText?.text.toString(), et_logPW.editText?.text.toString())
+                }
             }
-       }
+
+        var button : Button = v.findViewById(R.id.button)
+
+        button.setOnClickListener {
+            textView21.setText(25/0)
+        }
 
         tv_createAccount = v.findViewById(R.id.tv_createAccount)
         tv_createAccount.setOnClickListener {
