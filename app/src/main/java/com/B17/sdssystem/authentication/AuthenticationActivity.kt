@@ -15,6 +15,10 @@ import io.fabric.sdk.android.Fabric;
 
 class AuthenticationActivity : AppCompatActivity() {
 
+
+    /**
+     *  this activity is shared among all build variants.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Fabric.with(this, Crashlytics())
