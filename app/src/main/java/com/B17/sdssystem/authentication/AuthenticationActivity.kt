@@ -16,6 +16,9 @@ import io.fabric.sdk.android.Fabric;
 class AuthenticationActivity : AppCompatActivity() {
 
     //adding comments about the shared activity
+    //new commits
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
