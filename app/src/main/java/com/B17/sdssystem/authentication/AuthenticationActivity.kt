@@ -19,6 +19,11 @@ class AuthenticationActivity : AppCompatActivity() {
     /**
      *  this activity is shared among all build variants.
      */
+
+
+    /**
+     * testing to see if commits made to a branch will automatically update the branch it points to
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Fabric.with(this, Crashlytics())
